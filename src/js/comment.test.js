@@ -3,10 +3,11 @@ import comment from './comment';
 
 test('Creating a comment', () => {
   const t = new comment({
-    user : 'Pikachu99',
-    userID : 4124,
-    content : 'Ah mah gawd I luv dis book',
-    rating : 4})
+    user: 'Pikachu99',
+    userID: 4124,
+    content: 'Ah mah gawd I luv dis book',
+    rating: 4
+  });
 
   expect(t.user).toBe('Pikachu99');
   expect(t.userID).toBe(4124);
@@ -19,43 +20,50 @@ test('Creating a comment', () => {
 });
 
 test('Upvoting a comment', () => {
-
   const t = new comment({
-    user : 'Pikachu99',
-    userID : 4124,
-    content : 'Ah mah gawd I luv dis book',
-    rating : 4})
+    user: 'Pikachu99',
+    userID: 4124,
+    content: 'Ah mah gawd I luv dis book',
+    rating: 4
+  });
 
   t.upvote();
   expect(t.upvotes).toBe(1);
   expect(t.state).toBe('upvote');
 });
- 
-test('Downvoting a comment', () => {
 
+test('Downvoting a comment', () => {
   const t = new comment({
-    user : 'Pikachu99',
-    userID : 4124,
-    content : 'Ah mah gawd I luv dis book',
-    rating : 4})
+    user: 'Pikachu99',
+    userID: 4124,
+    content: 'Ah mah gawd I luv dis book',
+    rating: 4
+  });
 
   t.downvote();
   expect(t.downvotes).toBe(1);
-  expect(t.state).toBe('downvote')
+  expect(t.state).toBe('downvote');
 });
 
 test('Downvoting then upvoting a comment', () => {
-
   const t = new comment({
-    user : 'Pikachu99',
-    userID : 4124,
-    content : 'Ah mah gawd I luv dis book',
-    rating : 4})
+    user: 'Pikachu99',
+    userID: 4124,
+    content: 'Ah mah gawd I luv dis book',
+    rating: 4
+  });
+
 
   t.downvote();
   t.upvote();
+
+
+  console.log(t.downvotes);
+  console.log(t.downvotes);
+  console.log(t.upvotes);
+  console.log(t.state);
+
   expect(t.downvotes).toBe(0);
   expect(t.upvotes).toBe(1);
   expect(t.state).toBe('upvote');
 });
- 

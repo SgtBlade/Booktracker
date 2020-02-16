@@ -1,53 +1,56 @@
-import { observable, action, decorate,configure  } from "mobx";
-configure({enforceActions:'observed'});
+import { observable, action, decorate, configure, computed } from 'mobx';
+configure({ enforceActions: 'observed' });
 class comment {
-
-  constructor({user, userID, content, rating}) {
-
+  constructor({ user, userID, content, rating }) {
     this.user = user;
     this.userID = userID;
-    this.content = content
-    this.rating = rating
+    this.content = content;
+    this.rating = rating;
     this.upvotes = 0;
     this.downvotes = 0;
     this.date = Date.now();
-    this.state = 'none'
+    this.state = 'none';
   }
 
   upvote() {
-    this.upvotes++;
-    if (this.state === 'downvote') this.downvote--; 
-    this.state === 'upvote';
+    if (this.state === 'UNDO') {
+      this.upvotes --;
+    } else {
+      if (this.state === 'downvote') {
+        this.changeState('UNDO');
+        this.downvote();
+      }
+      this.changeState('upvote');
+      this.upvotes ++;
+    }
   }
 
   downvote() {
-    this.downvotes++;
-    if (this.state === 'upvote') this.upvotes--; 
-    this.state === 'downvote';
+    if (this.state === 'UNDO') {
+      this.downvotes --;
+    } else {
+      if (this.state === 'upvote') {
+        this.changeState('UNDO');
+        this.upvote();
+      }
+      this.changeState('downvote');
+      this.downvotes ++;
+    }
   }
 
-  get GetState() {
-    return this.state;
-  }
-
-  get upvoteCount() {
-    return this.upvotes;
-  }
-
-  get downvoteCount() {
-    return this.upvotes;
+  changeState(state) {
+    this.state = state;
   }
 }
 
 decorate(comment, {
   upvotes: observable,
   upvote: action,
+
   downvotes: observable,
   downvote: action,
-  state: observable,
-  GetState : computed,
-  upvoteCount : computed,
-  downvoteCount : computed
-})
+
+  state: observable
+});
 
 export default comment;
