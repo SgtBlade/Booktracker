@@ -2,17 +2,17 @@
 //Mijn goodreads link om rating op te halen  \
 https://www.goodreads.com/book/review_counts.json?key={AFvXH4mMHn2j5AaxF76Pbw}&isbns=0596009208, 0596009208  \
 https://www.goodreads.com/search/index.xml?key=AFvXH4mMHn2j5AaxF76Pbw&q=9781635574043 (betere link maar xml) \
-https://www.googleapis.com/books/v1/volumes?q=isbn:9781949202168  -> google versie \
+https://www.googleapis.com/books/v1/volumes?q=isbn:9781949202168  -> google versie
 
 Andere shortcuts die ik kan gebruiken: \
 https://www.amazon.com/s?k=--ISBNNUMMER--&ref=nb_sb_noss \
 https://www.google.be/search?tbm=bks&hl=en&q=--ISBNNUMMER-- \
 https://www.goodreads.com/search?q=--ISBNNUMMER-- \
-https://www.bookfinder.com/search/?author=&title=&lang=en&isbn=--ISBNNUMMER--&new_used=*&destination=be&currency=EUR&mode=basic&st=sr&ac=qr \
+https://www.bookfinder.com/search/?author=&title=&lang=en&isbn=--ISBNNUMMER--&new_used=*&destination=be&currency=EUR&mode=basic&st=sr&ac=qr
 
 --------------
 
-Mijn social media project zal gaan over aankomende boeken die zullen gereleased worden \
+Mijn social media project zal gaan over aankomende boeken die zullen gereleased worden
 
 De een bookPost object zal volgende data bevatten: \
 -Titel boek \
@@ -25,12 +25,12 @@ De een bookPost object zal volgende data bevatten: \
 --comments -> commentNr -> comment tekst \
 --comments -> commentNr -> rating (optioneel) \
 --comments -> commentNr -> upvotes \
---comments -> commentNr -> downvotes \
+--comments -> commentNr -> downvotes
 
 Normaal zou ik dingen zoals imageLink kunnen doen aan de hand van de isbn maar ik heb nog geen manier gevonden om meerdere searches te doen met de goodreads api en ik mag maar 1 request per second sturen.
-Via google kan dit wel maar goodreads wordt meer gebruikt door lezers, misschien zal ik voor de ratings de goodreads api gebruiken en voor overige info google \
+Via google kan dit wel maar goodreads wordt meer gebruikt door lezers, misschien zal ik voor de ratings de goodreads api gebruiken en voor overige info google.
 
-Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig lijkt dit genoeg. Aan de hand van het isbn nummer kan ik veel data ophalen van externe sites zoals goodreads. Ik zou aan de hand van dit ook links opmaken  \
+Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig lijkt dit genoeg. Aan de hand van het isbn nummer kan ik veel data ophalen van externe sites zoals goodreads. Ik zou aan de hand van dit ook links opmaken.
 
 --------------
 
@@ -45,7 +45,7 @@ Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig l
     ◆week02 \
     ◆...  \
     ◆exacte naamgeving aub (kleine letters) \
-➔hulp/consult via issues \
+➔hulp/consult via issues
 
 //WHATITIS \
 ➔Denk aan posts, feed, likes, up/down-vote, comments, re-post, share, threads, profiles, following, collections... \
@@ -54,11 +54,11 @@ Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig l
 ➔Focus op 'data' \
     ◆Dus geen ar/instagram filters, image bewerking... \
 ➔Development opdracht \
-    ◆Maar maak dat het er Devine-worthy uit ziet \
+    ◆Maar maak dat het er Devine-worthy uit ziet
 
 //WEEK1 \
 ➔Maak jouw belangrijkste model & datastore \
     ◆1 Domeinobject + 1 Datastore is voldoende \
 ➔Voorzie tests hiervoor \
-➔Concept uitleggen in readme.md \
+➔Concept uitleggen in readme.md
 
