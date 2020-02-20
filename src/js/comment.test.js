@@ -1,5 +1,5 @@
 import Store from './Store';
-import comment from './comment';
+import {comment, STATE} from './comment';
 
 test('Creating a comment', () => {
   const t = new comment({
@@ -16,7 +16,7 @@ test('Creating a comment', () => {
 
   expect(t.upvotes).toBe(0);
   expect(t.downvotes).toBe(0);
-  expect(t.state).toBe('none');
+  expect(t.state).toBe(STATE.none);
 });
 
 test('Upvoting a comment', () => {
@@ -29,7 +29,7 @@ test('Upvoting a comment', () => {
 
   t.upvote();
   expect(t.upvotes).toBe(1);
-  expect(t.state).toBe('upvote');
+  expect(t.state).toBe(STATE.upvote);
 });
 
 test('Downvoting a comment', () => {
@@ -42,7 +42,7 @@ test('Downvoting a comment', () => {
 
   t.downvote();
   expect(t.downvotes).toBe(1);
-  expect(t.state).toBe('downvote');
+  expect(t.state).toBe(STATE.downvote);
 });
 
 test('Downvoting then upvoting a comment', () => {
@@ -53,17 +53,9 @@ test('Downvoting then upvoting a comment', () => {
     rating: 4
   });
 
-
   t.downvote();
   t.upvote();
-
-
-  console.log(t.downvotes);
-  console.log(t.downvotes);
-  console.log(t.upvotes);
-  console.log(t.state);
-
   expect(t.downvotes).toBe(0);
   expect(t.upvotes).toBe(1);
-  expect(t.state).toBe('upvote');
+  expect(t.state).toBe(STATE.upvote);
 });

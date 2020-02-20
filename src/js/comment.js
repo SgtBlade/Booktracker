@@ -1,7 +1,7 @@
-import { observable, action, decorate, configure, computed } from 'mobx';
-configure({ enforceActions: 'observed' });
+import {observable, action, decorate, configure} from 'mobx';
+configure({enforceActions: 'observed'});
 class comment {
-  constructor({ user, userID, content, rating }) {
+  constructor({user, userID, content, rating}) {
     this.user = user;
     this.userID = userID;
     this.content = content;
@@ -9,39 +9,42 @@ class comment {
     this.upvotes = 0;
     this.downvotes = 0;
     this.date = Date.now();
-    this.state = 'none';
+    this.state = STATE.none;
+  }
+
+  undoVote(vote) {
+    if (vote === STATE.downvote) this.downvotes --;
+    else if (vote === STATE.upvote) this.upvotes --;
   }
 
   upvote() {
-    if (this.state === 'UNDO') {
-      this.upvotes --;
-    } else {
-      if (this.state === 'downvote') {
-        this.changeState('UNDO');
-        this.downvote();
-      }
-      this.changeState('upvote');
-      this.upvotes ++;
+    if (this.state !== STATE.upvote) {//User mag maar 1x voten
+      if (this.state === STATE.downvote) this.undoVote(STATE.downvote); //User kan wel voten als vote verschillend is dan vorige
+      this.changeState(STATE.upvote); //State van vote veranderen
+      this.upvotes ++; //Vote count veranderen
     }
   }
 
   downvote() {
-    if (this.state === 'UNDO') {
-      this.downvotes --;
-    } else {
-      if (this.state === 'upvote') {
-        this.changeState('UNDO');
-        this.upvote();
-      }
-      this.changeState('downvote');
-      this.downvotes ++;
+    if (this.state !== STATE.downvote) {//User mag maar 1x voten
+      if (this.state === STATE.upvote) this.undoVote(STATE.upvote); //User kan wel voten als vote verschillend is dan vorige
+      this.changeState(STATE.downvote); //State van vote veranderen
+      this.downvotes ++; //Vote count veranderen
     }
   }
 
-  changeState(state) {
-    this.state = state;
+  changeState(newState) {
+    this.state = newState;
   }
+
 }
+
+const STATE = {
+  downvote: 'downvote',
+  upvote: 'upvote',
+  undo: 'undo',
+  none: 'none'
+};
 
 decorate(comment, {
   upvotes: observable,
@@ -50,7 +53,8 @@ decorate(comment, {
   downvotes: observable,
   downvote: action,
 
-  state: observable
+  state: observable,
+  changeState: action
 });
 
-export default comment;
+export {comment, STATE};
