@@ -3,6 +3,7 @@ import {observable, computed, action, decorate, configure} from 'mobx';
 configure({enforceActions: 'observed'});
 
 class Store {
+  
   constructor() {
     this.bookPosts = [];
   }
@@ -48,13 +49,6 @@ class Store {
 
   removeBookPost(item) {
     this.bookPosts.splice(this.bookPosts.indexOf(item), 1);
-  }
-
-  addCommentToBookpost(book, element) {
-    element.preventDefault();
-    const content = element.currentTarget.content.value;
-    element.currentTarget.content.value = '';
-    if (content.length >= 4) this.bookPosts[this.bookPosts.indexOf(book)].addComment({message: content});
   }
   
 }

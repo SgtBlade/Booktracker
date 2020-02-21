@@ -6,16 +6,17 @@ import './reset.css';
 import './style.css';
 import Store from './js/Store';
 import { STATE } from './js/comment';
+import { VIEWSTATE } from './js/bookPost';
 
 const store = new Store();
 store.seedbookPosts();
 
 const App = () => {
+  
   const dateToString = (date, character = '/', reverse = true) => {
-        var dd = date.getDate();
-
-    var mm = date.getMonth()+1; 
-    var yyyy = date.getFullYear();
+    let dd = date.getDate();
+    let mm = date.getMonth()+1; 
+    let yyyy = date.getFullYear();
     if(dd<10) dd='0'+dd;
     if(mm<10) mm='0'+mm;
     
@@ -33,6 +34,11 @@ const App = () => {
     }
   };
 
+  const getGradient = (count) => {
+      const percentage = Math.floor((count/156)*100);
+      return {backgroundImage: `conic-gradient(#e2a5fe ${percentage}%, #696caa ${percentage}%)`}
+  }
+
 
   return useObserver(() => (
     <>
@@ -41,7 +47,7 @@ const App = () => {
         {store.bookPosts.map((book, index) => (
                   <article key={`${book.isbn}${index}`} className="books__week--book">
                   <div className="book__leftSide" onClick={() => {navigator.clipboard.writeText(book.isbn)}}>
-                    <img className="book__leftSide--image" src={  (book.bookData) ? book.bookData.volumeInfo.imageLinks.thumbnail : ''} alt={book.title + ' image'} height={300} />
+                    <img className="book__leftSide--image" src={  (book.bookData) ? book.bookData.volumeInfo.imageLinks.thumbnail : './assets/img/placeholder.jpg'} alt={book.title + ' image'} height={300} />
                     <div className="book__leftSite--hover" />
                     <div className="book__leftSide--info">
                       <h2>{book.title}</h2>
@@ -49,10 +55,10 @@ const App = () => {
                     </div>
                   </div>
                   <div className="book__rightSide">
-                  <p className="book__rightSide--countDown">
+                  <p onClick={()=>book.changeView() } className="book__rightSide--countDown">
                   <Countdown date={book.release.getTime()} renderer={renderer} />
                   </p>
-        
+                  {book.view === VIEWSTATE.comments ? (
                     <div className="book__rightSide__messages">
                       {book.comments.map((comment, index) => (
                         <div key={`${book.isbn}${comment}${index}`} className="book__rightSide__messages__message">
@@ -66,22 +72,24 @@ const App = () => {
                           </div> 
                         </div>
                       ))}
-                      
-                      
                     </div>
-        
-                    <form onSubmit={e => store.addCommentToBookpost(book, e)} className="book__rightSide__form">
-                      <input className="book__rightSide__form--input" id={`content${index}`} name="content" placeholder="Typ een bericht" />
-                      <svg className="book__rightSide__form__counter">
-                        <circle className="book__rightSide__form__counter--circlePlain" cx="50%" cy="50%" r={13} />
-                        <circle className="book__rightSide__form__counter--circleColored" cx="50%" cy="50%" r={13} />
-                      </svg>
+                  ) : (
+                    <p className="book__rightSide__description">{  (book.bookData) ? book.bookData.volumeInfo.description : ''} alt={book.title + ' image'}</p>
+                  )}
+
+                  {book.view === VIEWSTATE.comments ? (
+                    <form onSubmit={e => book.addComment(e)} className="book__rightSide__form">
+                            <input onChange={e => book.changeWordcount(e)} className="book__rightSide__form--input" id={`content${index}`} name="content" placeholder="Typ een bericht" />
+                            <div className="book__rightSide__form--counter" style={getGradient(book.wordCount)}>
+                              <p className="book__rightSide__form--counter--child"></p>
+                            </div>
                     </form>
-        
-                    <div onClick={()=>store.removeBookPost(book) } className="book__rightSide__check">
-                      <span className="book__rightSide__check--check hidden" />
-                      <span className="book__rightSide__check--cross" />
-                    </div>
+                  ) : ('')}
+
+                  <div onClick={()=>store.removeBookPost(book) } className="book__rightSide__check">
+                     <span className="book__rightSide__check--check hidden" />
+                     <span className="book__rightSide__check--cross" />
+                  </div>
         
                   </div>
                     {book.owned ? (
@@ -148,4 +156,10 @@ kind: "books#volume"id: "OayBxwEACAAJ"etag: "9GbJuVel1OU"selfLink: "https://www.
 volumeInfo: 
 title: "Stud Muffin"authors: Array(2)0: "Smartypants Romance"1: "Jiffy Kate"length: 2__proto__: Array(0)publishedDate: "2019-10-22"
 description: "It's hard to get revenge without getting a rap sheet. After Tempest Cassidy walks in on her husband banging her high school nemesis, her whole world gets turned upside down. She goes from being known as the Duchess of Muffins to the town crazy. Her new MO: revenge. Eventually, Tempest grows weary being arrested. Yet what choice does she have? If she's not angry, then she's simply . . . sad. Just as she decides to get her life back on track, in walks Cage Erickson, the new bouncer at the local strip club. He's scary-handsome and the polar opposite of her ex. She's attracted to him, but she's not looking for a rebound. He's attracted to her, but he's not looking for a serious relationship. So, they agree to be friends. But when lines get blurred in the friend zone, will they both get burned? Or will it be a TKO? 'Stud Muffin' is a full-length contemporary romantic comedy, can be read as a standalone, and is book#2 in the Donner Bakery series, Green Valley World, Penny Reid Book Universe."industryIdentifiers: Array(2)0: {type: "ISBN_10", identifier: "194920216X"}1: {type: "ISBN_13", identifier: "9781949202168"}length: 2__proto__: Array(0)readingModes: text: falseimage: false__proto__: ObjectpageCount: 302printType: "BOOK"categories: Array(1)0: "Fiction"length: 1__proto__: Array(0)maturityRating: "NOT_MATURE"allowAnonLogging: falsecontentVersion: "preview-1.0.0"panelizationSummary: containsEpubBubbles: falsecontainsImageBubbles: false__proto__: ObjectimageLinks: smallThumbnail: "http://books.google.com/books/content?id=OayBxwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"thumbnail: "http://books.google.com/books/content?id=OayBxwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"__proto__: Objectlanguage: "en"previewLink: "http://books.google.be/books?id=OayBxwEACAAJ&dq=isbn:9781949202168&hl=&cd=1&source=gbs_api"infoLink: "http://books.google.be/books?id=OayBxwEACAAJ&dq=isbn:9781949202168&hl=&source=gbs_api"canonicalVolumeLink: "https://books.google.com/books/about/Stud_Muffin.html?hl=&id=OayBxwEACAAJ"__proto__: ObjectsaleInfo: country: "BE"saleability: "NOT_FOR_SALE"isEbook: false__proto__: ObjectaccessInfo: country: "BE"viewability: "NO_PAGES"embeddable: falsepublicDomain: falsetextToSpeechPermission: "ALLOWED"epub: {isAvailable: false}isAvailable: false__proto__: Objectpdf: {isAvailable: false}isAvailable: false__proto__: ObjectwebReaderLink: "http://play.google.com/books/reader?id=OayBxwEACAAJ&hl=&printsec=frontcover&source=gbs_api"accessViewStatus: "NONE"quoteSharingAllowed: false__proto__: ObjectsearchInfo: textSnippet: "Or will it be a TKO? &#39;Stud Muffin&#39; is a full-length contemporary romantic comedy, can be read as a standalone, and is book#2 in the Donner Bakery series, Green Valley World, Penny Reid Book Universe."__proto__: Object__proto__: constructor: ƒ Object()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()hasOwnProperty: ƒ hasOwnProperty()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toString: ƒ toString()valueOf: ƒ valueOf()toLocaleString: ƒ toLocaleString()get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()
+
+
+                            <svg className="book__rightSide__form__counter">
+                              <circle className="book__rightSide__form__counter--circlePlain" cx="50%" cy="50%" r={13} />
+                              <circle className="book__rightSide__form__counter--circleColored" cx="50%" cy="50%" r={13} />
+                            </svg>
 */
