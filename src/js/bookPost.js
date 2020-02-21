@@ -54,6 +54,7 @@ class bookPost {
     element.preventDefault();
     const content = element.currentTarget.content.value;
     element.currentTarget.content.value = '';
+    this.wordCount = 0;
     if (content.length >= 4)  this.comments.push(new comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: content }))
   }
 
