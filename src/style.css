@@ -145,6 +145,7 @@ background-repeat:no-repeat;
 }
 
 .book__leftSide {
+  cursor: pointer;
   position: relative;
   width: 20rem;
   height: 30rem;
@@ -185,6 +186,7 @@ background-repeat:no-repeat;
   text-transform: capitalize;
 }
 
+
 .book__leftSide--info p {
   margin-top: 1rem;
   font-size: 3.2rem;
@@ -205,6 +207,7 @@ background-repeat:no-repeat;
 }
 
 .book__rightSide--countDown {
+  cursor: pointer;
   min-height: 3.4rem;
   width: 90%;
   display: inline-block;
@@ -352,6 +355,10 @@ background-repeat:no-repeat;
   align-items: center;
   width: 100%;
   position: relative;
+}
+
+.book__links--owned {
+  cursor: pointer;
 }
 
 .book__links a {

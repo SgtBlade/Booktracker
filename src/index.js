@@ -74,7 +74,7 @@ const App = () => {
                       ))}
                     </div>
                   ) : (
-                    <p className="book__rightSide__description">{  (book.bookData) ? book.bookData.volumeInfo.description : ''} alt={book.title + ' image'}</p>
+                    <p className="book__rightSide__description">{  (book.bookData) ? book.bookData.volumeInfo.description : ''}</p>
                   )}
 
                   {book.view === VIEWSTATE.comments ? (
@@ -93,8 +93,8 @@ const App = () => {
         
                   </div>
                     {book.owned ? (
-                  <div className="book__links">
-                    <p onClick={()=>book.setOwned() } className={`book__links--statusOwned ${book.owned ? '' : 'hidden' }`}>owned</p>
+                  <div onClick={()=>book.setOwned() } className="book__links book__links--owned">
+                    <p className={`book__links--statusOwned ${book.owned ? '' : 'hidden' }`}>owned</p>
                   </div>
                     ) 
                     : (
