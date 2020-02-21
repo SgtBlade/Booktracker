@@ -1,49 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useObserver } from "mobx-react-lite";
+import Countdown from 'react-countdown-now';
 import './reset.css';
 import './style.css';
 import Store from './js/Store';
+import { STATE } from './js/comment';
 
 const store = new Store();
 store.seedbookPosts();
-let currentBook = null;
 
 const App = () => {
-  
-  console.log(store.bookPosts[0]);
-
-  const dateToString = (date) => {
+  const dateToString = (date, character = '/', reverse = true) => {
         var dd = date.getDate();
 
     var mm = date.getMonth()+1; 
     var yyyy = date.getFullYear();
-    if(dd<10) 
-    {
-        dd='0'+dd;
-    } 
-
-    if(mm<10) 
-    {
-        mm='0'+mm;
-    } 
-    return  mm+'/'+dd+'/'+yyyy;
+    if(dd<10) dd='0'+dd;
+    if(mm<10) mm='0'+mm;
+    
+    let formatted = '';
+    (reverse) ? formatted = dd+character+mm+character+yyyy : formatted = yyyy+character+mm+character+dd;
+    return  formatted;
   }
 
-/*
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return 'Out now!';
+    } else {
+      let formattedString = `${days} Days ${(hours >= 10) ? hours : `0${hours}`}:${(minutes >= 10) ? minutes : `0${minutes}`}:${(seconds >= 10) ? seconds : `0${seconds}`} hours`;
+      return formattedString;
+    }
+  };
 
-    this.title = title;
-    this.release = release;
-    this.isbn = isbn;
-    this.owned = owned;
-    this.comments = [];
-    */
-  //getBookData('9781949202168')
   return useObserver(() => (
     <>
     <section className="books__week">
         <h2 className="books__week--title">Books</h2>
-        {store.bookPosts.map(book => (
+        {store.bookPosts.map((book, index) => (
                   <article key={book.isbn} className="books__week--book">
                   <div className="book__leftSide">
                     <img className="book__leftSide--image" src="http://books.google.com/books/content?id=OayBxwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt={book.title + ' image'} height={300} />
@@ -54,45 +48,88 @@ const App = () => {
                     </div>
                   </div>
                   <div className="book__rightSide">
-                    <p className="book__rightSide--countDown">18 Days 19:12:44 hours</p>
+                  <p className="book__rightSide--countDown">
+                  <Countdown date={book.release.getTime()} renderer={renderer} />
+                  </p>
         
                     <div className="book__rightSide__messages">
-                      <div className="book__rightSide__messages__message">
-        
-                        <p className="book__rightSide__messages__message--user">Username <span>4/5</span></p>
+                      {book.comments.map((comment, index) => (
+                        <div key={`${book.isbn}${comment}${index}`} className="book__rightSide__messages__message">
+                        <p className="book__rightSide__messages__message--user">{comment.user}</p>
                           <div className="book__rightSide__messages__message--bubble">
-                            <p className="book__rightSide__messages__message--text">wow what a great book</p>
-                            <p className="book__rightSide__messages__message__votes"> <span className="book__rightSide__messages__message__votes--upvote">32</span> <span className="book__rightSide__messages__message__votes--downvote">12</span></p>
+                            <p className="book__rightSide__messages__message--text">{comment.content}</p>
+                            <p className="book__rightSide__messages__message__votes"> 
+                              <span onClick={()=>comment.upvote() } className={`book__rightSide__messages__message__votes--upvote ${comment.state === STATE.upvote ? "selectedUpvote" : '' }`}>{comment.upvotes}</span> 
+                              <span onClick={()=>comment.downvote() } className={`book__rightSide__messages__message__votes--downvote ${comment.state === STATE.downvote ? "selectedDownvote" : '' }`}>{comment.downvotes}</span>
+                            </p>
                           </div> 
                         </div>
+                      ))}
+                      
+                      
                     </div>
         
-                    <form className="book__rightSide__form">
-                      <input className="book__rightSide__form--input" id="content" name="content" placeholder="Typ een bericht" />
+                    <form onSubmit={e => store.addCommentToBookpost(index, e)} className="book__rightSide__form">
+                      <input className="book__rightSide__form--input" id={`content${index}`} name="content" placeholder="Typ een bericht" />
                       <svg className="book__rightSide__form__counter">
                         <circle className="book__rightSide__form__counter--circlePlain" cx="50%" cy="50%" r={13} />
                         <circle className="book__rightSide__form__counter--circleColored" cx="50%" cy="50%" r={13} />
                       </svg>
                     </form>
         
-                    <div className="book__rightSide__check">
+                    <div onClick={()=>store.removeBookPost(index) } className="book__rightSide__check">
                       <span className="book__rightSide__check--check hidden" />
                       <span className="book__rightSide__check--cross" />
                     </div>
         
                   </div>
+                    {book.owned ? (
                   <div className="book__links">
-                    <a target="_blank" href={`https://www.amazon.com/s?k=${book.isbn}&ref=nb_sb_noss`}><img src="./assets/icons/amazon.png" alt="Amazon" height={30} width={30} /></a>
-                    <a target="_blank" href={`https://www.google.be/search?tbm=bks&hl=en&q=${book.isbn}`}><img src="./assets/icons/goodReads.png" alt="Goodreads" height={30} width={30} /></a>
-                    <a target="_blank" href={`https://www.goodreads.com/search?q=${book.isbn}`}><img src="./assets/icons/google.png" alt="Google books" height={30} width={30} /></a>
-                    <a target="_blank" href={`https://www.bookfinder.com/search/?author=&title=&lang=en&isbn=${book.isbn}&new_used=*&destination=be&currency=EUR&mode=basic&st=sr&ac=qr`}><img src="./assets/icons/bookfinder.jpg" alt="Bookfinder" height={30} width={30} /></a>
-                    <p className="book__links--statusOwned hidden">owned</p>
-                    <p className="book__links--statusUnowned">Mark as owned</p>
+                    <p onClick={()=>book.setOwned() } className={`book__links--statusOwned ${book.owned ? '' : 'hidden' }`}>owned</p>
                   </div>
+                    ) 
+                    : (
+                    
+                    <div className="book__links">
+                    <a target="_blank" rel="noopener noreferrer" href={`https://www.amazon.com/s?k=${book.isbn}&ref=nb_sb_noss`}><img src="./assets/icons/amazon.png" alt="Amazon" height={30} width={30} /></a>
+                    <a target="_blank" rel="noopener noreferrer" href={`https://www.google.be/search?tbm=bks&hl=en&q=${book.isbn}`}><img src="./assets/icons/goodReads.png" alt="Goodreads" height={30} width={30} /></a>
+                    <a target="_blank" rel="noopener noreferrer" href={`https://www.goodreads.com/search?q=${book.isbn}`}><img src="./assets/icons/google.png" alt="Google books" height={30} width={30} /></a>
+                    <a target="_blank" rel="noopener noreferrer" href={`https://www.bookfinder.com/search/?author=&title=&lang=en&isbn=${book.isbn}&new_used=*&destination=be&currency=EUR&mode=basic&st=sr&ac=qr`}><img src="./assets/icons/bookfinder.jpg" alt="Bookfinder" height={30} width={30} /></a>
+                    <p onClick={()=>book.setOwned() } className={`book__links--statusUnowned ${!book.owned ? '' : 'hidden' }`}>Mark as owned</p>
+                    </div>
+                    )}
+                    
                 </article>
               
         ))}
 
+
+    <article className="books__newBook">
+      <h2>New book</h2>
+      <form onSubmit={e => store.addbookPost(e)} className="books__newBook__form">
+        <label className="books__newBook__form--label" htmlFor="bookTitle">
+          Title:
+          <input className="book__rightSide__form--input" name="bookTitle" id="bookTitle" placeholder="" />
+          <span className="books__newBook__form--label--error hidden">Title is too short or empty</span>
+        </label>
+
+        <label className="books__newBook__form--label" htmlFor="release">
+          Release:
+          <input type="date" className="book__rightSide__form--input" name="release" id="release" 
+            //value={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}
+            min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}></input>
+            <span className="books__newBook__form--label--error hidden">There is an issue with the date</span>
+        </label>
+
+        <label className="books__newBook__form--label" htmlFor="isbn">
+          ISBN:
+          <input type="number" className="book__rightSide__form--input" name="isbn" id="isbn" placeholder="" />
+          <span className="books__newBook__form--label--error hidden">ISBN not found</span>
+        </label>
+
+        <input className="books__newBook__form--submit" type="submit"></input>
+      </form>
+    </article>
       </section>
     </>
     ));

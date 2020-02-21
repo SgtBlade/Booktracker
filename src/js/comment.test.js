@@ -5,14 +5,12 @@ test('Creating a comment', () => {
   const t = new comment({
     user: 'Pikachu99',
     userID: 4124,
-    content: 'Ah mah gawd I luv dis book',
-    rating: 4
+    content: 'Ah mah gawd I luv dis book'
   });
 
   expect(t.user).toBe('Pikachu99');
   expect(t.userID).toBe(4124);
   expect(t.content).toBe('Ah mah gawd I luv dis book');
-  expect(t.rating).toBe(4);
 
   expect(t.upvotes).toBe(0);
   expect(t.downvotes).toBe(0);
@@ -23,8 +21,7 @@ test('Upvoting a comment', () => {
   const t = new comment({
     user: 'Pikachu99',
     userID: 4124,
-    content: 'Ah mah gawd I luv dis book',
-    rating: 4
+    content: 'Ah mah gawd I luv dis book'
   });
 
   t.upvote();
@@ -36,8 +33,7 @@ test('Downvoting a comment', () => {
   const t = new comment({
     user: 'Pikachu99',
     userID: 4124,
-    content: 'Ah mah gawd I luv dis book',
-    rating: 4
+    content: 'Ah mah gawd I luv dis book'
   });
 
   t.downvote();
@@ -49,8 +45,7 @@ test('Downvoting then upvoting a comment', () => {
   const t = new comment({
     user: 'Pikachu99',
     userID: 4124,
-    content: 'Ah mah gawd I luv dis book',
-    rating: 4
+    content: 'Ah mah gawd I luv dis book'
   });
 
   t.downvote();

@@ -13,18 +13,19 @@ class bookPost {
   }
 
   setOwned() {
-    this.owned = true;
+    this.owned ? this.owned = false : this.owned = true;
   }
 
   seedComments() {
-    this.comments.push(new comment({ user: 'Pikachu99', userID: 4124, content: 'Ah mah gawd I luv dis book', rating: 4 }))
-    this.comments.push(new comment({ user: 'Whopper', userID: 213, content: 'Cannot wait for this book to get released', rating: 2 }))
-    this.comments.push(new comment({ user: 'PokePotter', userID: 2134, content: 'Oooh a new book', rating: 4 }))
+    this.comments.push(new comment({ user: 'Pikachu99', userID: 4124, content: 'Ah mah gawd I luv dis book' }));
+    this.comments.push(new comment({ user: 'Whopper', userID: 213, content: 'Cannot wait for this book to get released' }));
+    this.comments.push(new comment({ user: 'PokePotter', userID: 2134, content: 'Oooh a new book' }));
+    this.comments.push(new comment({ user: 'PokePotter', userID: 2134, content: 'Cool book' }));
   }
 
   getBookData = async isbn => {
 
-    let data = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
+    /*let data = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
     .then(response => response.json());
     //.then(responseObject => responseObject.data);
     
@@ -42,11 +43,17 @@ class bookPost {
     */
   }
 
+  addComment({message}) {
+    this.comments.push(new comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: message }))
+  }
+
 }
 
 decorate(bookPost, {
   owned: observable,
-  setOwned: action
+  setOwned: action,
+  comments: observable,
+  addComment: action
 });
 
 export default bookPost;

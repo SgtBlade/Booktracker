@@ -7,8 +7,17 @@ class Store {
     this.bookPosts = [];
   }
 
-  addbookPost(post) {
-    this.bookPosts.push(post);
+  addbookPost(element) {
+
+    element.preventDefault();
+    const bookTitle = element.currentTarget.bookTitle.value;
+    const bookDate = element.currentTarget.release.value;
+    const bookISBN = element.currentTarget.isbn.value;
+
+    console.log(bookTitle);
+    console.log(bookDate);
+    console.log(bookISBN);
+    //this.bookPosts.push(post);
   }
 
   get owned() {
@@ -19,7 +28,7 @@ class Store {
     this.bookPosts.push(
       new bookPost({
         title: 'Harry Potter and the Cursed Child',
-        release: '2020-02-13',
+        release: '2020-06-13T00:00:00.000Z',
         isbn: '9781338216677'
       })
     );
@@ -27,12 +36,22 @@ class Store {
     this.bookPosts.push(
       new bookPost({
         title: 'Stud Muffin',
-        release: '2019-10-22',
+        release: '2020-03-13T00:00:00.000Z',
         isbn: '9781949202168',
         owned: true
       })
     );
 
+  }
+
+  removeBookPost(item) {
+    this.bookPosts.splice(item);
+  }
+
+  addCommentToBookpost(index, element) {
+    element.preventDefault();
+    const content = element.currentTarget.content.value;
+    if (content.length >= 4) this.bookPosts[index].addComment({message: content});
   }
   
 }
@@ -40,7 +59,8 @@ class Store {
 decorate(Store, {
   bookPosts: observable,
   addbookPost: action,
-  owned: computed
+  owned: computed,
+  removeBookPost: action
 });
 
 export default Store;

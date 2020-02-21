@@ -53,6 +53,74 @@ code {
   font-size: 1.8rem;
 }
 
+.books__newBook {
+  background-color: #3e3964;
+  width: 61rem;
+  height: 38rem;
+  color: #e2a5fe;
+  padding: 2rem;
+  padding-bottom: 1rem;
+  box-shadow: 1rem 1rem 3.7rem -1rem rgba(0,0,0,0.75);
+
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.books__newBook  h2{
+  font-size: 3.2rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+  width: 100%;
+  text-align: center;
+}
+
+.books__newBook__form {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: repeat(3,1fr);
+}
+
+.books__newBook__form--submit {
+  font-size: 0;
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  height: 90%;
+
+  background:
+  linear-gradient(#3e3964,#3e3964),
+  linear-gradient(#3e3964,#3e3964),
+  #d2b8df;
+background-position:center;
+background-size: 50% 1rem,1rem 25%;
+background-repeat:no-repeat;
+}
+
+.books__newBook__form--label {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+
+}
+
+.books__newBook__form--label input {
+  width: 100%;
+  margin-top: .2rem;
+  font-size: 2.4rem;
+  padding: .4rem .8rem;
+}
+
+.books__newBook__form--label--error {
+  font-size: 1.8rem;
+  margin-top: .5rem;
+  color: #ff7f7f;
+}
+
 .books__week--book {
 
   background-color: #3e3964;
