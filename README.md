@@ -56,9 +56,17 @@ Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig l
 ➔Development opdracht \
     ◆Maar maak dat het er Devine-worthy uit ziet
 
+
 //WEEK1 \
 ➔Maak jouw belangrijkste model & datastore \
     ◆1 Domeinobject + 1 Datastore is voldoende \
 ➔Voorzie tests hiervoor \
 ➔Concept uitleggen in readme.md
 
+
+//WEEK2
+
+➔Combineer jouw Model + Store met een React frontend \
+➔Uiteraard met MobX \
+➔Mag nog allemaal in 1 component \
+➔Aanmaken/updaten...

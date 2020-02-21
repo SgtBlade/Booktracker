@@ -1,9 +1,32 @@
+@import './css/vars.css';
+
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-size: 1.8rem;
+  line-height: 1.3;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  margin: 0;
 }
 
 code {
@@ -11,40 +34,304 @@ code {
     monospace;
 }
 
-body {
-  height: 100vh;
-  margin: 0;
-}
-
 #root {
-  height: 100%;
-  width: 100%;
-}
-
-.container {
   padding: 2rem;
-  display: flex;
+  background-color: #eee5f3;
   height: 100%;
-
-  flex-flow: row wrap;
 }
 
-.color { 
-  height: 100px;
-  width: 100px;
+.books__week--title {
+  padding: 1rem;
+  font-size: 3rem;
+  border-bottom: .3rem solid black;
+  border-left: .4rem solid black;
+  margin-bottom: 2rem;
 }
 
-label {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1rem 4rem;
-  flex-flow: column;
-  grid-gap: 1rem;
-  font-size: 2.2rem;
+.books__week {
+  margin-bottom: 3rem;
+  font-size: 1.8rem;
+}
+
+.books__week--book {
+
+  background-color: #3e3964;
+  color: #e2a5fe;
+  padding: 2rem;
+  padding-bottom: 1rem;
+  box-shadow: 1rem 1rem 3.7rem -1rem rgba(0,0,0,0.75);
+
+  display: inline-grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 30rem 1fr;
+
+  margin-right: 4rem;
+  margin-bottom: 3rem;
+
+}
+
+.book__leftSide {
+  position: relative;
+  width: 20rem;
+  height: 30rem;
+}
+
+.book__leftSide .book__leftSide--info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.48);
+
+  font-size: 2.8rem;
   font-weight: bold;
-  width: 100vw;
 }
 
-label span {
-  grid-row: 1 / span 2;
+.book__leftSide .book__leftSite--hover {
+  position: absolute;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 100%;
+  right: 0;
+  z-index: 1;
+}
+
+.book__leftSite--hover:hover ~ .book__leftSide--info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  word-break: break-all;
+  text-align: center;
+  hyphens: auto;
+}
+
+.book__leftSide--info p {
+  margin-top: 1rem;
+  font-size: 3.2rem;
+}
+
+.book__rightSide {
+  width: 35rem;
+
+  margin-left: 2rem;
+  padding-left: 2rem;
+  border-left: .1rem solid rgba(226, 165, 254, .6);
+
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+
+  position: relative;
+}
+
+.book__rightSide--countDown {
+  min-height: 3.4rem;
+  width: 90%;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  border-bottom: .1rem solid rgba(226, 165, 254, .6);
+  padding-bottom: 1rem;
+}
+
+.book__rightSide__messages {
+  min-height: 21.5rem;
+  overflow: scroll;
+}
+
+.book__rightSide__messages__message {
+  margin-top: 3rem;
+}
+
+.book__rightSide__messages__message--bubble {
+
+  color: #3e3964;
+  background-color: #d2b8df;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  display: inline-flex;
+  flex-flow: column;
+
+  position: relative;
+}
+
+.book__rightSide__messages__message--user {
+  font-size: 1.4rem;
+  margin-left: 2rem;
+  padding-bottom: .5rem;
+}
+
+.book__rightSide__messages__message:first-of-type {
+  margin-top: 1rem;
+}
+
+.book__rightSide__messages__message__votes--upvote {
+  color: #c4ffc4;
+  margin-right: .5rem;
+}
+
+.book__rightSide__messages__message__votes--upvote::before {
+  content: '\25B2';
+  color: #c4ffc4;
+}
+
+.book__rightSide__messages__message__votes--downvote::after {
+  content: '\25BC';
+  color: #ffa6a6;
+}
+
+.book__rightSide__messages__message__votes--downvote {
+  color: #ffa6a6;
+}
+
+.selectedUpvote {
+  color: #00ff00;
+  margin-right: .5rem;
+}
+
+.selectedUpvote::before {
+  content: '\25B2';
+  color: #00ff00;
+}
+
+.selectedDownvote {
+  color: #ff7f7f;
+}
+
+.selectedDownvote::after {
+  content: '\25BC';
+  color: #ff7f7f;
+}
+
+.book__rightSide__messages__message__votes {
+  position: absolute;
+  right: 1.5rem;
+  bottom: -2.2rem;
+  cursor: pointer;
+
+  color: white;
+}
+
+.book__rightSide__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.book__rightSide__form--input {
+  position: relative;
+  width: 90%;
+  max-width: 90%;
+  max-height: 200%;
+  padding: .5rem .2rem .5rem .5rem;
+  margin-right: .5rem;
+  border-radius: .8rem;
+  color: #6a5486;
+  background-color: #d2b8df;
+  border: none;
+
+}
+
+.book__rightSide__form__counter {
+  width: 3rem;
+  height: 3rem;
+}
+
+.book__rightSide__form__counter circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.book__rightSide__form__counter--circlePlain {
+  stroke: white;
+}
+
+.book__rightSide__form__counter--circleColored {
+  stroke: #e2a5fe;
+}
+
+.book__links {
+  grid-column: span 2;
+  border-top: .1rem solid rgba(226, 165, 254, .6);
+  margin-top: 1rem;
+  padding-top: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.book__links a {
+  margin: 0 1rem;
+}
+
+.book__rightSide__check {
+  position: absolute;
+  right: -3.5rem;
+  top: -3.5rem;
+  padding: 1rem;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 4rem;
+  background-color: #d2b8df;
+  border: .1rem solid #3e3964;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book__rightSide__check--check {
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 3rem;
+  width: 1.5rem;
+  border-bottom: .5rem solid white;
+  border-right: .5rem solid white;
+}
+
+.book__rightSide__check--cross::before, .book__rightSide__check--cross::after {
+  position: absolute;
+  top: .7rem;
+  right: 2.2rem;
+  content: ' ';
+  height: 3.5rem;
+  width: .5rem;
+  background-color: white;
+}
+
+.book__rightSide__check--cross::before {
+  transform: rotate(45deg);
+}
+
+.book__rightSide__check--cross::after {
+  transform: rotate(-45deg);
+}
+
+.book__links p {
+  cursor: pointer;
+}
+
+.book__links--statusOwned {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 2.2rem;
+}
+
+.book__links--statusUnowned {
+  font-size: 1.6rem;
+  justify-self: flex-end;
+  position: absolute;
+  right: 0; /* justify self gaat niet, ik denk dat dit te maken heeft met oude browser support */
 }

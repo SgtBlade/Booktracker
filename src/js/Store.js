@@ -23,6 +23,7 @@ class Store {
         isbn: '9781338216677'
       })
     );
+    this.bookPosts[0].seedComments();
     this.bookPosts.push(
       new bookPost({
         title: 'Stud Muffin',
@@ -31,7 +32,9 @@ class Store {
         owned: true
       })
     );
+
   }
+  
 }
 
 decorate(Store, {
