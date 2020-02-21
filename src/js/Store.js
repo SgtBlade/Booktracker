@@ -8,16 +8,18 @@ class Store {
   }
 
   addbookPost(element) {
-
     element.preventDefault();
     const bookTitle = element.currentTarget.bookTitle.value;
     const bookDate = element.currentTarget.release.value;
     const bookISBN = element.currentTarget.isbn.value;
 
-    console.log(bookTitle);
-    console.log(bookDate);
-    console.log(bookISBN);
-    //this.bookPosts.push(post);
+    this.bookPosts.push(
+      new bookPost({
+        title: bookTitle,
+        release: bookDate,
+        isbn: bookISBN
+      })
+    );
   }
 
   get owned() {
@@ -45,13 +47,14 @@ class Store {
   }
 
   removeBookPost(item) {
-    this.bookPosts.splice(item);
+    this.bookPosts.splice(this.bookPosts.indexOf(item), 1);
   }
 
-  addCommentToBookpost(index, element) {
+  addCommentToBookpost(book, element) {
     element.preventDefault();
     const content = element.currentTarget.content.value;
-    if (content.length >= 4) this.bookPosts[index].addComment({message: content});
+    element.currentTarget.content.value = '';
+    if (content.length >= 4) this.bookPosts[this.bookPosts.indexOf(book)].addComment({message: content});
   }
   
 }
