@@ -12,7 +12,7 @@ class Store {
     element.preventDefault();
     const bookTitle = element.currentTarget.bookTitle.value;
     const bookDate = element.currentTarget.release.value;
-    const bookISBN = element.currentTarget.isbn.value;
+    let bookISBN = element.currentTarget.isbn.value;
 
     this.bookPosts.push(
       new bookPost({
@@ -21,6 +21,7 @@ class Store {
         isbn: bookISBN
       })
     );
+  element.currentTarget.reset()
   }
 
   get owned() {
