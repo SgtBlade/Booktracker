@@ -248,6 +248,11 @@ background-repeat:no-repeat;
   position: relative;
 }
 
+.book__rightSide__messages__message--text {
+  overflow-wrap: break-word;
+  word-break: break-all
+}
+
 .book__rightSide__messages__message--user {
   font-size: 1.4rem;
   margin-left: 2rem;

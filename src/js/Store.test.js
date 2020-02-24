@@ -1,7 +1,7 @@
 import Store from './Store';
 import bookPost from './bookPost';
 
-test('Creating a bookPost', () => {
+test('Checking a bookPost', () => {
 
   const store = new Store();
   store.seedbookPosts();
@@ -28,6 +28,22 @@ test('Remove a book post', () => {
 
   store.removeBookPost(Example);
   expect((store.bookPosts).length).toBe(1);
+
+
+});
+
+test('Creating a book post', () => {
+
+  const store = new Store();
+
+  store.setAdditionField("title", 'test')
+  store.setAdditionField("release", '2020-02-28')
+  store.setAdditionField("isbn", '1111')
+
+  expect(store.additionField.title).toBe('test');
+  expect(store.additionField.release).toBe('2020-02-28');
+  expect(store.additionField.isbn).toBe('1111');
+  
 
 
 });

@@ -1,4 +1,4 @@
-import {observable, action, decorate, configure} from 'mobx';
+import {observable, action, decorate, configure, computed} from 'mobx';
 import axios from 'axios';
 import {comment} from './comment';
 configure({enforceActions: 'observed'});
@@ -16,7 +16,8 @@ class bookPost {
     this.isbn = isbn;
     this.owned = owned;
     this.view = VIEWSTATE.comments;
-    this.wordCount = 0;
+    this.newComment = '';
+    this.stringLimit = 156;
     this.comments = [];
   }
 
@@ -52,21 +53,27 @@ class bookPost {
 
   addComment(element) {
     element.preventDefault();
-    const content = element.currentTarget.content.value;
-    element.currentTarget.content.value = '';
-    this.wordCount = 0;
-    if (content.length >= 4)  this.comments.push(new comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: content }))
+    if (this.newComment.length >= 4){
+      this.comments.push(new comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: this.newComment }))
+      this.newComment = '';
+    } 
   }
 
   changeView() {
     this.view === VIEWSTATE.comments ? this.view = VIEWSTATE.description : this.view = VIEWSTATE.comments;
   }
 
-  changeWordcount (e) {
-    const count = (e.currentTarget.value).length;
-    const limit = 156;
-    if(count > limit) e.currentTarget.value = e.currentTarget.value.substring(0, 156);
-    this.wordCount = count;
+  get wordCountPercentage() {
+    return Math.floor((this.newComment.length/this.stringLimit)*100);
+  }
+
+  get newCommentField() {
+    return this.newComment;
+  }
+
+  setComment(value) {
+    if(value.length > this.stringLimit) this.newComment = value.substring(0, this.stringLimit);
+    else this.newComment = value;
   }
 }
 
@@ -83,8 +90,11 @@ decorate(bookPost, {
   view: observable,
   changeView: action,
 
-  wordCount: observable,
-  changeWordcount: action
+  newComment: observable,
+  setComment: action,
+  wordCountPercentage: computed,
+  newCommentField: computed
+
 });
 
 export default bookPost;

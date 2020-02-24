@@ -34,12 +34,8 @@ const App = () => {
     }
   };
 
-  const getGradient = (count) => {
-      const percentage = Math.floor((count/156)*100);
-      return {backgroundImage: `conic-gradient(#e2a5fe ${percentage}%, #696caa ${percentage}%)`}
-  }
+  const getGradient = (count) => { return {backgroundImage: `conic-gradient(#e2a5fe ${count}%, #696caa ${count}%)`} }
 
-  const correctISBNData = e => e.currentTarget.value = e.currentTarget.value.replace(/\D/g,'');;
   
   return useObserver(() => (
     <>
@@ -80,7 +76,7 @@ const App = () => {
 
                   {book.view === VIEWSTATE.comments ? (
                     <form onSubmit={e => book.addComment(e)} className="book__rightSide__form">
-                            <input onChange={e => book.changeWordcount(e)} className="book__rightSide__form--input" id={`content${index}`} name="content" placeholder="Typ een bericht" />
+                            <input value={book.newCommentField} onChange={e => book.setComment(e.currentTarget.value)} className="book__rightSide__form--input" id={`content${index}`} name="content" placeholder="Typ een bericht" />
                             <div className="book__rightSide__form--counter" style={getGradient(book.wordCount)}>
                               <p className="book__rightSide__form--counter--child"></p>
                             </div>
@@ -120,20 +116,29 @@ const App = () => {
       <form onSubmit={e => store.addbookPost(e)} className="books__newBook__form">
         <label className="books__newBook__form--label" htmlFor="bookTitle">
           Title:
-          <input className="book__rightSide__form--input" name="bookTitle" id="bookTitle" placeholder="" />
+          <input 
+          value={store.titleField}
+          onChange={e => store.setAdditionField("title", e.currentTarget.value)} 
+          className="book__rightSide__form--input" name="bookTitle" id="bookTitle" />
           <span className="books__newBook__form--label--error hidden">Title is too short or empty</span>
         </label>
 
         <label className="books__newBook__form--label" htmlFor="release">
           Release:
-          <input type="date" className="book__rightSide__form--input" name="release" id="release" 
+          <input
+          value={store.releaseField}
+          onChange={e => store.setAdditionField("release", e.currentTarget.value)} 
+           type="date" className="book__rightSide__form--input" name="release" id="release" 
             min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}></input>
             <span className="books__newBook__form--label--error hidden">There is an issue with the date</span>
         </label>
 
         <label className="books__newBook__form--label" htmlFor="isbn">
           ISBN:
-          <input onChange={e => correctISBNData(e)} type="text" className="book__rightSide__form--input" name="isbn" id="isbn" placeholder="" />
+          <input 
+          value={store.isbnField} 
+          onChange={e => store.setAdditionField("isbn", e.currentTarget.value)} 
+          type="text" className="book__rightSide__form--input" name="isbn" id="isbn" />
           <span className="books__newBook__form--label--error hidden">ISBN not found</span>
         </label>
 

@@ -6,24 +6,25 @@ class Store {
   
   constructor() {
     this.bookPosts = [];
+    this.additionField = {
+      title: '',
+      release: '',
+      isbn: ''
+    }
   }
 
   addbookPost(element) {
     element.preventDefault();
-    if(element.currentTarget.isbn.value !== '')
+    if(this.additionField.isbn !== '')
     {
-      const bookTitle = element.currentTarget.bookTitle.value;
-      const bookDate = element.currentTarget.release.value;
-      let bookISBN = element.currentTarget.isbn.value;
-  
       this.bookPosts.push(
         new bookPost({
-          title: bookTitle,
-          release: bookDate,
-          isbn: bookISBN
+          title: this.additionField.title,
+          release: this.additionField.release,
+          isbn: this.additionField.isbn
         })
       );
-    element.currentTarget.reset()
+      this.additionField.title = this.additionField.release = this.additionField.isbn = '';
     }
   }
 
@@ -54,6 +55,24 @@ class Store {
   removeBookPost(item) {
     this.bookPosts.splice(this.bookPosts.indexOf(item), 1);
   }
+
+  setAdditionField(field, value) {
+    if(value === 'isbn') value = value.replace(/\D/g,'');
+    this.additionField[field] = value;
+    console.log(value);
+  }
+
+  get titleField() {
+    return this.additionField.title;
+  }
+
+  get isbnField() {
+    return this.additionField.isbn;
+  }
+  
+  get releaseField() {
+    return this.additionField.release;
+  }
   
 }
 
@@ -61,7 +80,13 @@ decorate(Store, {
   bookPosts: observable,
   addbookPost: action,
   owned: computed,
-  removeBookPost: action
+  removeBookPost: action,
+
+  additionField: observable,
+  setAdditionField: action,
+  titleField: computed,
+  isbnField: computed,
+  releaseField: computed
 });
 
 export default Store;

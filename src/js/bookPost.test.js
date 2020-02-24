@@ -14,7 +14,7 @@ test('Creating a bookPost', () => {
   expect(t.isbn).toBe('9781338216677');
   expect(t.owned).toBe(false);
   expect(t.view).toBe('comments');
-  expect(t.wordCount).toBe(0);
+  expect(t.wordCountPercentage).toBe(0);
   expect(t.comments.toString()).toBe('');
 });
 
@@ -46,9 +46,9 @@ test('Changing book wordcount', () => {
     release: '2020-02-13T00:00:00.000Z',
     isbn: '9781338216677'
   });
-  expect(t.wordCount).toBe(0);
-  t.changeWordcount({ currentTarget : { value: 'TenLetters'}});
-  expect(t.wordCount).toBe(10);
+  expect(t.wordCountPercentage).toBe(0);
+  t.setComment('testing')
+  expect(t.wordCountPercentage).toBe(4);//7 van 156 floored  
 });
 
 test('Changing viewstate', () => {
