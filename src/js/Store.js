@@ -10,18 +10,21 @@ class Store {
 
   addbookPost(element) {
     element.preventDefault();
-    const bookTitle = element.currentTarget.bookTitle.value;
-    const bookDate = element.currentTarget.release.value;
-    let bookISBN = element.currentTarget.isbn.value;
-
-    this.bookPosts.push(
-      new bookPost({
-        title: bookTitle,
-        release: bookDate,
-        isbn: bookISBN
-      })
-    );
-  element.currentTarget.reset()
+    if(element.currentTarget.isbn.value !== '')
+    {
+      const bookTitle = element.currentTarget.bookTitle.value;
+      const bookDate = element.currentTarget.release.value;
+      let bookISBN = element.currentTarget.isbn.value;
+  
+      this.bookPosts.push(
+        new bookPost({
+          title: bookTitle,
+          release: bookDate,
+          isbn: bookISBN
+        })
+      );
+    element.currentTarget.reset()
+    }
   }
 
   get owned() {

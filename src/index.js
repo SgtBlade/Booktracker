@@ -41,7 +41,6 @@ const App = () => {
 
   const correctISBNData = e => e.currentTarget.value = e.currentTarget.value.replace(/\D/g,'');;
   
-
   return useObserver(() => (
     <>
     <section className="books__week">
