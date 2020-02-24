@@ -51,8 +51,7 @@ class bookPost {
     else if (this.release.toString() === 'Invalid Date')this.release = new Date(this.bookData.volumeInfo.publishedDate)
   }
 
-  addComment(element) {
-    element.preventDefault();
+  addComment() {
     if (this.newComment.length >= 4){
       this.comments.push(new comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: this.newComment }))
       this.newComment = '';

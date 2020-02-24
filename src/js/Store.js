@@ -13,8 +13,7 @@ class Store {
     }
   }
 
-  addbookPost(element) {
-    element.preventDefault();
+  addbookPost() {
     if(this.additionField.isbn !== '')
     {
       this.bookPosts.push(
@@ -59,7 +58,6 @@ class Store {
   setAdditionField(field, value) {
     if(value === 'isbn') value = value.replace(/\D/g,'');
     this.additionField[field] = value;
-    console.log(value);
   }
 
   get titleField() {

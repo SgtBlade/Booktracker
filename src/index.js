@@ -36,6 +36,11 @@ const App = () => {
 
   const getGradient = (count) => { return {backgroundImage: `conic-gradient(#e2a5fe ${count}%, #696caa ${count}%)`} }
 
+  const handleSubmit = (e, type, object = null) => {
+    e.preventDefault();
+    if(type === 'comment')object.addComment();
+    else if(type === 'book')store.addbookPost();
+  }
   
   return useObserver(() => (
     <>
@@ -75,9 +80,9 @@ const App = () => {
                   )}
 
                   {book.view === VIEWSTATE.comments ? (
-                    <form onSubmit={e => book.addComment(e)} className="book__rightSide__form">
+                    <form onSubmit={e => handleSubmit(e, 'comment', book)} className="book__rightSide__form">
                             <input value={book.newCommentField} onChange={e => book.setComment(e.currentTarget.value)} className="book__rightSide__form--input" id={`content${index}`} name="content" placeholder="Typ een bericht" />
-                            <div className="book__rightSide__form--counter" style={getGradient(book.wordCount)}>
+                            <div className="book__rightSide__form--counter" style={getGradient(book.wordCountPercentage)}>
                               <p className="book__rightSide__form--counter--child"></p>
                             </div>
                     </form>
@@ -113,7 +118,7 @@ const App = () => {
 
     <article className="books__newBook">
       <h2>New book</h2>
-      <form onSubmit={e => store.addbookPost(e)} className="books__newBook__form">
+      <form onSubmit={e => handleSubmit(e, 'book')} className="books__newBook__form">
         <label className="books__newBook__form--label" htmlFor="bookTitle">
           Title:
           <input 

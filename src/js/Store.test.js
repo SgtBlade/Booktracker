@@ -43,8 +43,5 @@ test('Creating a book post', () => {
   expect(store.additionField.title).toBe('test');
   expect(store.additionField.release).toBe('2020-02-28');
   expect(store.additionField.isbn).toBe('1111');
-  
-
-
 });
 
