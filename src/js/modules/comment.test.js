@@ -1,15 +1,17 @@
-import Store from './Store';
+import Store from '../stores/Store';
 import {comment, STATE} from './comment';
+import User from './user';
 
 test('Creating a comment', () => {
+
+  const user = new User('MiguelDP', 1);
   const t = new comment({
-    user: 'Pikachu99',
-    userID: 4124,
+    user: user,
     content: 'Ah mah gawd I luv dis book'
   });
 
-  expect(t.user).toBe('Pikachu99');
-  expect(t.userID).toBe(4124);
+  expect(t.user.name).toBe('MiguelDP');
+  expect(t.user.id).toBe(1);
   expect(t.content).toBe('Ah mah gawd I luv dis book');
 
   expect(t.upvotes).toBe(0);

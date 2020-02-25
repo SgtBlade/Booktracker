@@ -1,0 +1,460 @@
+
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-size: 1.8rem;
+  line-height: 1.3;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  height: 100%;
+  margin: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  padding: 2rem;
+  background-color: var(--mainBackground);
+  height: 100%;
+  min-height: 100vh;
+}
+
+.books__week--title {
+  padding: 1rem;
+  font-size: 3rem;
+  border-bottom: .3rem solid var(--borders);
+  border-left: .4rem solid var(--borders);
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.books__week {
+  margin-bottom: 3rem;
+  font-size: 1.8rem;
+
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.books__newBook {
+  background-color: var(--bookPostBackground);
+  width: 61rem;
+  height: 38rem;
+  color: var(--fontColor);
+  padding: 2rem;
+  padding-bottom: 1rem;
+  box-shadow: 1rem 1rem 3.7rem -1rem var(--boxShadow);
+
+  display: inline-flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.books__newBook  h2{
+  font-size: 3.2rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+.books__newBook__form {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: repeat(3,1fr);
+}
+
+.books__newBook__form--submit {
+  font-size: 0;
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  height: 90%;
+
+  background:
+  linear-gradient(var(--bookPostBackground),var(--bookPostBackground)),
+  linear-gradient(var(--bookPostBackground),var(--bookPostBackground)),
+  var(--textFields);
+background-position:center;
+background-size: 50% 1rem,1rem 25%;
+background-repeat:no-repeat;
+}
+
+.books__newBook__form--label {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+
+}
+
+.books__newBook__form--label input {
+  width: 100%;
+  margin-top: .2rem;
+  font-size: 2.4rem;
+  padding: .4rem .8rem;
+}
+
+.books__newBook__form--label--error {
+  font-size: 1.8rem;
+  margin-top: .5rem;
+  color: var(--errorColor);
+}
+
+.books__week--book {
+  height: 38.3rem;
+
+  background-color: var(--bookPostBackground);
+  color: var(--fontColor);
+  padding: 2rem;
+  padding-bottom: 1rem;
+  box-shadow: 1rem 1rem 3.7rem -1rem var(--boxShadow);
+
+  display: inline-grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 30rem 1fr;
+
+  margin-right: 4rem;
+  margin-bottom: 3rem;
+
+}
+
+.book__leftSide {
+  cursor: pointer;
+  position: relative;
+  width: 20rem;
+  height: 30rem;
+}
+
+.book__leftSide .book__leftSide--info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.48);
+
+  font-size: 2.8rem;
+  font-weight: bold;
+}
+
+.book__leftSide .book__leftSite--hover {
+  position: absolute;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 100%;
+  right: 0;
+  z-index: 1;
+}
+
+.book__leftSite--hover:hover ~ .book__leftSide--info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  word-break: normal;
+  text-align: center;
+  hyphens: auto;
+  text-transform: capitalize;
+}
+
+
+.book__leftSide--info p {
+  margin-top: 1rem;
+  font-size: 3.2rem;
+}
+
+.book__rightSide {
+  width: 35rem;
+
+  margin-left: 2rem;
+  padding-left: 1.5rem;
+  border-left: .1rem solid var(--lightBorderColor);
+
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+
+  position: relative;
+}
+
+.book__rightSide--countDown {
+  cursor: pointer;
+  min-height: 3.4rem;
+  width: 90%;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  border-bottom: .1rem solid var(--lightBorderColor);
+  padding-bottom: 1rem;
+}
+
+.book__rightSide__description {
+  overflow: scroll;
+  padding-top: .5rem;
+  padding-bottom: 1rem;
+  font-size: 2rem;
+  min-height: 24.5rem;
+}
+
+.book__rightSide__messages {
+  min-height: 21.5rem;
+  overflow: scroll;
+}
+
+.book__rightSide__messages__message {
+  margin-top: 3rem;
+}
+
+.book__rightSide__messages__message--bubble {
+
+  color: var(--bookPostBackground);
+  background-color: var(--textFields);
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  display: inline-flex;
+  flex-flow: column;
+
+  position: relative;
+}
+
+.book__rightSide__messages__message--text {
+  overflow-wrap: break-word;
+  word-break: break-all
+}
+
+.book__rightSide__messages__message--user {
+  font-size: 1.4rem;
+  margin-left: 2rem;
+  padding-bottom: .5rem;
+}
+
+.book__rightSide__messages__message:first-of-type {
+  margin-top: 1rem;
+}
+
+.book__rightSide__messages__message__votes--upvote {
+  color: var(--upvoteUnselected);
+  margin-right: .5rem;
+}
+
+.book__rightSide__messages__message__votes--upvote::before {
+  content: '\25B2';
+  color: var(--upvoteUnselected);
+}
+
+.book__rightSide__messages__message__votes--downvote::after {
+  content: '\25BC';
+  color: var(--downvoteUnselected);
+}
+
+.book__rightSide__messages__message__votes--downvote {
+  color: var(--downvoteUnselected);
+}
+
+.selectedUpvote {
+  color: var(--upvoteSelected);
+  margin-right: .5rem;
+}
+
+.selectedUpvote::before {
+  content: '\25B2';
+  color: var(--upvoteSelected);
+}
+
+.selectedDownvote {
+  color: var(--downvoteSelected);
+}
+
+.selectedDownvote::after {
+  content: '\25BC';
+  color: var(--downvoteSelected);
+}
+
+.book__rightSide__messages__message__votes {
+  position: absolute;
+  right: 1.5rem;
+  bottom: -2.2rem;
+  cursor: pointer;
+
+  color: white;
+}
+
+.book__rightSide__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.book__rightSide__form--input {
+  position: relative;
+  width: 90%;
+  max-width: 90%;
+  max-height: 200%;
+  padding: .5rem .2rem .5rem .5rem;
+  margin-right: 1rem;
+  border-radius: .5rem;
+  color: var(--inputFormColor);
+  background-color: var(--textFields);
+  border: none;
+
+}
+
+.book__rightSide__form__counter {
+  width: 3rem;
+  height: 3rem;
+}
+
+.book__rightSide__form__counter circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.book__rightSide__form__counter--circlePlain {
+  stroke: white;
+}
+
+.book__rightSide__form__counter--circleColored {
+  stroke: var(--fontColor);
+}
+
+.book__links {
+  grid-column: span 2;
+  border-top: .1rem solid var(--lightBorderColor);
+  margin-top: 1rem;
+  padding-top: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.book__links--owned {
+  cursor: pointer;
+}
+
+.book__links a {
+  margin: 0 1rem;
+}
+
+.book__rightSide__check {
+  position: absolute;
+  right: -3.5rem;
+  top: -3.5rem;
+  padding: 1rem;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 4rem;
+  background-color: var(--textFields);
+  border: .1rem solid var(--bookPostBackground);
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book__rightSide__check--check {
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 3rem;
+  width: 1.5rem;
+  border-bottom: .5rem solid var(--closeIcon);
+  border-right: .5rem solid var(--closeIcon);
+}
+
+.book__rightSide__check--cross::before, .book__rightSide__check--cross::after {
+  position: absolute;
+  top: .7rem;
+  right: 2.2rem;
+  content: ' ';
+  height: 3.5rem;
+  width: .5rem;
+  background-color: var(--closeIcon);
+}
+
+.book__rightSide__check--cross::before {
+  transform: rotate(45deg);
+}
+
+.book__rightSide__check--cross::after {
+  transform: rotate(-45deg);
+}
+
+.book__links p {
+  cursor: pointer;
+}
+
+.book__links--statusOwned {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 2.2rem;
+}
+
+.book__links--statusUnowned {
+  font-size: 1.6rem;
+  justify-self: flex-end;
+  position: absolute;
+  right: 0; /* justify self gaat niet, ik denk dat dit te maken heeft met oude browser support */
+}
+
+.book__rightSide__form--counter {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-image: conic-gradient(var(--fontColor) 90%, #696caa 90%);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book__rightSide__form--counter::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: var(--bookPostBackground);
+  border-radius: inherit;
+}
+
+.book__rightSide__form--counter--child {
+  position: relative;
+  z-index: 1;
+  font-size: 2em;
+}

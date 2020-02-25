@@ -1,3 +1,23 @@
 :root {
-  --primary: #dddddd;
-}
+    --color: #ed2c25;
+    --Title: 'Comfortaa', avenir, arial, helvetica, sans-serif;
+    --bookPostBackground: #3e3964;
+    --mainBackground: #eee5f3;
+    --textFields: #d2b8df;
+    --fontColor: #e2a5fe;
+    --lightBorderColor: rgba(226, 165, 254, .6);
+    --borders: black;
+    --boxShadow: rgba(0,0,0,0.75);
+    --errorColor: red;
+    --upvoteUnselected: #c4ffc4;
+    --downvoteUnselected: #ffa6a6;
+    --upvoteSelected: #00ff00;
+    --downvoteSelected: red;
+    --inputFormColor: #6a5486;
+    --closeIcon: white;
+
+  }
+  
+  @custom-media --tablet (max-width: 960px);
+  @custom-media --phone (max-width: 676px);
+  

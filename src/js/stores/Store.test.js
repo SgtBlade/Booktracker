@@ -1,5 +1,5 @@
 import Store from './Store';
-import bookPost from './bookPost';
+import bookPost from '../modules/bookPost';
 
 test('Checking a bookPost', () => {
 

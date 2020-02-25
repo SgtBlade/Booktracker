@@ -1,9 +1,8 @@
 import {observable, action, decorate, configure} from 'mobx';
 configure({enforceActions: 'observed'});
 class comment {
-  constructor({user, userID, content}) {
+  constructor({user, content}) {
     this.user = user;
-    this.userID = userID;
     this.content = content;
     this.upvotes = 0;
     this.downvotes = 0;

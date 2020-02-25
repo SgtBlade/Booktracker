@@ -1,5 +1,6 @@
-import bookPost from './bookPost';
+import bookPost from '../modules/bookPost';
 import {observable, computed, action, decorate, configure} from 'mobx';
+import User from '../modules/user';
 configure({enforceActions: 'observed'});
 
 class Store {
@@ -11,18 +12,21 @@ class Store {
       release: '',
       isbn: ''
     }
+    this.user = new User('MiguelDP', 1);
+
   }
 
   addbookPost() {
     if(this.additionField.isbn !== '')
     {
-      this.bookPosts.push(
-        new bookPost({
-          title: this.additionField.title,
-          release: this.additionField.release,
-          isbn: this.additionField.isbn
-        })
-      );
+
+      const newBookPost = new bookPost({
+        title: this.additionField.title,
+        release: this.additionField.release,
+        isbn: this.additionField.isbn
+      });
+
+      if (!this.bookPosts.includes(newBookPost)) this.bookPosts.push(newBookPost);
       this.additionField.title = this.additionField.release = this.additionField.isbn = '';
     }
   }
@@ -36,7 +40,8 @@ class Store {
       new bookPost({
         title: 'Harry Potter and the Cursed Child',
         release: '2020-06-13T00:00:00.000Z',
-        isbn: '9781338216677'
+        isbn: '9781338216677',
+        user: this.user
       })
     );
     this.bookPosts[0].seedComments();
@@ -45,7 +50,8 @@ class Store {
         title: 'Stud Muffin',
         release: '2020-03-13T00:00:00.000Z',
         isbn: '9781949202168',
-        owned: true
+        owned: true,
+        user: this.user
       })
     );
 

@@ -65,8 +65,13 @@ Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig l
 
 
 //WEEK2
-
 ➔Combineer jouw Model + Store met een React frontend \
 ➔Uiteraard met MobX \
 ➔Mag nog allemaal in 1 component \
 ➔Aanmaken/updaten...
+
+//WEEK3
+➔Splits jouw app op in verschillende components \
+➔PropTypes voorzien \
+➔Store doorgeven via props \
+➔Store opsplitsen in DataStore & UiStore

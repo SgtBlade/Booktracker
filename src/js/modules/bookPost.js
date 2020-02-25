@@ -1,6 +1,7 @@
 import {observable, action, decorate, configure, computed} from 'mobx';
 import axios from 'axios';
 import {comment} from './comment';
+import User from './user';
 configure({enforceActions: 'observed'});
 
 const VIEWSTATE = {
@@ -9,7 +10,7 @@ const VIEWSTATE = {
 };
 class bookPost {
 
-  constructor({title, release, isbn, owned = false, bookData = null}) {
+  constructor({title, release, isbn, owned = false, bookData = null, user}) {
     (bookData !== null) ? this.bookData = bookData : this.getBookData(isbn);
     this.title = title;
     this.release = new Date(release);
@@ -19,6 +20,7 @@ class bookPost {
     this.newComment = '';
     this.stringLimit = 156;
     this.comments = [];
+    this.user = user;
   }
 
   setOwned() {
@@ -26,10 +28,11 @@ class bookPost {
   }
 
   seedComments() {
-    this.comments.push(new comment({ user: 'Pikachu99', userID: 4124, content: 'Ah mah gawd I luv dis book' }));
-    this.comments.push(new comment({ user: 'Whopper', userID: 213, content: 'Cannot wait for this book to get released' }));
-    this.comments.push(new comment({ user: 'PokePotter', userID: 2134, content: 'Oooh a new book' }));
-    this.comments.push(new comment({ user: 'PokePotter', userID: 2134, content: 'Cool book' }));
+    const user = new User('MiguelDP', 1);
+    this.comments.push(new comment({ user: user, content: 'Ah mah gawd I luv dis book' }));
+    this.comments.push(new comment({ user: user, content: 'Cannot wait for this book to get released' }));
+    this.comments.push(new comment({ user: user, content: 'Oooh a new book' }));
+    this.comments.push(new comment({ user: user, content: 'Cool book' }));
   }
 
   getBookData = async (isbn) => {
@@ -51,9 +54,9 @@ class bookPost {
     else if (this.release.toString() === 'Invalid Date')this.release = new Date(this.bookData.volumeInfo.publishedDate)
   }
 
-  addComment() {
+  addComment(userData) {
     if (this.newComment.length >= 4){
-      this.comments.push(new comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: this.newComment }))
+      this.comments.push(new comment({ user: userData, content: this.newComment }))
       this.newComment = '';
     } 
   }
