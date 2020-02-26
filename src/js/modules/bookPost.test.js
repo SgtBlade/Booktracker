@@ -1,6 +1,6 @@
 import bookPost from './bookPost';
 import VIEWSTATE from './bookPost';
-import {comment} from './comment';
+import {Comment} from './comment';
 
 
 test('Creating a bookPost', () => {
@@ -36,7 +36,7 @@ test('Pushing a comment', () => {
   });
 
   
-  t.comments.push(new comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: 'test' }));
+  t.comments.push(new Comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: 'test' }));
   expect(t.comments[0].content).toBe('test');
 });
 

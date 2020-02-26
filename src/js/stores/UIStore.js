@@ -5,8 +5,7 @@ configure({enforceActions: 'observed'});
 class UIStore {
   
   constructor() {
-    //this.theme = THEMES.dark;
-    this.theme = THEMES.light;
+    this.theme = THEMES.dark;
   }
 
   toggle() {

@@ -1,11 +1,11 @@
 import Store from '../stores/Store';
-import {comment, STATE} from './comment';
+import {Comment, STATE} from './comment';
 import User from './user';
 
 test('Creating a comment', () => {
 
   const user = new User('MiguelDP', 1);
-  const t = new comment({
+  const t = new Comment({
     user: user,
     content: 'Ah mah gawd I luv dis book'
   });
@@ -20,7 +20,7 @@ test('Creating a comment', () => {
 });
 
 test('Upvoting a comment', () => {
-  const t = new comment({
+  const t = new Comment({
     user: 'Pikachu99',
     userID: 4124,
     content: 'Ah mah gawd I luv dis book'
@@ -32,7 +32,7 @@ test('Upvoting a comment', () => {
 });
 
 test('Downvoting a comment', () => {
-  const t = new comment({
+  const t = new Comment({
     user: 'Pikachu99',
     userID: 4124,
     content: 'Ah mah gawd I luv dis book'
@@ -44,7 +44,7 @@ test('Downvoting a comment', () => {
 });
 
 test('Downvoting then upvoting a comment', () => {
-  const t = new comment({
+  const t = new Comment({
     user: 'Pikachu99',
     userID: 4124,
     content: 'Ah mah gawd I luv dis book'
