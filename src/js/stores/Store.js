@@ -19,14 +19,14 @@ class Store {
   addbookPost() {
     if(this.additionField.isbn !== '')
     {
-
+      const items = this.bookPosts.filter(bookPost => bookPost.isbn === this.additionField.isbn);
       const newBookPost = new bookPost({
         title: this.additionField.title,
         release: this.additionField.release,
         isbn: this.additionField.isbn
       });
 
-      if (!this.bookPosts.includes(newBookPost)) this.bookPosts.push(newBookPost);
+      if (items.length === 0) this.bookPosts.push(newBookPost);
       this.additionField.title = this.additionField.release = this.additionField.isbn = '';
     }
   }

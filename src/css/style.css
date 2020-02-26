@@ -35,6 +35,12 @@ code {
 }
 
 #root {
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.contentWrapper {
   padding: 2rem;
   background-color: var(--mainBackground);
   height: 100%;
@@ -56,6 +62,7 @@ code {
 
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
 
 .books__newBook {
@@ -63,9 +70,8 @@ code {
   width: 61rem;
   height: 38rem;
   color: var(--fontColor);
-  padding: 2rem;
-  padding-bottom: 1rem;
-  box-shadow: 1rem 1rem 3.7rem -1rem var(--boxShadow);
+  box-shadow: .2rem .2rem 5rem .5rem var(--boxShadow);
+  padding: 1rem 5rem 3rem 5rem;
 
   display: inline-flex;
   flex-flow: column;
@@ -86,6 +92,8 @@ code {
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: repeat(3,1fr);
+
+  align-items: flex-end;
 }
 
 .books__newBook__form--submit {
@@ -93,6 +101,7 @@ code {
   grid-column: 2;
   grid-row: 1 / span 3;
   height: 90%;
+  border: none;
 
   background:
   linear-gradient(var(--bookPostBackground),var(--bookPostBackground)),
@@ -114,7 +123,7 @@ background-repeat:no-repeat;
 
 .books__newBook__form--label input {
   width: 100%;
-  margin-top: .2rem;
+  margin-top: .5rem;
   font-size: 2.4rem;
   padding: .4rem .8rem;
 }
@@ -132,14 +141,15 @@ background-repeat:no-repeat;
   color: var(--fontColor);
   padding: 2rem;
   padding-bottom: 1rem;
-  box-shadow: 1rem 1rem 3.7rem -1rem var(--boxShadow);
+  box-shadow: .2rem .2rem 5rem .5rem var(--boxShadow);
 
   display: inline-grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: 30rem 1fr;
 
   margin-right: 4rem;
-  margin-bottom: 3rem;
+  margin-bottom: 10rem;
+  
 
 }
 
@@ -200,6 +210,7 @@ background-repeat:no-repeat;
 
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-flow: column;
 
   position: relative;
@@ -237,7 +248,7 @@ background-repeat:no-repeat;
 
 .book__rightSide__messages__message--bubble {
 
-  color: var(--bookPostBackground);
+  color: var(--messageColor);
   background-color: var(--textFields);
   padding: 1rem 2rem;
   border-radius: 2rem;
@@ -311,9 +322,10 @@ background-repeat:no-repeat;
 
 .book__rightSide__form {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding-top: 1rem;
+  width: 100%;
 }
 
 .book__rightSide__form--input {
@@ -457,4 +469,66 @@ background-repeat:no-repeat;
   position: relative;
   z-index: 1;
   font-size: 2em;
+}
+
+input::placeholder {
+  color: var(--placeholder);
+}
+
+.theme__toggleButton {
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  color: var(--lightBorderColor);
+  font-weight: bold;
+  font-size: 5rem;
+
+  padding: 2rem 1rem 5rem 2rem;
+  margin-bottom: 5rem;
+  border-bottom: .1rem solid var(--lightBorderColor);
+}
+
+.theme__toggleButton label {
+  margin-left: 2rem;
+	background-color: #aaa;
+	border: .1rem solid #fff;
+	border-radius: 12rem;
+  display: inline-block;
+	position: relative;
+	transition: all 0.1s ease-out;
+	width: 15rem;
+	height: 7rem;
+  z-index: 2;
+  padding: .5rem 2rem ;
+}
+
+.theme__toggleButton label::after {
+	content: ' ';
+	background-color: #fff;
+	border-radius: 50%;
+	position: absolute;
+	top: 0.4rem;
+	left: .5rem;
+	transform: translateX(0);
+	transition: transform 0.3s linear;
+	width: 6rem;
+	height: 6rem;
+	z-index: 3;
+}
+
+.theme__toggleButton input {
+	visibility: hidden;
+	position: absolute;
+	z-index: 2;
+}
+
+.theme__toggleButton input:checked + label::after {
+  transform: translateX(calc(130% + .05rem));
+  background-color: var(--lightBorderColor);
+}
+
+.theme__toggleButton input:checked + label {
+  background-color: #494949;
+  border:.1rem solid var(--lightBorderColor);;
 }

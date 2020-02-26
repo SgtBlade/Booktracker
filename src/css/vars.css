@@ -1,4 +1,7 @@
 :root {
+
+
+  /*
     --color: #ed2c25;
     --Title: 'Comfortaa', avenir, arial, helvetica, sans-serif;
     --bookPostBackground: #3e3964;
@@ -15,6 +18,51 @@
     --downvoteSelected: red;
     --inputFormColor: #6a5486;
     --closeIcon: white;
+    */
+
+  
+    --Title: 'Comfortaa', avenir, arial, helvetica, sans-serif;
+    --downvoteUnselected: #ffa6a6;
+    --errorColor: red;
+    --upvoteUnselected: #c4ffc4;
+    --upvoteSelected: #00ff00;
+    --downvoteSelected: red;
+
+    
+    
+
+    --lightBorderColor: rgb(255, 145, 0);
+    --boxShadow: rgb(255, 145, 0);
+    --bookPostBackground: #333333;
+    --mainBackground: rgb(34, 34, 34);
+    --textFields: rgb(224, 127, 0);
+    --fontColor: rgb(224, 127, 0);
+    --borders: rgb(34, 34, 34);
+    --inputFormColor: rgb(241, 240, 240);
+    --closeIcon: rgb(241, 240, 240);
+    --messageColor: rgb(241, 240, 240);
+    --placeholder: rgba(228, 228, 228, 0.5);
+
+    --LightModeBackground : white;
+
+
+
+    --LightModemainBackground: white;
+    --LightModeboxShadow: rgba(0, 0, 0, 0.568);
+    --LightModebookPostBackground: #e1dde9;
+    --LightModeMessagesBackground: #d0cbda;
+
+
+    --LightModetextFields: #9da0e9;
+    --LightModelightBorderColor: #9da0e9;
+
+    --LightModeborders: rgb(34, 34, 34);
+    --LightModeinputFormColor: white;
+    --LightModecloseIcon: rgb(241, 240, 240);
+
+    --LightModemessageColor: white;
+    --LightModefontColor:  black;
+    
 
   }
   

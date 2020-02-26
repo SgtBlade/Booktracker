@@ -1,6 +1,6 @@
 import {observable, action, decorate, configure, computed} from 'mobx';
 import axios from 'axios';
-import {comment} from './comment';
+import {Comment} from './comment';
 import User from './user';
 configure({enforceActions: 'observed'});
 
@@ -29,10 +29,10 @@ class bookPost {
 
   seedComments() {
     const user = new User('MiguelDP', 1);
-    this.comments.push(new comment({ user: user, content: 'Ah mah gawd I luv dis book' }));
-    this.comments.push(new comment({ user: user, content: 'Cannot wait for this book to get released' }));
-    this.comments.push(new comment({ user: user, content: 'Oooh a new book' }));
-    this.comments.push(new comment({ user: user, content: 'Cool book' }));
+    this.comments.push(new Comment({ user: user, content: 'Ah mah gawd I luv dis book' }));
+    this.comments.push(new Comment({ user: user, content: 'Cannot wait for this book to get released' }));
+    this.comments.push(new Comment({ user: user, content: 'Oooh a new book' }));
+    this.comments.push(new Comment({ user: user, content: 'Cool book' }));
   }
 
   getBookData = async (isbn) => {
@@ -56,7 +56,7 @@ class bookPost {
 
   addComment(userData) {
     if (this.newComment.length >= 4){
-      this.comments.push(new comment({ user: userData, content: this.newComment }))
+      this.comments.push(new Comment({ user: userData, content: this.newComment }))
       this.newComment = '';
     } 
   }

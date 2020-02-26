@@ -1,4 +1,4 @@
-import {decorate, observable, action} from 'mobx';
+import {decorate} from 'mobx';
 
 class User {
 

@@ -1,6 +1,6 @@
 import {observable, action, decorate, configure} from 'mobx';
 configure({enforceActions: 'observed'});
-class comment {
+class Comment {
   constructor({user, content}) {
     this.user = user;
     this.content = content;
@@ -44,7 +44,7 @@ const STATE = {
   none: 'none'
 };
 
-decorate(comment, {
+decorate(Comment, {
   upvotes: observable,
   upvote: action,
 
@@ -55,4 +55,4 @@ decorate(comment, {
   changeState: action
 });
 
-export {comment, STATE};
+export {Comment, STATE};
