@@ -62,7 +62,7 @@ class Store {
   }
 
   setAdditionField(field, value) {
-    if(value === 'isbn') value = value.replace(/\D/g,'');
+    if(field === 'isbn') value = value.replace(/\D/g,'');
     this.additionField[field] = value;
   }
 

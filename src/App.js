@@ -47,7 +47,7 @@ function App() {
        
         <div className={`theme__toggleButton ${uistore.themeClass}`}>
           Dark mode:
-          <input onClick={()=>uistore.toggle()} type="checkbox" id="toggle" />
+          <input defaultChecked onClick={()=>uistore.toggle()} type="checkbox" id="toggle" />
           <label htmlFor="toggle"></label>
           <div className={`active-circle ${uistore.themeClass}`}></div>
         </div>
