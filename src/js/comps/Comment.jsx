@@ -13,8 +13,8 @@ const Comment = (props) => {
             <div className={`book__rightSide__messages__message--bubble  ${UIStore.themeClass}`}>
               <p className={`book__rightSide__messages__message--text ${UIStore.themeClass}`}>{comment.content}</p>
               <p className={`book__rightSide__messages__message__votes ${UIStore.themeClass}`}> 
-                <span onClick={()=>comment.upvote() } className={`book__rightSide__messages__message__votes--upvote ${comment.state === STATE.upvote ? "selectedUpvote" : '' }`}>{comment.upvotes}</span> 
-                <span onClick={()=>comment.downvote() } className={`book__rightSide__messages__message__votes--downvote ${comment.state === STATE.downvote ? "selectedDownvote" : '' }`}>{comment.downvotes}</span>
+                <span onClick={()=>comment.upvote() } className={`book__rightSide__messages__message__votes--upvote ${comment.state === STATE.upvote ? "selectedUpvote" : '' } ${UIStore.themeClass}`}>{comment.upvotes}</span> 
+                <span onClick={()=>comment.downvote() } className={`book__rightSide__messages__message__votes--downvote ${comment.state === STATE.downvote ? "selectedDownvote" : '' } ${UIStore.themeClass}`}>{comment.downvotes}</span>
               </p>
             </div> 
     </div>

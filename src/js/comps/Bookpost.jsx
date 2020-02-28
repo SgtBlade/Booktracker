@@ -17,16 +17,18 @@ const Bookpost = (props) => {
   const [viewComments, setViewComments] = useState(true);
   const toggle = () => setViewComments(!viewComments);
 
-  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+  const renderer = ({ days, hours, minutes, seconds, completed, bookisbn }) => {
+    
     if (completed) {
       return 'Out now!';
     } else {
-      let formattedString = `${days} Days ${(hours >= 10) ? hours : `0${hours}`}:${(minutes >= 10) ? minutes : `0${minutes}`}:${(seconds >= 10) ? seconds : `0${seconds}`} hours`;
+      let formattedString = `${days} Days ${(hours >= 10) ? hours : `0${hours}`}:${(minutes >= 10) ? minutes : `0${minutes}`}:${(seconds >= 10) ? seconds : `0${seconds}`} hours `;
       return formattedString;
     }
   };
-
-  const getGradient = (count) => { return {backgroundImage: `conic-gradient(rgb(224, 127, 0) ${count}%, #696caa ${count}%)`} }
+//${(UIStore.theme === 'light')? 'conic-gradient(rgb(224, 127, 0)' : 'conic-gradient(#9ea2ff)'}  
+//(UIStore.theme === THEMES.light)? `conic-gradient(rgb(224, 127, 0) : '9ea2ff'
+  const getGradient = (count) => { return {backgroundImage: `${(UIStore.theme === 'light')? 'conic-gradient(rgb(151,179,213)' : 'conic-gradient(rgb(224, 127, 0)'}  ${count}%, #696caa ${count}%)`} }
     
   return useObserver(() => (
     
@@ -35,9 +37,18 @@ const Bookpost = (props) => {
     <Bookcover bookisbn={book.isbn} uistore={UIStore} booktitle={book.title} bookdata={book.bookData} bookrelease={dateToString(book.release)} ></Bookcover>
 
     <div className={`book__rightSide ${UIStore.themeClass}`}>
-    <p onClick={toggle} className={`book__rightSide--countDown ${UIStore.themeClass}`}>
-    <Countdown date={book.release.getTime()} renderer={renderer} />
+
+    <p  className={`book__rightSide--countDown ${UIStore.themeClass}`}>
+      <span onClick={toggle}>
+        <Countdown date={book.release.getTime()} renderer={renderer}/>  
+      </span>
+      {(book.release < Date.now()) ? (
+        <span className={`book__rightSide--refresh ${UIStore.themeClass}`} onClick={e => book.getBookData(book.isbn)}> &#x21bb;</span>
+       ) : ''}
     </p>
+    
+
+
     {viewComments ? (
       <div className={`book__rightSide__messages ${UIStore.themeClass}`}>
         {book.comments.map((comment, index) => (

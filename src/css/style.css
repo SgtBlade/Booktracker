@@ -220,7 +220,11 @@ background-repeat:no-repeat;
   cursor: pointer;
   min-height: 3.4rem;
   width: 90%;
-  display: inline-block;
+  display: inline-flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
@@ -228,6 +232,22 @@ background-repeat:no-repeat;
   border-bottom: .1rem solid var(--lightBorderColor);
   padding-bottom: 1rem;
 }
+
+.book__rightSide--refresh {
+  margin-left: 1rem;
+  font-size: 2.5rem;
+  padding: .5rem;
+  border-radius: 50%;
+
+  background-color: var(--bookPostRefresh);
+	transition: all 0.12s ease-in;
+}
+
+.book__rightSide--refresh:active {
+  background-color: var(--bookPostBackground);
+}
+
+
 
 .book__rightSide__description {
   overflow: scroll;
@@ -238,6 +258,7 @@ background-repeat:no-repeat;
 }
 
 .book__rightSide__messages {
+  width: 100%;
   min-height: 21.5rem;
   overflow: scroll;
 }
@@ -280,12 +301,10 @@ background-repeat:no-repeat;
 
 .book__rightSide__messages__message__votes--upvote::before {
   content: '\25B2';
-  color: var(--upvoteUnselected);
 }
 
 .book__rightSide__messages__message__votes--downvote::after {
   content: '\25BC';
-  color: var(--downvoteUnselected);
 }
 
 .book__rightSide__messages__message__votes--downvote {

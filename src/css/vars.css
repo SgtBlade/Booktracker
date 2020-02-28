@@ -1,39 +1,15 @@
 :root {
-
-
-  /*
-    --color: #ed2c25;
     --Title: 'Comfortaa', avenir, arial, helvetica, sans-serif;
-    --bookPostBackground: #3e3964;
-    --mainBackground: #eee5f3;
-    --textFields: #d2b8df;
-    --fontColor: #e2a5fe;
-    --lightBorderColor: rgba(226, 165, 254, .6);
-    --borders: black;
-    --boxShadow: rgba(0,0,0,0.75);
-    --errorColor: red;
-    --upvoteUnselected: #c4ffc4;
-    --downvoteUnselected: #ffa6a6;
-    --upvoteSelected: #00ff00;
-    --downvoteSelected: red;
-    --inputFormColor: #6a5486;
-    --closeIcon: white;
-    */
-
-  
-    --Title: 'Comfortaa', avenir, arial, helvetica, sans-serif;
-    --downvoteUnselected: #ffa6a6;
     --errorColor: red;
     --upvoteUnselected: #c4ffc4;
     --upvoteSelected: #00ff00;
     --downvoteSelected: red;
-
-    
-    
+    --downvoteUnselected: #ffa6a6;
 
     --lightBorderColor: rgb(255, 145, 0);
     --boxShadow: rgb(255, 145, 0);
     --bookPostBackground: #333333;
+    --bookPostRefresh: #4e4e4e;
     --mainBackground: rgb(34, 34, 34);
     --textFields: rgb(224, 127, 0);
     --fontColor: rgb(224, 127, 0);
@@ -43,13 +19,18 @@
     --messageColor: rgb(241, 240, 240);
     --placeholder: rgba(228, 228, 228, 0.5);
 
+
+
+    --LightModeupvoteUnselected: #7fc77f;
+    --LightModeupvoteSelected: #02c902;
+    --LightModedownvoteSelected: red;
+    --LightModedownvoteUnselected: #cf8a8a;
+
     --LightModeBackground : white;
-
-
-
     --LightModemainBackground: white;
     --LightModeboxShadow: rgba(0, 0, 0, 0.568);
     --LightModebookPostBackground: #e1dde9;
+    --LightModebookPostRefresh: #c8c4d1;
     --LightModeMessagesBackground: #d0cbda;
 
 
@@ -65,7 +46,3 @@
     
 
   }
-  
-  @custom-media --tablet (max-width: 960px);
-  @custom-media --phone (max-width: 676px);
-  

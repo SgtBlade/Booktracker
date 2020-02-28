@@ -9,7 +9,6 @@ class UIStore {
   }
 
   toggle() {
-    console.log(this.theme);
     (this.theme === THEMES.light) ? (this.theme = THEMES.dark) : (this.theme = THEMES.light);
   }
 

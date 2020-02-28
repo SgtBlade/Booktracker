@@ -41,17 +41,19 @@ class bookPost {
       if(response.data.items)this.setBookData(response.data.items[0]);
       else this.setBookData(false);
     }, (error) => {
-      console.log(error);
+      console.log(error);//deze error is normaal enkel bij geen internet
+      this.setBookData(false);
     });
-    
   }
 
   setBookData (data) {
     this.bookData = data;
+    
     if(this.title === '' && !data) this.title = 'No title';
-    else if (this.title === '') this.title = this.bookData.volumeInfo.title
+    else if ((this.title === '' && data) || (data && this.title === 'No title')) this.title = this.bookData.volumeInfo.title;
+
     if (this.release.toString() === 'Invalid Date' && !data) this.release = new Date();
-    else if (this.release.toString() === 'Invalid Date')this.release = new Date(this.bookData.volumeInfo.publishedDate)
+    else if ((this.release.toString() === 'Invalid Date' && data) || ( (new Date()).setHours(0,0,0,0) === this.release.setHours(0,0,0,0) && data) )this.release = new Date(this.bookData.volumeInfo.publishedDate)
   }
 
   addComment(userData) {

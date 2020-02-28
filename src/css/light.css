@@ -48,6 +48,14 @@
   border-bottom: .1rem solid var(--LightModelightBorderColor);
 }
 
+.book__rightSide--refresh.lightMode {
+  background-color: var(--LightModebookPostRefresh);
+}
+
+.book__rightSide--refresh:active.lightMode {
+  background-color: var(--LightModebookPostBackground);
+}
+
 .book__rightSide__messages__message--bubble.lightMode {
   color: var(--LightModemessageColor);
   background-color: var(--LightModetextFields);
@@ -57,24 +65,8 @@
   color: var(--LightModeupvoteUnselected);
 }
 
-.book__rightSide__messages__message__votes--upvote::before.lightMode {
-  color: var(--LightModeupvoteUnselected);
-}
-
-.book__rightSide__messages__message__votes--downvote::after.lightMode {
-  color: var(--LightModedownvoteUnselected);
-}
-
 .book__rightSide__messages__message__votes--downvote.lightMode {
   color: var(--LightModedownvoteUnselected);
-}
-
-.selectedUpvote.lightMode {
-  color: var(--LightModeupvoteSelected);
-}
-
-.selectedUpvote::before.lightMode {
-  color: var(--LightModeupvoteSelected);
 }
 
 .selectedDownvote.lightMode {
