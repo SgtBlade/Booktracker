@@ -4,10 +4,6 @@ import {Comment} from './comment';
 import User from './user';
 configure({enforceActions: 'observed'});
 
-const VIEWSTATE = {
-  comments: 'comments',
-  description: 'description'
-};
 class bookPost {
 
   constructor({title, release, isbn, owned = false, bookData = null, user}) {
@@ -16,7 +12,6 @@ class bookPost {
     this.release = new Date(release);
     this.isbn = isbn;
     this.owned = owned;
-    this.view = VIEWSTATE.comments;
     this.newComment = '';
     this.stringLimit = 156;
     this.comments = [];
@@ -63,10 +58,6 @@ class bookPost {
     } 
   }
 
-  changeView() {
-    this.view === VIEWSTATE.comments ? this.view = VIEWSTATE.description : this.view = VIEWSTATE.comments;
-  }
-
   get wordCountPercentage() {
     return Math.floor((this.newComment.length/this.stringLimit)*100);
   }
@@ -102,4 +93,3 @@ decorate(bookPost, {
 });
 
 export default bookPost;
-export {VIEWSTATE}

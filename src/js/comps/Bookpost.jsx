@@ -26,8 +26,6 @@ const Bookpost = (props) => {
       return formattedString;
     }
   };
-//${(UIStore.theme === 'light')? 'conic-gradient(rgb(224, 127, 0)' : 'conic-gradient(#9ea2ff)'}  
-//(UIStore.theme === THEMES.light)? `conic-gradient(rgb(224, 127, 0) : '9ea2ff'
   const getGradient = (count) => { return {backgroundImage: `${(UIStore.theme === 'light')? 'conic-gradient(rgb(151,179,213)' : 'conic-gradient(rgb(224, 127, 0)'}  ${count}%, #696caa ${count}%)`} }
     
   return useObserver(() => (
@@ -51,7 +49,7 @@ const Bookpost = (props) => {
 
     {viewComments ? (
       <div className={`book__rightSide__messages ${UIStore.themeClass}`}>
-        {book.comments.map((comment, index) => (
+        {book.comments.map((comment, index) => ( 
           <Comment uistore={UIStore} key={`${book.isbn}${comment.date.toString()}${index}`} bookIsbn={book.isbn} commentData={comment}></Comment>
         ))}
       </div>
