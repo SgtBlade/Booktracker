@@ -12,6 +12,7 @@ class Store {
       release: '',
       isbn: ''
     }
+    this.searchIsbn = '';
     this.user = new User('MiguelDP', 1);
 
   }
@@ -26,8 +27,11 @@ class Store {
         isbn: this.additionField.isbn
       });
 
+      let returnState = true;
       if (items.length === 0) this.bookPosts.push(newBookPost);
+      else returnState = false
       this.additionField.title = this.additionField.release = this.additionField.isbn = '';
+      return returnState;
     }
   }
 
@@ -77,7 +81,17 @@ class Store {
   get releaseField() {
     return this.additionField.release;
   }
+
+  returnBookByIsbn(isbn) {
+    this.searchIsbn = isbn;
+    const result = this.BookByIsbn;
+    this.searchIsbn = '';
+    return result;
+  }
   
+  get BookByIsbn () {
+    return this.bookPosts.find(bookPost => bookPost.isbn === this.searchIsbn);
+  }
 }
 
 decorate(Store, {
@@ -90,7 +104,8 @@ decorate(Store, {
   setAdditionField: action,
   titleField: computed,
   isbnField: computed,
-  releaseField: computed
+  releaseField: computed,
+  BookByIsbn: computed
 });
 
 export default Store;

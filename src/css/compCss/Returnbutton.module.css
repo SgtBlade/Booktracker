@@ -1,0 +1,28 @@
+.Return {
+    color: var(--fontColor);
+
+    margin-top: -4rem;
+    margin-left: 1rem;
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.Return::before {
+    font-size: 3rem;
+    content: ' \2190';
+    margin-right: .5rem;
+}
+
+.Return.lightMode {
+    color: black;
+}
+
+@media screen and (max-width: 700px) { 
+
+    .Return {
+        margin-top: -3rem;
+        margin-bottom: 2rem;
+    }
+}

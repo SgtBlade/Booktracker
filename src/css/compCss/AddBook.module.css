@@ -1,0 +1,50 @@
+
+.formAtricle {
+    height: 100%;
+    color: var(--fontColor);
+}
+
+.form {
+    height: 100%;
+    margin-top: 4rem;
+    width: 80%;
+}
+
+.form__fieldset {
+    width: 70%;
+}
+
+.form.lightMode {
+    color: black;
+}
+
+.form__legend {
+    font-weight: bolder;
+    font-size: 3.6rem;
+    margin-bottom: 4rem;
+}
+
+.form__label {
+    font-size: 3.2rem;
+    display: flex;
+    flex-flow: column;
+}
+
+.form__input {
+    font-size: 3rem;
+    height: 3rem;
+    margin: 1rem 0 3rem;
+    padding: 2rem .5rem 2rem 1rem;  
+    width: 70%;
+}
+
+.form__label__text {
+    display: flex;
+    flex-flow: row;
+}
+
+.form__label__note {
+    margin-left: 1rem;
+    font-size: 1.6rem;
+    width: 10%;
+}

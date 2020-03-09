@@ -1,0 +1,104 @@
+
+.book__rightSide__messages__message {
+    margin-top: 3rem;
+  }
+  
+  .book__rightSide__messages__message__bubble {
+  
+    color: var(--messageColor);
+    background-color: var(--textFields);
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    display: inline-flex;
+    flex-flow: column;
+  
+    position: relative;
+  } 
+  
+  .book__rightSide__messages__message__text {
+    overflow-wrap: break-word;
+    word-break: break-all
+  }
+  
+  .book__rightSide__messages__message__user {
+    font-size: 1.4rem;
+    margin-left: 2rem;
+    padding-bottom: .5rem;
+  }
+  
+  .book__rightSide__messages__message:first-of-type {
+    margin-top: 1rem;
+  }
+  
+  .book__rightSide__messages__message__votes__upvote {
+    color: var(--upvoteUnselected);
+    margin-right: .5rem;
+  }
+  
+  .book__rightSide__messages__message__votes__upvote::before {
+    content: '\25B2';
+  }
+  
+  .book__rightSide__messages__message__votes__downvote::after {
+    content: '\25BC';
+  }
+  
+  .book__rightSide__messages__message__votes__downvote {
+    color: var(--downvoteUnselected);
+  }
+  
+  .selectedUpvote {
+    color: var(--upvoteSelected);
+    margin-right: .5rem;
+  }
+  
+  .selectedUpvote::before {
+    content: '\25B2';
+    color: var(--upvoteSelected);
+  }
+  
+  .selectedDownvote {
+    color: var(--downvoteSelected);
+  }
+  
+  .selectedDownvote::after {
+    content: '\25BC';
+    color: var(--downvoteSelected);
+  }
+  
+  .book__rightSide__messages__message__votes {
+    position: absolute;
+    right: 1.5rem;
+    bottom: -2.2rem;
+    cursor: pointer;
+  
+    color: white;
+  }
+
+  
+.book__rightSide__messages__message__bubble.lightMode {
+    color: var(--LightModemessageColor);
+    background-color: var(--LightModetextFields);
+  }
+  
+  .book__rightSide__messages__message__votes__upvote.lightMode {
+    color: var(--LightModeupvoteUnselected);
+  }
+  
+  .book__rightSide__messages__message__votes__downvote.lightMode {
+    color: var(--LightModedownvoteUnselected);
+  }
+  
+  .selectedDownvote.lightMode {
+    color: var(--LightModedownvoteSelected);
+  }
+  
+  .selectedDownvote::after.lightMode {
+    content: '\25BC';
+    color: var(--LightModedownvoteSelected);
+  }
+  
+  .book__rightSide__messages__message__votes.lightMode {
+    color: white;
+  }
+  

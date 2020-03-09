@@ -1,0 +1,208 @@
+ 
+.books__week__book {
+    height: 38.3rem;
+  
+    background-color: var(--bookPostBackground);
+    color: var(--fontColor);
+    padding: 2rem;
+    padding-bottom: 1rem;
+    box-shadow: .2rem .2rem 5rem .5rem var(--boxShadow);
+  
+    display: inline-grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 30rem 1fr;
+  
+    margin-right: 4rem;
+    margin-bottom: 10rem;
+    
+    cursor: pointer;
+  
+  }
+
+  .books__week__book:active {
+    cursor: progress;
+  }
+  
+  .book__rightSide {
+    width: 35rem;
+  
+    margin-left: 2rem;
+    padding-left: 1.5rem;
+    border-left: .1rem solid var(--lightBorderColor);
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+  
+    position: relative;
+  }
+  
+  .book__rightSide__countDown {
+    cursor: pointer;
+    min-height: 3.4rem;
+    width: 90%;
+    display: inline-flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+  
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+  
+    border-bottom: .1rem solid var(--lightBorderColor);
+    padding-bottom: 1rem;
+  }
+  
+  .book__rightSide__refresh {
+    margin-left: 1rem;
+    font-size: 2.5rem;
+    padding: .5rem;
+    border-radius: 50%;
+  
+    background-color: var(--bookPostRefresh);
+      transition: all 0.12s ease-in;
+  }
+  
+  .book__rightSide__refresh:active {
+    background-color: var(--bookPostBackground);
+  }
+  
+  
+  
+  .book__rightSide__description {
+    overflow: scroll;
+    padding-top: .5rem;
+    padding-bottom: 1rem;
+    font-size: 2rem;
+    min-height: 24.5rem;
+  }
+  
+  .book__rightSide__check {
+    position: absolute;
+    right: -3.5rem;
+    top: -3.5rem;
+    padding: 1rem;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 4rem;
+    background-color: var(--textFields);
+    border: .1rem solid var(--bookPostBackground);
+    cursor: pointer;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .book__rightSide__check__check {
+    display: inline-block;
+    transform: rotate(45deg);
+    height: 3rem;
+    width: 1.5rem;
+    border-bottom: .5rem solid var(--closeIcon);
+    border-right: .5rem solid var(--closeIcon);
+  }
+  
+  .book__rightSide__check__cross::before, .book__rightSide__check__cross::after {
+    position: absolute;
+    top: .7rem;
+    right: 2.2rem;
+    content: ' ';
+    height: 3.5rem;
+    width: .5rem;
+    background-color: var(--closeIcon);
+  }
+  
+  .book__rightSide__check__cross::before {
+    transform: rotate(45deg);
+  }
+  
+  .book__rightSide__check__cross::after {
+    transform: rotate(-45deg);
+  }
+   
+
+  
+.books__week__title.lightMode {
+    border-bottom: .3rem solid var(--LightModeborders);
+    border-left: .4rem solid var(--LightModeborders);
+  }
+  
+  
+  .books__week__book.lightMode {
+    background-color: var(--LightModebookPostBackground);
+    color: var(--LightModefontColor);
+    box-shadow: .2rem .2rem 5rem .5rem var(--LightModeboxShadow);
+  }
+   
+  .book__leftSide .book__leftSide__info.lightMode {
+    background-color: rgba(0, 0, 0, 0.48);
+  }
+  
+  .book__leftSide .book__leftSite__hover.lightMode {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  
+  .book__rightSide.lightMode {
+    border-left: .1rem solid var(--LightModelightBorderColor);
+  }
+  
+  .book__rightSide__countDown.lightMode {
+    border-bottom: .1rem solid var(--LightModelightBorderColor);
+  }
+  
+  .book__rightSide__refresh.lightMode {
+    background-color: var(--LightModebookPostRefresh);
+  } 
+  
+  .book__rightSide__refresh:active.lightMode {
+    background-color: var(--LightModebookPostBackground);
+  }
+  
+  
+  .book__rightSide__check.lightMode {
+    background-color: var(--LightModetextFields);
+    border: .1rem solid var(--LightModebookPostBackground);
+  }
+  
+  .book__rightSide__check__check.lightMode {
+    border-bottom: .5rem solid var(--LightModecloseIcon);
+    border-right: .5rem solid var(--LightModecloseIcon);
+  }
+  
+  .book__rightSide__check__cross::before, .book__rightSide__check__cross::after.lightMode {
+    background-color: var(--LightModecloseIcon);
+  }
+
+
+@media screen and (max-width: 700px) {
+  .books__week__book {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 90%;
+    margin: 1rem 0 4rem 0;
+    padding: 2rem 1rem .5rem 1rem;
+  }
+
+.book__rightSide {
+  width: 100%;
+  border-left: none;
+  margin-left: 0;
+  border-left: none !important;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+ 
+.book__rightSide__check {
+  position: absolute;
+  top: 10%;
+  transform: scale(1.5);
+}
+
+}
+

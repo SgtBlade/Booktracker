@@ -1,24 +1,30 @@
-import React  from "react";
+import React,{ useContext }  from "react";
+import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
+import style from '../../css/compCss/Bookcover.module.css';
+import { storeContext } from "../stores/context";
 
-const Bookcover = (props) => {
+const Bookcover = ({bookisbn, bookdata, booktitle, bookrelease}) => {
   
-    const isbn = props.bookisbn;
-    const data = props.bookdata;
-    const title = props.booktitle;
-    const release = props.bookrelease;
-    const UIStore = props.uistore;
-    
+  const {uiStore} = useContext(storeContext);
+
+     
   return useObserver (() => (
-    <div className={`book__leftSide ${UIStore.themeClass}`} onClick={() => {navigator.clipboard.writeText(isbn)}}>
-      <img className={`book__leftSide--image ${UIStore.themeClass}`} src={  (data) ? data.volumeInfo.imageLinks.thumbnail : './assets/img/placeholder.jpg'} alt={title + ' image'} height="300" width="200" />
-      <div className={`book__leftSite--hover ${UIStore.themeClass}`} />
-      <div className={`book__leftSide--info ${UIStore.themeClass}`}>
-        <h2>{title}</h2>
-        <p>{release}</p>
+    <div className={`${style.book__leftSide} ${uiStore.themeClass}`} onClick={() => {navigator.clipboard.writeText(bookisbn)}}>
+      <img className={`${style.book__leftSide__image} ${uiStore.themeClass}`} src={  (bookdata) ? bookdata.volumeInfo.imageLinks.thumbnail : './assets/img/placeholder.jpg'} alt={booktitle + ' image'} height="300" width="200" />
+      <div className={`${style.book__leftSite__hover} ${uiStore.themeClass}`} />
+      <div className={`${style.book__leftSide__info} ${style[uiStore.themeClass]}`}>
+        <h2>{booktitle}</h2>
+        <p>{bookrelease}</p>
       </div>
     </div>
   ));
+};
+
+Bookcover.propTypes = {
+  bookisbn: PropTypes.string.isRequired,
+  booktitle: PropTypes.string.isRequired,
+  bookrelease: PropTypes.string.isRequired
 };
 
 export default Bookcover;

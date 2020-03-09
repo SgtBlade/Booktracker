@@ -1,84 +1,85 @@
-import React, { useState }  from "react";
+import React, { useState, useContext}  from "react";
+import PropTypes from "prop-types";
 import Countdown from 'react-countdown-now';
 import { useObserver } from "mobx-react-lite";
-import Comment from "./Comment.jsx";
 import Bookstatus from "./BookOwnerstatus.jsx";
 import Bookcover from "./Bookcover.jsx";
+import BookpostMessages from "./BookpostMessages.jsx";
+import style from '../../css/compCss/Bookpost.module.css';
+import { storeContext } from "../stores/context";
 
 
-const Bookpost = (props) => {
+const Bookpost = ({bookData, onMouseDown}) => {
   
-  const book = props.bookData;  
-  const store = props.store;  
-  const dateToString = props.dateConverter;  
-  const handleSubmit = props.handler;  
-  const UIStore = props.uistore;
-
+  
+  const {store, uiStore} = useContext(storeContext);
   const [viewComments, setViewComments] = useState(true);
   const toggle = () => setViewComments(!viewComments);
 
-  const renderer = ({ days, hours, minutes, seconds, completed, bookisbn }) => {
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
     
-    if (completed) {
+    if (completed) { 
       return 'Out now!';
     } else {
       let formattedString = `${days} Days ${(hours >= 10) ? hours : `0${hours}`}:${(minutes >= 10) ? minutes : `0${minutes}`}:${(seconds >= 10) ? seconds : `0${seconds}`} hours `;
       return formattedString;
     }
   };
-  const getGradient = (count) => { return {backgroundImage: `${(UIStore.theme === 'light')? 'conic-gradient(rgb(151,179,213)' : 'conic-gradient(rgb(224, 127, 0)'}  ${count}%, #696caa ${count}%)`} }
+
+  const dateToString = (date, character = '/', reverse = true) => {
+    let dd = date.getDate();
+    let mm = date.getMonth()+1; 
+    let yyyy = date.getFullYear();
+    if(dd<10) dd='0'+dd;
+    if(mm<10) mm='0'+mm;
+    
+    let formatted = '';
+    (reverse) ? formatted = dd+character+mm+character+yyyy : formatted = yyyy+character+mm+character+dd;
+    return  formatted;
+  }
     
   return useObserver(() => (
     
-    <article className={`books__week--book ${UIStore.themeClass}`}>
+    <article onMouseDown={e => onMouseDown(e, bookData.isbn)} className={`${style.books__week__book} ${style[uiStore.themeClass]}`}>
 
-    <Bookcover bookisbn={book.isbn} uistore={UIStore} booktitle={book.title} bookdata={book.bookData} bookrelease={dateToString(book.release)} ></Bookcover>
+    <Bookcover bookisbn={bookData.isbn} booktitle={bookData.title} bookdata={bookData.bookData} bookrelease={dateToString(bookData.release)} ></Bookcover>
 
-    <div className={`book__rightSide ${UIStore.themeClass}`}>
+    <div className={`${style.book__rightSide} ${style[uiStore.themeClass]}`}>
 
-    <p  className={`book__rightSide--countDown ${UIStore.themeClass}`}>
+    <p  className={`${style.book__rightSide__countDown} ${style[uiStore.themeClass]}`}>
       <span onClick={toggle}>
-        <Countdown date={book.release.getTime()} renderer={renderer}/>  
+        <Countdown date={bookData.release.getTime()} renderer={renderer}/>  
       </span>
-      {(book.release < Date.now()) ? (
-        <span className={`book__rightSide--refresh ${UIStore.themeClass}`} onClick={e => book.getBookData(book.isbn)}> &#x21bb;</span>
+      {(bookData.release < Date.now() && !bookData) ? (
+        <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => bookData.getBookData(bookData.isbn)}> &#x21bb;</span>
        ) : ''}
     </p>
     
 
-
     {viewComments ? (
-      <div className={`book__rightSide__messages ${UIStore.themeClass}`}>
-        {book.comments.map((comment, index) => ( 
-          <Comment uistore={UIStore} key={`${book.isbn}${comment.date.toString()}${index}`} bookIsbn={book.isbn} commentData={comment}></Comment>
-        ))}
-      </div>
+      <BookpostMessages bookData={bookData}></BookpostMessages>
     ) : (
-      <p className={`book__rightSide__description ${UIStore.themeClass}`}>{  (book.bookData) ? book.bookData.volumeInfo.description : ''}</p>
+      <p className={`${style.book__rightSide__description} ${style[uiStore.themeClass]}`}>{  (bookData.bookData) ? bookData.bookData.volumeInfo.description : ''}</p>
     )}
 
-    {viewComments ? (
-      <form onSubmit={e => handleSubmit(e, 'comment', book)} className={`book__rightSide__form ${UIStore.themeClass}`}>
-              <input value={book.newCommentField} onChange={e => book.setComment(e.currentTarget.value)} className={`book__rightSide__form--input ${UIStore.themeClass}`} id={`Form${book.isbn}`} name="content" placeholder="Typ een bericht" />
-              <div className={`book__rightSide__form--counter ${UIStore.themeClass}`} style={getGradient(book.wordCountPercentage)}>
-                <p className={`book__rightSide__form--counter--child ${UIStore.themeClass}`}></p>
-              </div>
-      </form>
-    ) : ('')}
 
-    <div onClick={()=>store.removeBookPost(book) } className={`book__rightSide__check ${UIStore.themeClass}`}>
-       <span className={`book__rightSide__check--check hidden ${UIStore.themeClass}`} />
-       <span className={`book__rightSide__check--cross ${UIStore.themeClass}`} />
+    <div onClick={()=>store.removeBookPost(bookData) } className={`${style.book__rightSide__check} ${style[uiStore.themeClass]}`}>
+       <span className={`${style.book__rightSide__check__check} hidden ${style[uiStore.themeClass]}`} />
+       <span className={`${style.book__rightSide__check__cross} ${style[uiStore.themeClass]}`} />
     </div>
 
     </div>
-      <Bookstatus uistore={UIStore} setowned={()=>book.setOwned()} status={book.owned} isbn={book.isbn}></Bookstatus>
+      <Bookstatus setowned={()=>bookData.setOwned()} status={bookData.owned} isbn={bookData.isbn}></Bookstatus>
       
   </article>
 
 
 
   ));
+};
+
+Bookpost.propTypes = {
+  bookData: PropTypes.object.isRequired
 };
 
 export default Bookpost;

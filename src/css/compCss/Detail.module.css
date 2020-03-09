@@ -1,0 +1,130 @@
+
+
+.book {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    color: var(--fontColor);
+}
+
+.book__secondaryInfo {
+    margin-top: 2rem;
+    border-top: .2rem solid var(--lightBorderColor);
+    grid-column: 1 / span 2;
+}
+
+.book__cover{
+    align-self: center;
+    justify-self: center;
+}
+
+.book__primaryInfo{
+    font-size: 2.2rem;
+}
+
+.book__primaryInfo__title{
+    font-size: 4rem;
+    font-weight: bold;
+
+}
+
+.book__primaryInfo__subtitle{
+    font-size: 2.6rem;
+    font-weight: 500;
+}
+
+.book__primaryInfo__authorsWrap{
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.book__primaryInfo__authorsList{
+    margin: .5rem 0 2rem 4rem;
+    list-style-type: circle;
+}
+
+.book__primaryInfo__authorsList__item{
+    padding: .2rem;
+}
+
+.book__primaryInfo__date{
+    padding-bottom: 1rem;
+}
+
+.book__primaryInfo__countdown{
+    font-size: 3.2rem;
+    padding: 1rem 0;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.book__primarInfo__isbn{
+
+    cursor: pointer;
+}
+
+.book__secondaryInfo{
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+
+}
+
+.book__secondaryInfo__title{
+
+}
+
+.book__secondaryInfo__description{
+    margin-top: 1rem;
+    font-size: 1.8rem;
+}
+
+.book__secondaryInfo__storeLinks{
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+}
+
+
+
+
+.book.lightMode {
+    color: black;
+    background-color: var(--LightModebookPostBackground);
+}
+
+
+.book__secondaryInfo.lightMode {
+    border-top: .2rem solid var(--LightModelightBorderColor);
+}
+
+@media screen and (max-width: 1080px) { 
+
+    .book__primaryInfo {
+        padding-left: 2rem;
+    }
+
+}
+
+@media screen and (max-width: 700px) { 
+
+    .book {
+        display: flex;
+        flex-flow: column;
+        padding: 4rem 0;
+    }
+
+    .book__primaryInfo {
+        padding-top: 3rem;
+    }
+
+    .book__secondaryInfo__description {
+        line-height: 1.4;
+        
+    }
+}

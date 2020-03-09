@@ -1,0 +1,145 @@
+
+.theme__toggleButton {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    width: 100%;
+    color: var(--lightBorderColor);
+    font-weight: bold;
+    font-size: 5rem;
+  
+    padding: 2rem 1rem 4rem 2rem;
+    margin-bottom: 5rem;
+    border-bottom: .1rem solid var(--lightBorderColor);
+  }
+
+  .theme__switch {
+    grid-column: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .theme__toggleButton label {
+    margin-left: 2rem;
+      background-color: #aaa;
+      border: .1rem solid #fff;
+      border-radius: 12rem;
+    display: inline-block;
+      position: relative;
+      transition: all 0.1s ease-out;
+      width: 15rem;
+      height: 7rem;
+    z-index: 2;
+    padding: .5rem 2rem ;
+  } 
+  
+  .theme__toggleButton label::after {
+      content: ' ';
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 0.4rem;
+      left: .5rem;
+      transform: translateX(0);
+      transition: transform 0.3s linear;
+      width: 6rem;
+      height: 6rem;
+      z-index: 3;
+  }
+  
+  .theme__toggleButton input {
+      visibility: hidden;
+      position: absolute;
+      z-index: 2;
+  }
+  
+  .theme__toggleButton input:checked + label::after {
+    transform: translateX(calc(130% + .05rem));
+    background-color: var(--lightBorderColor);
+  }
+  
+  .theme__toggleButton input:checked + label {
+    background-color: #494949;
+    border:.1rem solid var(--lightBorderColor);
+  }
+
+.theme__toggleButton.lightMode {
+  color: white;
+}
+
+.theme__toggleButton.lightMode {
+  color: var(--LightModefontColor);
+  border-bottom: .1rem solid var(--LightModefontColor);;
+}
+
+.plus__button {
+
+	border: .2rem solid var(--lightBorderColor);
+	background-color: #494949;;
+	font-size: 2rem;
+	height: 8rem;
+	width: 8rem;
+	border-radius: 1rem;
+	position: relative;
+}
+
+.plus__button::after,
+.plus__button::before {
+  content: "";
+  display: block;
+  background-color: var(--lightBorderColor);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.plus__button::before {
+  height: 3rem;
+  width: .5rem;
+}
+
+.plus__button::after {
+  height: .5rem;
+  width: 3rem;
+}
+
+.plus__button.lightMode {
+  background-color: #aaa;
+  border-color: black;
+}
+
+.plus__button.lightMode::after,
+.plus__button.lightMode::before{
+  background-color: var(--LightModecloseIcon);
+}
+
+@media screen and (max-width: 600px) {
+
+  .theme__toggleButton {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem
+  }
+
+  .theme__switch {
+    font-size: 4rem;
+    margin-top: 2rem;
+    transform: scale(.5);
+  }
+
+  .theme__toggleButton label::after {
+    top: 0.4rem;
+    left: 0.5rem;
+    width: 6rem;
+    height: 6rem;
+}
+
+.theme__toggleButton input:checked + label::after {
+  transform: translateX(calc(130% + 0rem));
+}
+
+
+}

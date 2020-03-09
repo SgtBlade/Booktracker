@@ -1,27 +1,33 @@
-import React  from "react";
+import React,{ useContext }  from "react";
+import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
-import Booklinks from "./Booklinks";
+import Booklinks from "./Bookslinks.jsx";
+import style from '../../css/compCss/OwnerStatus.module.css';
+import { storeContext } from "../stores/context";
 
-const BookOwnerStatus = (props) => {
-  
-    const status = props.status;
-    const setOwned = props.setowned;
-    const isbn = props.isbn;
-    const UIStore = props.uistore;
+const BookOwnerStatus = ({status, setowned, isbn}) => {
+
+    const {uiStore} = useContext(storeContext);
     
   return useObserver(()=>(
       <>
     {status ? (
-        <div onClick={setOwned } className={`book__links book__links--owned ${UIStore.themeClass}`}>
-          <p className={`book__links--statusOwned ${UIStore.themeClass}`}>owned</p>
+        <div onClick={setowned } className={`${style.book__links} ${style[uiStore.themeClass]}`}>
+          <p className={`${style.book__links__statusOwned} ${style[uiStore.themeClass]}`}>owned</p>
         </div>
           ) 
           : (
-            <Booklinks uistore={UIStore} bookisbn={isbn} setowned={setOwned}></Booklinks>
+            <Booklinks bookisbn={isbn} setowned={setowned}/>
           )}
         </>
 
   ));
+};
+
+BookOwnerStatus.propTypes = {
+  status: PropTypes.bool.isRequired,
+  setowned: PropTypes.func.isRequired,
+  isbn: PropTypes.string.isRequired
 };
 
 export default BookOwnerStatus;

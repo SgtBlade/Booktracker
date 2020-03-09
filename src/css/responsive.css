@@ -5,89 +5,6 @@
         padding: 1rem 2rem 1rem 1rem !important;
     }
 
-    .books__week--book {
-      display: flex;
-      flex-flow: column;
-      justify-content: center;
-      align-items: center;
-      height: auto;
-      width: 90%;
-      margin: 1rem 0 4rem 0;
-      padding: 2rem 1rem .5rem 1rem;
-    }
-  
-    .book__rightSide__messages {
-        margin-top: 1rem;
-        width: 90%;
-        max-height: 32rem;  
-        display: flex;
-        flex-flow: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        text-align: left;
-    }
-
-    .book__rightSide {
-      width: 100%;
-      border-left: none;
-      margin-left: 0;
-      border-left: none !important;
-      padding: 2rem 1rem;
-      text-align: center;
-    }
-  
-    .book__rightSide__check {
-        position: absolute;
-        top: 10%;
-        transform: scale(1.5);
-    }
-
-    .book__links {
-        display: flex;
-        flex-flow: row wrap;
-    }
-
-    .book__links--statusUnowned {
-        position: static;
-        width: 100%;
-        text-align: center;
-        padding: 1rem;
-        font-size: 1.8rem;
-    }
-
-    .book__rightSide__form {
-        width: 90%;
-    }
-
-    .books__newBook  {
-        padding: 2rem;
-        width: 90%;
-        height: auto;
-    }
-
-    .books__newBook__form {
-        display: flex;
-        flex-flow: column;
-    }
-
-    .book__rightSide__form--input {
-        width: 100%;
-        height: 100%;
-        max-width: 100%;
-    }
-
-    .books__newBook__form--submit {
-    margin-top: 4rem;
-    width: 100%;
-    height: 8rem;
-    background-size: 15% 1.5rem,1.5rem 75%;
-    }
-
-    .books__newBook__form--submit.lightMode {
-        margin-top: 1rem;
-        background-size: 15% 1.5rem,1.5rem 75%;
-      }
-
   }
 
 
@@ -98,7 +15,7 @@
 .book__rightSide__messages, .book__rightSide__form {
     display: none;
   }
-  .book__rightSide--countDown {
+  .book__rightSide__countDown {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -117,7 +34,7 @@
     justify-content: center;
     align-items: center;
   }
-  .books__week--book {
+  .books__week__book {
     padding-bottom: 0;
   }
 

@@ -1,4 +1,4 @@
-import {observable, action, decorate, configure, computed} from 'mobx';
+import {observable, action, decorate, configure} from 'mobx';
 import axios from 'axios';
 import {Comment} from './comment';
 import User from './user';
@@ -12,8 +12,6 @@ class bookPost {
     this.release = new Date(release);
     this.isbn = isbn;
     this.owned = owned;
-    this.newComment = '';
-    this.stringLimit = 156;
     this.comments = [];
     this.user = user;
   }
@@ -51,24 +49,8 @@ class bookPost {
     else if ((this.release.toString() === 'Invalid Date' && data) || ( (new Date()).setHours(0,0,0,0) === this.release.setHours(0,0,0,0) && data) )this.release = new Date(this.bookData.volumeInfo.publishedDate)
   }
 
-  addComment(userData) {
-    if (this.newComment.length >= 4){
-      this.comments.push(new Comment({ user: userData, content: this.newComment }))
-      this.newComment = '';
-    } 
-  }
-
-  get wordCountPercentage() {
-    return Math.floor((this.newComment.length/this.stringLimit)*100);
-  }
-
-  get newCommentField() {
-    return this.newComment;
-  }
-
-  setComment(value) {
-    if(value.length > this.stringLimit) this.newComment = value.substring(0, this.stringLimit);
-    else this.newComment = value;
+  addComment(userData, comment) {
+    if (comment.length >= 4)this.comments.push(new Comment({ user: userData, content: comment }))
   }
 }
 
@@ -86,10 +68,7 @@ decorate(bookPost, {
   changeView: action,
 
   newComment: observable,
-  setComment: action,
-  wordCountPercentage: computed,
-  newCommentField: computed
-
+  setComment: action
 });
 
 export default bookPost;

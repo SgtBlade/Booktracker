@@ -1,96 +1,72 @@
 //Library stuff
-import React from 'react';
+import React,{ useContext } from 'react';
 import { useObserver } from "mobx-react-lite";
+import { Switch, Route, Redirect } from "react-router-dom";
 //Components
-import Bookpost from "./js/comps/Bookpost";
-//Styles
+import Home from "./js/comps/Home.jsx";
+import Add from "./js/comps/AddBook.jsx";
+import Detail from "./js/comps/Detail.jsx";
+import ThemeHeader from "./js/comps/ThemeHeader.jsx";
+//Base styles
 import './css/reset.css';
 import './css/vars.css';
 import './css/style.css';
 import './css/light.css';
 import './css/responsive.css';
 //Classes
-import Store from './js/stores/Store';
-import UIStore from './js/stores/UIStore.js';
+import { storeContext } from "./js/stores/context";
 
-
-const store = new Store();
-const uistore = new UIStore();
-store.seedbookPosts();
 
 function App() {
 
-    
-  const dateToString = (date, character = '/', reverse = true) => {
-    let dd = date.getDate();
-    let mm = date.getMonth()+1; 
-    let yyyy = date.getFullYear();
-    if(dd<10) dd='0'+dd;
-    if(mm<10) mm='0'+mm;
-    
-    let formatted = '';
-    (reverse) ? formatted = dd+character+mm+character+yyyy : formatted = yyyy+character+mm+character+dd;
-    return  formatted;
-  }
+      
+  const {uiStore} = useContext(storeContext);
 
+  //GELIEVE TE LEZEN VOOR VERBTEREING WEEK 4
+  //COMMENTAAR VAN WEEK 3
 
-  const handleSubmit = (e, type, object = null) => {
-    e.preventDefault();
-    if(type === 'comment')object.addComment(store.user);
-    else if(type === 'book')store.addbookPost();
-  }
+  //COMMENTAAR: Je App.js is nog te uitgebreid, nog meer opdelen in logische componenten.
+  //REAC: App.js opgesplitst samen met enkele andere componenten
 
+  //COMMENTAAR: Hou je handleSubmit functies in je je components zelf, nu geef je de handler mee vanuit de app en begin je met if / else / switch / case constructies te zitten.
+  //REAC: Verplaatst
+
+  //COMMENTAAR: Verzorg je naamgeving variabelen (const UIStore = props.uiStore moet uiStore zijn).
+  //REAC: Hernoemt naar uiStore (ik verkier camelCase)
+
+  //COMMENTAAR: Je hernoemt een deel variabelen die binnenkomen als props, waarom? Je kan destructuren wat je nodig hebt.
+  //REAC: Ik doe dit omdat ik het overzichtelijker vind (heb het wel aangepast)
+
+  //COMMENTAAR: Kijk om ook useState te gebruiken voor je comment Form / input.
+  //REAC: Done
+
+  //COMMENTAAR: Ik mis PropTypes in je Bookpost!
+  //REAC: Fixed
+
+  //OPMERKING: Ik heb mijn css files afgezonderd van mijn jsx files omdat ik liever css bij css houd en js bij js.
+
+  //HOLD OP EEN POST OM NAAR DETAIl PAGINA TE GAAN
   return useObserver(() => (
-    <div className={`contentWrapper ${uistore.themeClass}`}>
-    <section className={`books__week ${uistore.themeClass}`}>
-        <h2 className={`books__week--title ${uistore.themeClass} hidden`}>Books</h2>
-       
-        <div className={`theme__toggleButton ${uistore.themeClass}`}>
-          Dark mode:
-          <input defaultChecked onClick={()=>uistore.toggle()} type="checkbox" id="toggle" />
-          <label htmlFor="toggle"></label>
-          <div className={`active-circle ${uistore.themeClass}`}></div>
-        </div>
-        {store.bookPosts.map((book) => (
-          <Bookpost uistore={uistore} dateConverter={dateToString} handler={handleSubmit} key={`${book.isbn}`}  bookData={book} store={store}></Bookpost>
-        ))}
+    <div className={`contentWrapper ${uiStore.themeClass}`}>
+      <ThemeHeader/>
+      <Switch>
+          <Route path="/detail/:id">
+            <Detail /> 
+          </Route>
 
+          <Route path="/add">
+            <Add />
+          </Route>
 
-    <article className={`books__newBook ${uistore.themeClass}`}>
-      <h2>New book</h2>
-      <form onSubmit={e => handleSubmit(e, 'book')} className={`books__newBook__form ${uistore.themeClass}`}>
-        <label className={`books__newBook__form--label ${uistore.themeClass}`} htmlFor="bookTitle">
-          Title:
-          <input 
-          value={store.titleField}
-          onChange={e => store.setAdditionField("title", e.currentTarget.value)} 
-          className={`book__rightSide__form--input  ${uistore.themeClass}`} name="bookTitle" id="bookTitle" />
-          <span className={`books__newBook__form--label--error ${uistore.themeClass} hidden`}>Title is too short or empty</span>
-        </label>
+          <Route path="/home">
+            <Home/>
+          </Route>
 
-        <label className={`books__newBook__form--label ${uistore.themeClass}`} htmlFor="release">
-          Release:
-          <input
-          value={store.releaseField}
-          onChange={e => store.setAdditionField("release", e.currentTarget.value)} 
-           type="date" className={`book__rightSide__form--input  ${uistore.themeClass}`} name="release" id="release" 
-            min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}></input>
-            <span className={`books__newBook__form--label--error ${uistore.themeClass} hidden`}>There is an issue with the date</span>
-        </label>
+          <Route>
+          <Redirect to="/home"/>
+          </Route>
 
-        <label className={`books__newBook__form--label ${uistore.themeClass}`} htmlFor="isbn">
-          ISBN:
-          <input 
-          value={store.isbnField} 
-          onChange={e => store.setAdditionField("isbn", e.currentTarget.value)} 
-          type="text" className={`book__rightSide__form--input  ${uistore.themeClass}`} name="isbn" id="isbn" />
-          <span className={`books__newBook__form--label--error ${uistore.themeClass} hidden`}>ISBN not found</span>
-        </label>
-
-        <input className={`books__newBook__form--submit ${uistore.themeClass}`} type="submit"></input>
-      </form>
-    </article>
-      </section>
+        </Switch>
     </div>
   ));
 }

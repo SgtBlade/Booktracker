@@ -75,3 +75,12 @@ Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig l
 ➔PropTypes voorzien \
 ➔Store doorgeven via props \
 ➔Store opsplitsen in DataStore & UiStore
+
+//WEEK4
+➔ Implementeer React Router
+    ◆ Minstens
+        ● Switch
+        ● list / add / detail (dus: via parameters)
+➔ Maak gebruik van css modules
+    ◆ Elk component zijn eigen stylesheet
+➔ Store(s) via context

@@ -1,0 +1,60 @@
+
+.book__links { 
+    grid-column: span 2;
+    border-top: .1rem solid var(--lightBorderColor);
+    margin-top: 1rem;
+    padding-top: 1rem;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+  }
+  
+  .book__links__owned {
+    cursor: pointer;
+  }
+  
+  .book__links a {
+    margin: 0 1rem;
+  }
+
+
+.book__links p {
+    cursor: pointer;
+  }
+  
+  .book__links__statusOwned {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2.2rem;
+  }
+  
+  .book__links__statusUnowned {
+    font-size: 1.6rem;
+    justify-self: flex-end;
+    position: absolute;
+    right: 0; /* justify self gaat niet, ik denk dat dit te maken heeft met oude browser support */
+  }
+
+.book__links.lightMode {
+    border-top: .1rem solid var(--LightModelightBorderColor);
+  }
+
+
+@media screen and (max-width: 700px) {
+
+  .book__links {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.book__links__statusUnowned {
+    position: static;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.8rem;
+}
+}

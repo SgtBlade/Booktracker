@@ -1,0 +1,19 @@
+
+.books__week__title {
+    padding: 1rem;
+    font-size: 3rem;
+    border-bottom: .3rem solid var(--borders);
+    border-left: .4rem solid var(--borders);
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+  
+  .books__week {
+    margin-bottom: 3rem;
+    font-size: 1.8rem;
+  
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  
