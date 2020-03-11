@@ -1,15 +1,16 @@
-import React, { useState, useContext}  from "react";
+import React, { useState, useContext, useRef, useEffect}  from "react";
 import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
+import {autorun} from 'mobx';
 import Comment from "./Comment.jsx";
 import style from '../../css/compCss/BookpostMessages.module.css';
 import { storeContext } from "../stores/context";
 
 
-const BookpostMessages = ({bookData}) => {
+const BookpostMessages = ({book}) => {
 
   const {store, uiStore} = useContext(storeContext);
-  const stringLimit = 156; 
+  const stringLimit = 156;
 
   const [commentText, setCommentText] = useState('');
   const handleInput = (value) => {
@@ -27,17 +28,29 @@ const BookpostMessages = ({bookData}) => {
     const count = Math.floor((commentText.length/stringLimit)*100);
     return {backgroundImage: `${(uiStore.theme === 'light')? 'conic-gradient(rgb(151,179,213)' : 'conic-gradient(rgb(224, 127, 0)'}  ${count}%, #696caa ${count}%)`} 
   }
-    
+
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => messagesEndRef.current.scrollIntoView({block: 'end', behavior: 'smooth'});
+
+  useEffect(
+    () =>
+      autorun(() => {
+        scrollToBottom();
+      })
+  );  
+
+
   return useObserver(() => (
       <>
-      <div className={`${style.book__rightSide__messages} ${style[uiStore.themeClass]}`}>
-        {bookData.comments.map((comment, index) => ( 
-          <Comment key={`${bookData.isbn}${comment.date.toString()}${index}`} bookIsbn={bookData.isbn} commentData={comment}></Comment>
+      <div className={`${style.book__rightSide__messages} ${style[uiStore.themeClass]}`} >
+        {book.comments.map((comment, index) => ( 
+          <Comment key={`${book.isbn}${comment.date.toString()}${index}`} commentData={comment}/>
         ))}
+        <div className={`${style.book__rightSide__emptyMessage}`} ref={messagesEndRef}/>
       </div>
-      <form onSubmit={e => handleSubmit(e, bookData)} className={`${style.book__rightSide__form} ${style[uiStore.themeClass]}`}>
-        <input value={commentText} onChange={e => handleInput(e.currentTarget.value)} className={`${style.book__rightSide__form__input} ${style[uiStore.themeClass]}`} id={`Form${bookData.isbn}`} name="content" placeholder="Typ een bericht" />
-        <div className={`${style.book__rightSide__form__counter} ${style[uiStore.themeClass]}`} style={getGradient(bookData.wordCountPercentage)}>
+      <form onSubmit={e => handleSubmit(e, book)} className={`${style.book__rightSide__form} ${style[uiStore.themeClass]}`}>
+        <input value={commentText} onChange={e => handleInput(e.currentTarget.value)} className={`${style.book__rightSide__form__input} ${style[uiStore.themeClass]}`} id={`Form${book.isbn}`} name="content" placeholder="Typ een bericht" />
+        <div className={`${style.book__rightSide__form__counter} ${style[uiStore.themeClass]}`} style={getGradient(book.wordCountPercentage)}>
           <p className={`${style.book__rightSide__form__counter__child} ${style[uiStore.themeClass]}`}></p>
         </div>
       </form>
@@ -45,7 +58,7 @@ const BookpostMessages = ({bookData}) => {
   ));
 };
 BookpostMessages.propTypes = {
-  bookData: PropTypes.object.isRequired
+  book: PropTypes.object.isRequired
 };
 
 export default BookpostMessages;

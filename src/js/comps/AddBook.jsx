@@ -8,8 +8,6 @@ import SystemMessage from './SystemMessage';
 const AddBook = () => {
 
   const {store, uiStore} = useContext(storeContext);
-
-
   const [addState, setState] = useState(undefined);
 
   const handleSubmit = (e) => {
@@ -33,9 +31,8 @@ const AddBook = () => {
   return useObserver(() => (
     <article className={`${style.formAtricle} ${uiStore.themeClass}`}>
     <Returnbutton/>
-
-    {addState === false ? <SystemMessage positive={false} message={`This book is already in your list`}/> 
-    : (addState === true) ? <SystemMessage positive={true} message={`The book has been added`}/>  : ''}
+    {addState === false ? <SystemMessage positiveMessage={false} warningMessage={`This book is already in your list`}/> 
+    : (addState === true) ? <SystemMessage positiveMessage={true} warningMessage={`The book has been added`}/>  : ''}
 
       <form className={`${style.form} ${uiStore.themeClass}`} onSubmit={e => handleSubmit(e)}>
         <fieldset className={`${style.form__fieldset} ${uiStore.themeClass}`}>

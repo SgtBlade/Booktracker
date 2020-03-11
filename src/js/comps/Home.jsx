@@ -24,7 +24,7 @@ const Home = () => {
     <section onMouseUp={e => mouseUp(e)}  className={`${style.books__week} ${style[uiStore.themeClass]}`}>
         <h2 className={`${style.books__week__title} ${style[uiStore.themeClass]} hidden`}>Books</h2>
         {store.bookPosts.map((book) => (
-          <Bookpost onMouseDown={(e, id) => mouseDown(e, id)}  key={`${book.isbn}`}  bookData={book}></Bookpost>
+          <Bookpost onMouseDown={(e, id) => mouseDown(e, id)}  key={`${book.isbn}`}  book={book}></Bookpost>
         ))}
       <NewBook/>
       </section>

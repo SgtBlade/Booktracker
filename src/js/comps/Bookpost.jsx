@@ -9,7 +9,8 @@ import style from '../../css/compCss/Bookpost.module.css';
 import { storeContext } from "../stores/context";
 
 
-const Bookpost = ({bookData, onMouseDown}) => {
+const Bookpost = ({book, onMouseDown}) => {
+
   
   
   const {store, uiStore} = useContext(storeContext);
@@ -40,36 +41,39 @@ const Bookpost = ({bookData, onMouseDown}) => {
     
   return useObserver(() => (
     
-    <article onMouseDown={e => onMouseDown(e, bookData.isbn)} className={`${style.books__week__book} ${style[uiStore.themeClass]}`}>
+    <article onMouseDown={e => onMouseDown(e, book.isbn)} className={`${style.books__week__book} ${style[uiStore.themeClass]}`}>
 
-    <Bookcover bookisbn={bookData.isbn} booktitle={bookData.title} bookdata={bookData.bookData} bookrelease={dateToString(bookData.release)} ></Bookcover>
+    <Bookcover bookisbn={book.isbn} booktitle={book.title} bookData={book.bookData} bookrelease={dateToString(book.release)} ></Bookcover>
 
     <div className={`${style.book__rightSide} ${style[uiStore.themeClass]}`}>
 
     <p  className={`${style.book__rightSide__countDown} ${style[uiStore.themeClass]}`}>
       <span onClick={toggle}>
-        <Countdown date={bookData.release.getTime()} renderer={renderer}/>  
+        <Countdown date={book.release.getTime()} renderer={renderer}/>  
       </span>
-      {(bookData.release < Date.now() && !bookData) ? (
-        <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => bookData.getBookData(bookData.isbn)}> &#x21bb;</span>
+      {(book.release < Date.now() && !book) ? (
+        <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => book.getBookData(book.isbn)}> &#x21bb;</span>
        ) : ''}
     </p>
     
 
     {viewComments ? (
-      <BookpostMessages bookData={bookData}></BookpostMessages>
+      <BookpostMessages book={book}></BookpostMessages>
     ) : (
-      <p className={`${style.book__rightSide__description} ${style[uiStore.themeClass]}`}>{  (bookData.bookData) ? bookData.bookData.volumeInfo.description : ''}</p>
+      <p className={`${style.book__rightSide__description} ${style[uiStore.themeClass]}`}>{  (book.bookData) ? book.bookData.volumeInfo.description : ''}</p>
     )}
 
+      {book.originalPoster.id === store.user.id ? (
+        <div onClick={()=>store.removeBookPost(book) } className={`${style.book__rightSide__check} ${style[uiStore.themeClass]}`}>
+          <span className={`${style.book__rightSide__check__check} hidden ${style[uiStore.themeClass]}`} />
+          <span className={`${style.book__rightSide__check__cross} ${style[uiStore.themeClass]}`} />
+        </div>
+      ) : '' }
 
-    <div onClick={()=>store.removeBookPost(bookData) } className={`${style.book__rightSide__check} ${style[uiStore.themeClass]}`}>
-       <span className={`${style.book__rightSide__check__check} hidden ${style[uiStore.themeClass]}`} />
-       <span className={`${style.book__rightSide__check__cross} ${style[uiStore.themeClass]}`} />
-    </div>
+    
 
     </div>
-      <Bookstatus setowned={()=>bookData.setOwned()} status={bookData.owned} isbn={bookData.isbn}></Bookstatus>
+      <Bookstatus setowned={()=>book.setOwned()} status={book.owned} isbn={book.isbn}></Bookstatus>
       
   </article>
 
@@ -79,7 +83,7 @@ const Bookpost = ({bookData, onMouseDown}) => {
 };
 
 Bookpost.propTypes = {
-  bookData: PropTypes.object.isRequired
+  book: PropTypes.object.isRequired
 };
 
 export default Bookpost;

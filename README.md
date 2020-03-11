@@ -84,3 +84,17 @@ Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig l
 ➔ Maak gebruik van css modules
     ◆ Elk component zijn eigen stylesheet
 ➔ Store(s) via context
+
+//WEEK5
+➔Afwerken
+    ◆Geen onnodige components/functies/variabelen meer
+    ◆Correcte naamgeving: 'message' is eigenlijk een post...
+➔Meer dan 1 datamodel
+    ◆Relaties
+➔Alle datamodels & stores getest
+    ◆> 90% coverage
+    ◆Plaats de extra jest config in de package.json
+➔Routes in een apart ROUTES object
+➔Correct seeden (indien nodig)
+    ◆En alleen de seed gebruiken op de correcte plaats
+➔Go for it!

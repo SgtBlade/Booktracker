@@ -6,14 +6,14 @@ configure({enforceActions: 'observed'});
 
 class bookPost {
 
-  constructor({title, release, isbn, owned = false, bookData = null, user}) {
+  constructor({title, release, isbn, owned = false, bookData = null, originalPoster}) {
     (bookData !== null) ? this.bookData = bookData : this.getBookData(isbn);
     this.title = title;
     this.release = new Date(release);
     this.isbn = isbn;
     this.owned = owned;
     this.comments = [];
-    this.user = user;
+    this.originalPoster = originalPoster;
   }
 
   setOwned() {

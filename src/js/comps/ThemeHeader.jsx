@@ -7,11 +7,11 @@ import {NavLink, useLocation} from 'react-router-dom'
 const ThemeHeader = () => {
   
   const {uiStore} = useContext(storeContext);
-  const loc = useLocation().pathname;
+  const currentLocation = useLocation().pathname;
 
   return useObserver (() => ( 
         <div className={`${style.theme__toggleButton} ${style[uiStore.themeClass]}`}>
-          { (loc === '/add' ? '' : <NavLink to="/add" > <button className={`${style.plus__button} ${style[uiStore.themeClass]}`}></button> </NavLink> )}
+          { (currentLocation === '/add' ? '' : <NavLink to="/add" > <button className={`${style.plus__button} ${style[uiStore.themeClass]}`}/> </NavLink> )}
           
           <div className={`${style.theme__switch} ${style[uiStore.themeClass]}`}>
             <p>Dark mode: </p>
