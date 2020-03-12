@@ -2,7 +2,7 @@ import React,{ useContext }  from "react";
 import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
 import style from '../../css/compCss/Bookcover.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 
 const Bookcover = ({bookisbn, bookData, booktitle, bookrelease}) => {
   

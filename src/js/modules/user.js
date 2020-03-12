@@ -11,7 +11,6 @@ class User {
   linkComment(comment) {
     if(this.interactedComments.includes(comment)) this.interactedComments = this.interactedComments.filter(e => e !== comment)
     this.interactedComments.push(comment);
-    console.log(this.interactedComments)
   }
 }
 

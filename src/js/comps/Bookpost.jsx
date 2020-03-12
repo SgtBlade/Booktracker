@@ -6,7 +6,7 @@ import Bookstatus from "./BookOwnerstatus.jsx";
 import Bookcover from "./Bookcover.jsx";
 import BookpostMessages from "./BookpostMessages.jsx";
 import style from '../../css/compCss/Bookpost.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 
 
 const Bookpost = ({book, onMouseDown}) => {

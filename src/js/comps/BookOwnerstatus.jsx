@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
 import Booklinks from "./Bookslinks.jsx";
 import style from '../../css/compCss/OwnerStatus.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 
 const BookOwnerStatus = ({status, setowned, isbn}) => {
 

@@ -4,14 +4,11 @@ import User from './user';
 
 test('Creating a comment', () => {
 
-  const user = new User('MiguelDP', 1);
-  const t = new Comment({
-    user: user,
-    content: 'Ah mah gawd I luv dis book'
-  });
+  const usr = new User({name: 'ThomasWayne', id: 'dwadw123-fwefw123-3dfsfw2-dwada1'});
+  const t = new Comment({ user: usr, content: 'Ah mah gawd I luv dis book' });
 
-  expect(t.user.name).toBe('MiguelDP');
-  expect(t.user.id).toBe(1);
+  expect(t.user.name).toBe('ThomasWayne');
+  expect(t.user.id).toBe('dwadw123-fwefw123-3dfsfw2-dwada1');
   expect(t.content).toBe('Ah mah gawd I luv dis book');
 
   expect(t.upvotes).toBe(0);
@@ -20,38 +17,29 @@ test('Creating a comment', () => {
 });
 
 test('Upvoting a comment', () => {
-  const t = new Comment({
-    user: 'Pikachu99',
-    userID: 4124,
-    content: 'Ah mah gawd I luv dis book'
-  });
+  const usr = new User({name: 'ThomasWayne', id: 'dwadw123-fwefw123-3dfsfw2-dwada1'})
+  const t = new Comment({ user: usr, content: 'Ah mah gawd I luv dis book' });
 
-  t.upvote();
+  t.upvote(usr);
   expect(t.upvotes).toBe(1);
   expect(t.state).toBe(STATE.upvote);
 });
 
 test('Downvoting a comment', () => {
-  const t = new Comment({
-    user: 'Pikachu99',
-    userID: 4124,
-    content: 'Ah mah gawd I luv dis book'
-  });
+  const usr = new User({name: 'ThomasWayne', id: 'dwadw123-fwefw123-3dfsfw2-dwada1'});
+  const t = new Comment({ user: usr, content: 'Ah mah gawd I luv dis book' });
 
-  t.downvote();
+  t.downvote(usr);
   expect(t.downvotes).toBe(1);
   expect(t.state).toBe(STATE.downvote);
 });
 
 test('Downvoting then upvoting a comment', () => {
-  const t = new Comment({
-    user: 'Pikachu99',
-    userID: 4124,
-    content: 'Ah mah gawd I luv dis book'
-  });
+  const usr = new User({name: 'ThomasWayne', id: 'dwadw123-fwefw123-3dfsfw2-dwada1'});
+  const t = new Comment({ user: usr, content: 'Ah mah gawd I luv dis book' });
 
-  t.downvote();
-  t.upvote();
+  t.downvote(usr);
+  t.upvote(usr);
   expect(t.downvotes).toBe(0);
   expect(t.upvotes).toBe(1);
   expect(t.state).toBe(STATE.upvote);

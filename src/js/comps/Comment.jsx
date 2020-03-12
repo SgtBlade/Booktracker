@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
 import { STATE } from '../modules/comment';
 import style from '../../css/compCss/Comment.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 //{ (store.user.interactedComments.includes(commentData)) ? ( ((store.user.interactedComments.find(e => e === commentData).state) === STATE.upvote) ? commentData.upvote(store.user) : commentData.downvote(store.user) ) : ''}
 const Comment = ({commentData}) => {
   const {uiStore, store} = useContext(storeContext);

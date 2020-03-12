@@ -1,8 +1,9 @@
 import React,{ useContext }  from "react";
 import { useObserver } from "mobx-react-lite";
 import style from '../../css/compCss/ThemeHeader.module.css';
-import { storeContext } from "../stores/context";
-import {NavLink, useLocation} from 'react-router-dom'
+import { storeContext } from "../hooks/context";
+import {NavLink, useLocation} from 'react-router-dom';
+import {ROUTES} from '../consts/routes.js'
 
 const ThemeHeader = () => {
   
@@ -11,7 +12,7 @@ const ThemeHeader = () => {
 
   return useObserver (() => ( 
         <div className={`${style.theme__toggleButton} ${style[uiStore.themeClass]}`}>
-          { (currentLocation === '/add' ? '' : <NavLink to="/add" > <button className={`${style.plus__button} ${style[uiStore.themeClass]}`}/> </NavLink> )}
+          { (currentLocation === '/add' ? '' : <NavLink to={ROUTES.add} > <button className={`${style.plus__button} ${style[uiStore.themeClass]}`}/> </NavLink> )}
           
           <div className={`${style.theme__switch} ${style[uiStore.themeClass]}`}>
             <p>Dark mode: </p>

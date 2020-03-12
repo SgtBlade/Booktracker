@@ -4,7 +4,7 @@ import { useObserver } from "mobx-react-lite";
 import {autorun} from 'mobx';
 import Comment from "./Comment.jsx";
 import style from '../../css/compCss/BookpostMessages.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 
 
 const BookpostMessages = ({book}) => {
@@ -35,7 +35,7 @@ const BookpostMessages = ({book}) => {
   useEffect(
     () =>
       autorun(() => {
-        scrollToBottom();
+       scrollToBottom();
       })
   );  
 

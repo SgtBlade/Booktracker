@@ -1,7 +1,7 @@
 import React,{ useContext }  from "react";
 import { useObserver } from "mobx-react-lite";
 import style from '../../css/compCss/Home.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 import Bookpost from "./Bookpost.jsx";
 import NewBook from "./NewBook.jsx";
 import {useHistory} from "react-router-dom";

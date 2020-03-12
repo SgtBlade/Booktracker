@@ -5,7 +5,7 @@ configure({enforceActions: 'observed'});
 
 class Store {
   
-  constructor() {
+  constructor(user = (new User({name: 'MiguelDP', id: '61e58fe9-22e8-43a1-bc3c-830dc9dbbd09'}))) {
     this.bookPosts = [];
     this.additionField = {
       title: '',
@@ -13,7 +13,7 @@ class Store {
       isbn: ''
     }
     this.searchIsbn = '';
-    this.user = new User({name: 'MiguelDP', id: '61e58fe9-22e8-43a1-bc3c-830dc9dbbd09'});
+    this.user = user;
 
   }
 
@@ -34,7 +34,7 @@ class Store {
       this.additionField.title = this.additionField.release = this.additionField.isbn = '';
       return returnState;
     }
-  }
+  } 
 
   get owned() {
     return this.bookPosts.filter(bookPost => bookPost.owned);

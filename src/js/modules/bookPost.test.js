@@ -1,7 +1,6 @@
 import bookPost from './bookPost';
-import VIEWSTATE from './bookPost';
+import User from './user';
 import {Comment} from './comment';
-
 
 test('Creating a bookPost', () => {
   const t = new bookPost({
@@ -33,7 +32,8 @@ test('Pushing a comment', () => {
     isbn: '9781338216677'
   });
 
-  
-  t.comments.push(new Comment({ user: 'Pikachu99', userID: (Math.random()*10000), content: 'test' }));
-  expect(t.comments[0].content).toBe('test');
+  const user = new User({name: 'ThomasWayne', id: 'dwadw123-fwefw123-3dfsfw2-dwada1'})
+  const ExampleComment = new Comment({user: user, content: 'test' })
+  t.comments.push(ExampleComment)
+  expect(t.comments[0]).toBe(ExampleComment);
 });

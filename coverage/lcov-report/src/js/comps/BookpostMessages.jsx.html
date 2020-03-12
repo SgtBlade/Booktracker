@@ -120,10 +120,7 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,13 +154,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,10 +190,10 @@ import { useObserver } from "mobx-react-lite";
 import {autorun} from 'mobx';
 import Comment from "./Comment.jsx";
 import style from '../../css/compCss/BookpostMessages.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 &nbsp;
 &nbsp;
-const BookpostMessages = <span class="fstat-no" title="function not covered" >({</span>bookData}) =&gt; {
+const BookpostMessages = <span class="fstat-no" title="function not covered" >({</span>book}) =&gt; {
 &nbsp;
   const {store, uiStore} = <span class="cstat-no" title="statement not covered" >useContext(storeContext);</span>
   const stringLimit = <span class="cstat-no" title="statement not covered" >156;</span>
@@ -222,30 +216,27 @@ const BookpostMessages = <span class="fstat-no" title="function not covered" >({
   }
 &nbsp;
   const messagesEndRef = <span class="cstat-no" title="statement not covered" >useRef(null);</span>
-  const scrollToBottom = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >messagesEndRef.current.scrollIntoView();</span></span>
+  const scrollToBottom = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >messagesEndRef.current.scrollIntoView({block: 'end', behavior: 'smooth'});</span></span>
 &nbsp;
-  //useEffect(scrollToBottom, bookData.comments);
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  React.useEffect(</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(</span>
 <span class="fstat-no" title="function not covered" >    ()</span> =&gt;
 <span class="cstat-no" title="statement not covered" >      autorun(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        scrollToBottom();</span>
-      }),
-    [], // note empty dependencies
-  )
+      })
+  );  
 &nbsp;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useObserver(<span class="fstat-no" title="function not covered" >()</span> =&gt; (</span>
 <span class="cstat-no" title="statement not covered" >      &lt;&gt;</span>
       &lt;div className={`${style.book__rightSide__messages} ${style[uiStore.themeClass]}`} &gt;
-        {bookData.comments.map(<span class="fstat-no" title="function not covered" >(c</span>omment, index) =&gt; ( 
-<span class="cstat-no" title="statement not covered" >          &lt;Comment key={`${bookData.isbn}${comment.date.toString()}${index}`} bookIsbn={bookData.isbn} commentData={comment}/&gt;</span>
+        {book.comments.map(<span class="fstat-no" title="function not covered" >(c</span>omment, index) =&gt; ( 
+<span class="cstat-no" title="statement not covered" >          &lt;Comment key={`${book.isbn}${comment.date.toString()}${index}`} commentData={comment}/&gt;</span>
         ))}
-        &lt;div ref={messagesEndRef}/&gt;
+        &lt;div className={`${style.book__rightSide__emptyMessage}`} ref={messagesEndRef}/&gt;
       &lt;/div&gt;
-      &lt;form onSubmit={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >handleSubmit(e, bookData)}</span> className={`${style.book__rightSide__form} ${style[uiStore.themeClass]}`}&gt;
-        &lt;input value={commentText} onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >handleInput(e.currentTarget.value)}</span> className={`${style.book__rightSide__form__input} ${style[uiStore.themeClass]}`} id={`Form${bookData.isbn}`} name="content" placeholder="Typ een bericht" /&gt;
-        &lt;div className={`${style.book__rightSide__form__counter} ${style[uiStore.themeClass]}`} style={getGradient(bookData.wordCountPercentage)}&gt;
+      &lt;form onSubmit={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >handleSubmit(e, book)}</span> className={`${style.book__rightSide__form} ${style[uiStore.themeClass]}`}&gt;
+        &lt;input value={commentText} onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >handleInput(e.currentTarget.value)}</span> className={`${style.book__rightSide__form__input} ${style[uiStore.themeClass]}`} id={`Form${book.isbn}`} name="content" placeholder="Typ een bericht" /&gt;
+        &lt;div className={`${style.book__rightSide__form__counter} ${style[uiStore.themeClass]}`} style={getGradient(book.wordCountPercentage)}&gt;
           &lt;p className={`${style.book__rightSide__form__counter__child} ${style[uiStore.themeClass]}`}&gt;&lt;/p&gt;
         &lt;/div&gt;
       &lt;/form&gt;
@@ -253,7 +244,7 @@ const BookpostMessages = <span class="fstat-no" title="function not covered" >({
   ));
 };
 BookpostMessages.propTypes = {
-  bookData: PropTypes.object.isRequired
+  book: PropTypes.object.isRequired
 };
 &nbsp;
 export default BookpostMessages;
@@ -264,7 +255,7 @@ export default BookpostMessages;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Mar 10 2020 14:40:33 GMT+0100 (Central European Standard Time)
+                at Thu Mar 12 2020 20:21:57 GMT+0100 (Central European Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

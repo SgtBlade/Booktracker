@@ -1,7 +1,7 @@
 import React,{ useContext }  from "react";
 import { useObserver } from "mobx-react-lite";
 import style from '../../css/compCss/NewBook.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 
 const NewBook = () => {
 

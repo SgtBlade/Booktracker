@@ -14,7 +14,8 @@ import './css/style.css';
 import './css/light.css';
 import './css/responsive.css';
 //Classes
-import { storeContext } from "./js/stores/context";
+import { storeContext } from "./js/hooks/context";
+import {ROUTES} from './js/consts/routes.js'
 
 
 function App() {
@@ -50,20 +51,20 @@ function App() {
     <div className={`contentWrapper ${uiStore.themeClass}`}>
       <ThemeHeader/>
       <Switch>
-          <Route path="/detail/:id">
+          <Route path={ROUTES.detail}>
             <Detail /> 
           </Route>
 
-          <Route path="/add">
+          <Route path={ROUTES.add}>
             <Add />
           </Route>
 
-          <Route path="/home">
+          <Route path={ROUTES.home}>
             <Home/>
           </Route>
 
-          <Route>
-          <Redirect to="/home"/>
+          <Route path={ROUTES.default}>
+          <Redirect to={ROUTES.home}/>
           </Route>
 
         </Switch>

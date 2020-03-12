@@ -98,3 +98,10 @@ Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig l
 ➔Correct seeden (indien nodig)
     ◆En alleen de seed gebruiken op de correcte plaats
 ➔Go for it!
+
+
+TODO:
+CSS Add book page
+Fix scroll issue
+Have some fun adding features
+Add jest config file??

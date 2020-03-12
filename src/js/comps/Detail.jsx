@@ -3,7 +3,7 @@ import { useObserver } from "mobx-react-lite";
 import Countdown from 'react-countdown-now';
 import { useParams, Redirect } from "react-router-dom";
 import style from '../../css/compCss/Detail.module.css';
-import { storeContext } from "../stores/context";
+import { storeContext } from "../hooks/context";
 import Returnbutton from './Returnbutton.jsx';
 
 const Detail = () => {
