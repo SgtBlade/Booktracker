@@ -1,14 +1,14 @@
 import React,{ useContext,useState }  from "react";
 import { useObserver } from "mobx-react-lite";
-import style from '../../css/compCss/AddBook.module.css';
+import style from '../../css/compCss/AddBookPage.module.css';
 import { storeContext } from "../hooks/context";
 import Returnbutton from './Returnbutton.jsx';
 import SystemMessage from './SystemMessage';
 
-const AddBook = () => {
+const AddBookPage = () => {
 
   const {store, uiStore} = useContext(storeContext);
-  const [addState, setState] = useState(undefined);
+  const [addState, setState] = useState({message: '', currentState: undefined});
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,35 +29,35 @@ const AddBook = () => {
   }
   
   return useObserver(() => (
-    <article className={`${style.formAtricle} ${uiStore.themeClass}`}>
+    <article className={`${style.formAtricle} ${style[uiStore.themeClass]}`}>
     <Returnbutton/>
-    {addState === false ? <SystemMessage positiveMessage={false} warningMessage={`This book is already in your list`}/> 
-    : (addState === true) ? <SystemMessage positiveMessage={true} warningMessage={`The book has been added`}/>  : ''}
+    {addState.currentState === false ? <SystemMessage positiveMessage={false}  warningMessage={addState.message}/> 
+    : (addState.currentState === true) ? <SystemMessage positiveMessage={true} warningMessage={addState.message}/>  : ''}
 
-      <form className={`${style.form} ${uiStore.themeClass}`} onSubmit={e => handleSubmit(e)}>
-        <fieldset className={`${style.form__fieldset} ${uiStore.themeClass}`}>
-          <legend className={`${style.form__legend} ${uiStore.themeClass}`}>Add a new book to the list</legend>
-          <label className={`${style.form__label} ${uiStore.themeClass}`} htmlFor="bookTitle">
+      <form className={`${style.form} ${style[uiStore.themeClass]}`} onSubmit={e => handleSubmit(e)}>
+        <fieldset className={`${style.form__fieldset} ${style[uiStore.themeClass]}`}>
+          <legend className={`${style.form__legend} ${style[uiStore.themeClass]}`}>Add a new book to the list</legend>
+          <label className={`${style.form__label} ${style[uiStore.themeClass]}`} htmlFor="bookTitle">
           <p>Book title:</p>
           <input 
-          className={`${style.form__input} ${uiStore.themeClass}`}
+          className={`${style.form__input} ${style[uiStore.themeClass]}`}
           value={store.titleField}
           onChange={e => store.setAdditionField("title", e.currentTarget.value)} 
           name="bookTitle" id="bookTitle" /></label>
 
-      <label className={`${style.form__label} ${uiStore.themeClass}`} htmlFor="release">
+      <label className={`${style.form__label} ${style[uiStore.themeClass]}`} htmlFor="release">
         <p>Book release date:</p>
       <input 
-          className={`${style.form__input} ${uiStore.themeClass}`}
+          className={`${style.form__input} ${style[uiStore.themeClass]}`}
           value={store.releaseField}
           onChange={e => store.setAdditionField("release", e.currentTarget.value)} 
            type="date" name="release" id="release" 
             min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}/></label>
 
-      <label className={`${style.form__label} ${uiStore.themeClass}`} htmlFor="isbn">
-        <p className={`${style.form__label__text} ${uiStore.themeClass}`}>Book isbn number <span className={`${style.form__label__note} ${uiStore.themeClass}`}>required</span></p>
+      <label className={`${style.form__label} ${style[uiStore.themeClass]}`} htmlFor="isbn">
+        <p className={`${style.form__label__text} ${style[uiStore.themeClass]}`}>Book isbn number <span className={`${style.form__label__note} ${style[uiStore.themeClass]}`}>required</span></p>
       <input 
-          className={`${style.form__input} ${uiStore.themeClass}`}
+          className={`${style.form__input} ${style[uiStore.themeClass]}`}
           value={store.isbnField} 
           onChange={e => store.setAdditionField("isbn", e.currentTarget.value)} 
           type="text" name="isbn" id="isbn" /></label>
@@ -69,4 +69,4 @@ const AddBook = () => {
   ));
 };
 
-export default AddBook;
+export default AddBookPage;

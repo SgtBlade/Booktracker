@@ -12,7 +12,6 @@ const Comment = ({commentData}) => {
     if((store.user.interactedComments.find(e => e === commentData).state) === STATE.upvote)commentData.upvote(store.user) 
     else commentData.downvote(store.user)
   }
-  
   return useObserver(() => (
     <div className={`${style.book__rightSide__messages__message} ${style[uiStore.themeClass]}`}>
           <p className={`${style.commentDatabook__rightSide__messages__message__user} ${style[uiStore.themeClass]}`}>{commentData.user.name}</p>

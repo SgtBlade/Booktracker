@@ -28,12 +28,11 @@ class Store {
         originalPoster : this.user
       });
 
-      let returnState = true;
       if (items.length === 0) this.bookPosts.push(newBookPost);
-      else returnState = false
+      else return {message: 'This book is already in the list', currentState: false}
       this.additionField.title = this.additionField.release = this.additionField.isbn = '';
-      return returnState;
-    }
+      return {message: 'The book has been added', currentState: true}
+    }return {message: 'The inserted isbn is not valid', currentState: false}
   } 
 
   get owned() {

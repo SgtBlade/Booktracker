@@ -1,0 +1,87 @@
+
+.formAtricle {
+    height: 100%;
+    color: var(--fontColor);
+
+    display: flex;
+    flex-flow: column;
+}
+
+.form {
+    height: 100%;
+    width: 50%;
+    margin-top: 4rem;
+    border: .1rem solid var(--fontColor);
+    padding: 2rem;
+
+    align-self: center;
+}
+
+
+.form.lightMode {
+    color: black;
+}
+
+.form__legend {
+    font-weight: bolder;
+    font-size: 3.2rem;
+    margin-bottom: 4rem;
+}
+
+.form__label {
+    display: flex;
+    flex-flow: column;
+}
+
+.form__label p {
+    display:inline-block;
+    font-weight: bold;
+    font-size: 2.8rem;
+}
+
+.form__input {
+    font-size: 3rem;
+    height: 5rem;
+    margin: 1rem 0 3rem;
+    padding: 2rem .5rem 2rem 1rem;  
+    width: 90%;
+    border: none;
+}
+
+.form__label__text {
+    display: flex !important;
+    flex-flow: row;
+}
+
+.form__label__note {
+    margin-left: 1rem;
+    font-size: 1.6rem;
+    width: 10%;
+}
+
+.form__submit {
+    background-color: var(--fontColor);
+    color: white;
+    border: none;
+    font-size: 3.2rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+}
+
+.form.lightMode {
+    background-color: var(--LightModebookPostBackground);
+    color: black;
+    border-color: var(--LightModelightBorderColor);
+}
+
+.form__submit.lightMode{
+    background-color: var(--LightModetextFields);
+    color: var(--LightModeinputFormColor);
+}
+
+@media screen and (max-width: 750px)  {
+    .form {
+        width: auto;
+    }
+
+}

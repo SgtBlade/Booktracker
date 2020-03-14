@@ -26,8 +26,8 @@
     --LightModedownvoteSelected: red;
     --LightModedownvoteUnselected: #cf8a8a;
 
-    --LightModeBackground : white;
-    --LightModemainBackground: white;
+    --LightModeBackground : rgb(229, 231, 241);
+    --LightModemainBackground: rgb(233, 240, 247);
     --LightModeboxShadow: rgba(0, 0, 0, 0.568);
     --LightModebookPostBackground: #e1dde9;
     --LightModebookPostRefresh: #c8c4d1;

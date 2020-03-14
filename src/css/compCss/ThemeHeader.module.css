@@ -73,8 +73,7 @@
 }
 
 .plus__button {
-
-	border: .2rem solid var(--lightBorderColor);
+	border: .1rem solid var(--lightBorderColor);
 	background-color: #494949;;
 	font-size: 2rem;
 	height: 8rem;
@@ -105,13 +104,26 @@
 }
 
 .plus__button.lightMode {
-  background-color: #aaa;
-  border-color: black;
+  background-color: var(--LightModetextFields);
+  border-color: var(--LightModelightBorderColor);
 }
 
 .plus__button.lightMode::after,
 .plus__button.lightMode::before{
   background-color: var(--LightModecloseIcon);
+}
+
+.theme__toggleButton.lightMode {
+  border-color: var(--LightModelightBorderColor);
+}
+
+.theme__toggleButton.lightMode label {
+  background-color: var(--LightModebookPostBackground);
+  border-color: var(--LightModelightBorderColor);
+}
+
+.theme__toggleButton.lightMode label::after {
+  background-color: var(--LightModetextFields);
 }
 
 @media screen and (max-width: 600px) {

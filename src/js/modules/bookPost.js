@@ -21,7 +21,7 @@ class bookPost {
   }
 
   seedComments() {
-    const user = new User('MiguelDP', 1);
+    const user = new User({name: 'MiguelDP', id: 1});
     this.comments.push(new Comment({ user: user, content: 'Ah mah gawd I luv dis book' }));
     this.comments.push(new Comment({ user: user, content: 'Cannot wait for this book to get released' }));
     this.comments.push(new Comment({ user: user, content: 'Oooh a new book' }));

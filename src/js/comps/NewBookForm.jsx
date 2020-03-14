@@ -1,9 +1,9 @@
 import React,{ useContext }  from "react";
 import { useObserver } from "mobx-react-lite";
-import style from '../../css/compCss/NewBook.module.css';
+import style from '../../css/compCss/NewBookForm.module.css';
 import { storeContext } from "../hooks/context";
 
-const NewBook = () => {
+const NewBookForm = () => {
 
   const {store, uiStore} = useContext(storeContext);
 
@@ -62,4 +62,4 @@ const NewBook = () => {
   ));
 };
 
-export default NewBook;
+export default NewBookForm;

@@ -1,18 +1,18 @@
 import React, { useState, useContext, useRef, useEffect}  from "react";
 import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
-import {autorun} from 'mobx';
 import Comment from "./Comment.jsx";
 import style from '../../css/compCss/BookpostMessages.module.css';
 import { storeContext } from "../hooks/context";
 
 
 const BookpostMessages = ({book}) => {
-
+  
+  const commentBox = useRef(null);
   const {store, uiStore} = useContext(storeContext);
   const stringLimit = 156;
-
   const [commentText, setCommentText] = useState('');
+
   const handleInput = (value) => {
     if(value.length > stringLimit) setCommentText(value.substring(0, stringLimit));
     else setCommentText(value);
@@ -24,32 +24,25 @@ const BookpostMessages = ({book}) => {
     if(commentText.length >= 4 )setCommentText('');
   }
 
+  const handleFocus = (e) => (e.currentTarget.closest('article')).scrollIntoView({ block: 'center',behavior: "smooth" })//Vond geen andere manier om parent te accessen, sorry
+  
   const getGradient = () => { 
     const count = Math.floor((commentText.length/stringLimit)*100);
     return {backgroundImage: `${(uiStore.theme === 'light')? 'conic-gradient(rgb(151,179,213)' : 'conic-gradient(rgb(224, 127, 0)'}  ${count}%, #696caa ${count}%)`} 
   }
 
-  const messagesEndRef = useRef(null);
-  const scrollToBottom = () => messagesEndRef.current.scrollIntoView({block: 'end', behavior: 'smooth'});
 
-  useEffect(
-    () =>
-      autorun(() => {
-       scrollToBottom();
-      })
-  );  
-
+  useEffect(() => { commentBox.current.scrollTop = (commentBox.current.scrollHeight - commentBox.current.clientHeight); })
 
   return useObserver(() => (
       <>
-      <div className={`${style.book__rightSide__messages} ${style[uiStore.themeClass]}`} >
+      <div ref={commentBox} className={`${style.book__rightSide__messages} ${style[uiStore.themeClass]}`} >
         {book.comments.map((comment, index) => ( 
           <Comment key={`${book.isbn}${comment.date.toString()}${index}`} commentData={comment}/>
         ))}
-        <div className={`${style.book__rightSide__emptyMessage}`} ref={messagesEndRef}/>
       </div>
       <form onSubmit={e => handleSubmit(e, book)} className={`${style.book__rightSide__form} ${style[uiStore.themeClass]}`}>
-        <input value={commentText} onChange={e => handleInput(e.currentTarget.value)} className={`${style.book__rightSide__form__input} ${style[uiStore.themeClass]}`} id={`Form${book.isbn}`} name="content" placeholder="Typ een bericht" />
+        <input onFocus={ e => handleFocus(e) }  value={commentText} onChange={e => handleInput(e.currentTarget.value)} className={`${style.book__rightSide__form__input} ${style[uiStore.themeClass]}`} id={`Form${book.isbn}`} name="content" placeholder="Typ een bericht" />
         <div className={`${style.book__rightSide__form__counter} ${style[uiStore.themeClass]}`} style={getGradient(book.wordCountPercentage)}>
           <p className={`${style.book__rightSide__form__counter__child} ${style[uiStore.themeClass]}`}></p>
         </div>

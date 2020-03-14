@@ -23,6 +23,6 @@ const ThemeHeader = () => {
 
         </div>
   ));
-};
+}; 
 
 export default ThemeHeader;

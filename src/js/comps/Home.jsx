@@ -3,7 +3,7 @@ import { useObserver } from "mobx-react-lite";
 import style from '../../css/compCss/Home.module.css';
 import { storeContext } from "../hooks/context";
 import Bookpost from "./Bookpost.jsx";
-import NewBook from "./NewBook.jsx";
+import NewBookForm from "./NewBookForm.jsx";
 import {useHistory} from "react-router-dom";
 
 const Home = () => {
@@ -26,7 +26,7 @@ const Home = () => {
         {store.bookPosts.map((book) => (
           <Bookpost onMouseDown={(e, id) => mouseDown(e, id)}  key={`${book.isbn}`}  book={book}></Bookpost>
         ))}
-      <NewBook/>
+      <NewBookForm/>
       </section>
     </>
   ));
