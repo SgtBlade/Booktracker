@@ -118,8 +118,9 @@ class Store {
 
   loadFromStorage() {
     const savedStore = localStorage.getItem("store");
-    if (savedStore && savedStore.length > 4) {//de saved store was [] waardoor hij dacht dat het gebruikt werd en dus gaf hij error
+    if (savedStore && savedStore.includes('bookpost')) {//de saved store was [] waardoor hij dacht dat het gebruikt werd en dus gaf hij error
       this.bookPosts = JSON.parse(savedStore);
+      console.log(this.bookPosts)
     }
   };
 

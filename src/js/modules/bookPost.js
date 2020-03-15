@@ -66,9 +66,6 @@ decorate(bookPost, {
 
   view: observable,
   changeView: action,
-
-  newComment: observable,
-  setComment: action
 });
 
 export default bookPost;

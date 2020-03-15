@@ -1,21 +1,24 @@
 import React, { useState, useContext}  from "react";
 import PropTypes from "prop-types";
 import Countdown from 'react-countdown-now';
+import {useHistory} from "react-router-dom";
 import { useObserver } from "mobx-react-lite";
 import Bookstatus from "./BookOwnerstatus.jsx";
 import Bookcover from "./Bookcover.jsx";
 import BookpostMessages from "./BookpostMessages.jsx";
 import style from '../../css/compCss/Bookpost.module.css';
 import { storeContext } from "../hooks/context";
+import {ROUTES} from '../consts/routes.js';
 
 
-const Bookpost = ({book, onMouseDown}) => {
+const Bookpost = ({book}) => {
 
-  //document.activeElement.is('input');
-  
   const {store, uiStore} = useContext(storeContext);
   const [viewComments, setViewComments] = useState(true);
   const toggle = () => setViewComments(!viewComments);
+  let history = useHistory();
+
+  const handleDbclick = () =>  {if(document.activeElement.nodeName !== 'INPUT')history.push(`${ROUTES.detail.to}${book.isbn}`);}
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     
@@ -41,7 +44,7 @@ const Bookpost = ({book, onMouseDown}) => {
     
   return useObserver(() => (
     
-    <article onMouseDown={e => onMouseDown(e, book.isbn)} className={`${style.books__week__book} ${style[uiStore.themeClass]}`}>
+    <article onDoubleClick={handleDbclick} className={`${style.books__week__book} ${style[uiStore.themeClass]}`}>
 
     <Bookcover bookisbn={book.isbn} booktitle={book.title} bookData={book.bookData} bookrelease={dateToString(book.release)} />
 

@@ -20,7 +20,7 @@
   }
 
   .books__week__book:active {
-    cursor: progress;
+    cursor: pointer;
   }
   
   .book__rightSide {
