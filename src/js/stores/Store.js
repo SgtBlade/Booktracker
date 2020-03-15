@@ -29,7 +29,8 @@ class Store {
         title: this.additionField.title,
         release: this.additionField.release,
         isbn: this.additionField.isbn,
-        originalPoster : this.user
+        originalPoster : this.user,
+        store : this
       });
 
       if (items.length === 0) {
@@ -48,7 +49,8 @@ class Store {
         title: 'Harry Potter and the Cursed Child',
         release: '2020-06-13T00:00:00.000Z',
         isbn: '9781338216677',
-        originalPoster: this.user
+        originalPoster: this.user,
+        store: this
       })
     );
     this.bookPosts[0].seedComments();
@@ -58,7 +60,8 @@ class Store {
         release: '2020-03-13T00:00:00.000Z',
         isbn: '9781949202168',
         owned: true,
-        originalPoster: this.user
+        originalPoster: this.user,
+        store: this
       })
     );
     this.bookPosts.push(
@@ -67,7 +70,8 @@ class Store {
         release: '2020-07-13T00:00:00.000Z',
         isbn: '9780439064866',
         owned: true,
-        originalPoster: new User({name: 'MiguelDP', id: '6dawd49-41e8-43a1-bc3c-830dc9dbbd09'})
+        originalPoster: new User({name: 'MiguelDP', id: '6dawd49-41e8-43a1-bc3c-830dc9dbbd09'}),
+        store: this
       })
     );
 
@@ -111,6 +115,12 @@ class Store {
     });
   } 
 
+  manualBookpostSort() {
+    this.bookPosts.replace(this.bookPosts.slice().sort(function(a, b) {
+      return a.release.getTime() - b.release.getTime();
+    }));
+  }
+
   saveToStorage() {
     const parsedJson = JSON.stringify(toJS(this.bookPosts));
     localStorage.setItem("store", parsedJson);
@@ -130,6 +140,7 @@ decorate(Store, {
   bookPosts: observable,
   addbookPost: action,
   removeBookPost: action,
+  manualBookpostSort: action,
 
   additionField: observable,
   setAdditionField: action,

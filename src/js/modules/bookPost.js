@@ -7,8 +7,8 @@ configure({enforceActions: 'observed'});
 
 class bookPost {
 
-  constructor({title, release, isbn, owned = false, bookData = null, originalPoster}) {
-    (bookData !== null) ? this.bookData = bookData : this.getBookData(isbn);
+  constructor({title, release, isbn, owned = false, bookData = null, originalPoster, store}) {
+    (bookData !== null) ? this.bookData = bookData : this.getBookData(isbn, store);
     this.title = title;
     this.release = new Date(release);
     this.isbn = isbn;
@@ -29,10 +29,10 @@ class bookPost {
     this.comments.push(new Comment({ user: user, content: 'Cool book' }));
   }
 
-  getBookData = async (isbn) => {
+  getBookData = async (isbn, store) => {
     await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
     .then((response) => {
-      if(response.data.items)this.setBookData(response.data.items[0]);
+      if(response.data.items)this.setBookData(response.data.items[0], store);
       else this.setBookData(false);
     }, (error) => {
       console.log(error);//deze error is normaal enkel bij geen internet
@@ -40,13 +40,17 @@ class bookPost {
     });
   }
 
-  setBookData (data) {
+  setBookData (data, store) {
     this.bookData = data;
     if(this.title === '' && !data) this.title = 'No title';
     else if ((this.title === '' && data) || (data && this.title === 'No title')) this.title = this.bookData.volumeInfo.title;
 
     if (this.release.toString() === 'Invalid Date' && !data) this.release = new Date();
     else if ((this.release.toString() === 'Invalid Date' && data) || ( (new Date()).setHours(0,0,0,0) === this.release.setHours(0,0,0,0) && data) )this.release = new Date(this.bookData.volumeInfo.publishedDate)
+  
+
+    store.saveToStorage();
+    store.manualBookpostSort();
   }
 
   addComment(userData, comment) {
