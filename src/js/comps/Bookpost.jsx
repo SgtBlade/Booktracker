@@ -43,7 +43,7 @@ const Bookpost = ({book, onMouseDown}) => {
     
     <article onMouseDown={e => onMouseDown(e, book.isbn)} className={`${style.books__week__book} ${style[uiStore.themeClass]}`}>
 
-    <Bookcover bookisbn={book.isbn} booktitle={book.title} bookData={book.bookData} bookrelease={dateToString(book.release)} ></Bookcover>
+    <Bookcover bookisbn={book.isbn} booktitle={book.title} bookData={book.bookData} bookrelease={dateToString(book.release)} />
 
     <div className={`${style.book__rightSide} ${style[uiStore.themeClass]}`}>
 
@@ -58,7 +58,7 @@ const Bookpost = ({book, onMouseDown}) => {
     
 
     {viewComments ? (
-      <BookpostMessages book={book}></BookpostMessages>
+      <BookpostMessages book={book}/>
     ) : (
       <p className={`${style.book__rightSide__description} ${style[uiStore.themeClass]}`}>{  (book.bookData) ? book.bookData.volumeInfo.description : ''}</p>
     )}
@@ -73,7 +73,7 @@ const Bookpost = ({book, onMouseDown}) => {
     
 
     </div>
-      <Bookstatus setowned={()=>book.setOwned()} status={book.owned} isbn={book.isbn}></Bookstatus>
+      <Bookstatus setowned={()=>book.setOwned()} status={book.owned} isbn={book.isbn} />
       
   </article>
 

@@ -41,7 +41,6 @@ class bookPost {
 
   setBookData (data) {
     this.bookData = data;
-    
     if(this.title === '' && !data) this.title = 'No title';
     else if ((this.title === '' && data) || (data && this.title === 'No title')) this.title = this.bookData.volumeInfo.title;
 

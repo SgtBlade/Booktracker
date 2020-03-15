@@ -5,6 +5,7 @@ import { storeContext } from "../hooks/context";
 import Bookpost from "./Bookpost.jsx";
 import NewBookForm from "./NewBookForm.jsx";
 import {useHistory} from "react-router-dom";
+import {ROUTES} from '../consts/routes.js'
 
 const Home = () => {
   
@@ -12,7 +13,8 @@ const Home = () => {
 
   let holButtonTimer;
   let history = useHistory();
-  const mouseDown = (e, id) => holButtonTimer = setTimeout(() => history.push(`/detail/${id}`), 400);
+  
+  const mouseDown = (e, id) => holButtonTimer = setTimeout(() => history.push(`${ROUTES.detail.to}${id}`), 400);
   
   const mouseUp = () => { 
     clearTimeout(holButtonTimer);

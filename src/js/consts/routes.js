@@ -1,8 +1,8 @@
 const ROUTES = {
-    home: "/home",
-    detail: "/detail/:id",
-    add: "/add",
-    default: "/"
+    home: "/books/home",
+    detail: {path: '/books/detail/:id' ,to:"/books/detail/"},
+    add: "/books/add",
+    default: "/books/"
   };
   
   export { ROUTES };

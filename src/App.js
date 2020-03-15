@@ -26,7 +26,7 @@ function App() {
     <div className={`contentWrapper ${uiStore.themeClass}`}>
       <ThemeHeader/>
       <Switch>
-          <Route path={ROUTES.detail}>
+          <Route path={ROUTES.detail.path}>
             <Detail /> 
           </Route>
 
