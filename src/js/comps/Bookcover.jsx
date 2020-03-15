@@ -14,7 +14,8 @@ const Bookcover = ({bookisbn, bookData, booktitle, bookrelease}) => {
         
               ((bookData.volumeInfo.hasOwnProperty('imageLinks')) ? 
                   bookData.volumeInfo.imageLinks.thumbnail : './assets/img/placeholder.jpg') : 
-              './assets/img/placeholder.jpg'} alt={booktitle + ' image'} 
+              './assets/img/placeholder.jpg'} 
+                alt={booktitle + ' image'} 
         height="300" width="200" />
       <div className={`${style.book__leftSite__hover} ${uiStore.themeClass}`} />
       <div className={`${style.book__leftSide__info} ${style[uiStore.themeClass]}`}>

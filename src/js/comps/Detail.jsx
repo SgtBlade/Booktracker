@@ -40,7 +40,11 @@ const Detail = () => {
     <article className={`${style.book} ${style[uiStore.themeClass]}`}>
       {book? (
         <>
-        <img className={`${style.book__cover} ${style[uiStore.themeClass]}`} src={  (book.bookData) ? book.bookData.volumeInfo.imageLinks.thumbnail : './assets/img/placeholder.jpg'} alt={book.title + ' image'} height="430" width="300" />
+        <img className={`${style.book__cover} ${style[uiStore.themeClass]}`} src={  (book.bookData) ? 
+        
+        ((book.bookData.volumeInfo.hasOwnProperty('imageLinks')) ? 
+            book.bookData.volumeInfo.imageLinks.thumbnail : './assets/img/placeholder.jpg') : 
+        './assets/img/placeholder.jpg'} alt={book.title + ' image'} height="430" width="300" />
         <section className={`${style.book__primaryInfo}`}>
         <h2 className={`${style.book__primaryInfo__title} ${style[uiStore.themeClass]}`}>{book.title}</h2>
         <p className={`${style.book__primaryInfo__countdown} ${style[uiStore.themeClass]}`}><Countdown date={book.release.getTime()} renderer={renderer}/></p> 

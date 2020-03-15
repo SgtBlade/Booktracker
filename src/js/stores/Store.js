@@ -1,4 +1,4 @@
-import {observable, computed, action, decorate, configure} from 'mobx';
+import {observable, computed, action, decorate, configure, autorun, toJS} from 'mobx';
 import bookPost from '../modules/bookPost';
 import User from '../modules/user';
 configure({enforceActions: 'observed'});
@@ -15,6 +15,10 @@ class Store {
     this.searchIsbn = '';
     this.user = user;
 
+    this.loadFromStorage();
+    autorun(() => {
+      this.saveToStorage();
+    });
   }
 
   addbookPost() {
@@ -28,16 +32,15 @@ class Store {
         originalPoster : this.user
       });
 
-      if (items.length === 0) this.bookPosts.push(newBookPost);
+      if (items.length === 0) {
+        this.bookPosts.push(newBookPost);
+        this.additionField.title = this.additionField.release = this.additionField.isbn = '';
+        this.saveToStorage();
+        return {message: 'The book has been added', currentState: true}
+      }
       else return {message: 'This book is already in the list', currentState: false}
-      this.additionField.title = this.additionField.release = this.additionField.isbn = '';
-      return {message: 'The book has been added', currentState: true}
     }return {message: 'The inserted isbn is not valid', currentState: false}
   } 
-
-  get owned() {
-    return this.bookPosts.filter(bookPost => bookPost.owned);
-  }
 
   seedbookPosts() {
     this.bookPosts.push(
@@ -61,6 +64,7 @@ class Store {
     this.bookPosts.push(
       new bookPost({
         title: 'Stud Muffin',
+        release: '2020-07-13T00:00:00.000Z',
         isbn: '9780439064866',
         owned: true,
         originalPoster: new User({name: 'MiguelDP', id: '6dawd49-41e8-43a1-bc3c-830dc9dbbd09'})
@@ -100,20 +104,42 @@ class Store {
   get BookByIsbn () {
     return this.bookPosts.find(bookPost => bookPost.isbn === this.searchIsbn);
   }
+
+  get booksSortedByDate() {
+    return this.bookPosts.slice().sort(function(a, b) {
+      return a.release.getTime() - b.release.getTime();
+    });
+  } 
+
+  saveToStorage() {
+    const parsedJson = JSON.stringify(toJS(this.bookPosts));
+    localStorage.setItem("store", parsedJson);
+  }
+
+  loadFromStorage() {
+    const savedStore = localStorage.getItem("store");
+    if (savedStore && savedStore.length > 4) {//de saved store was [] waardoor hij dacht dat het gebruikt werd en dus gaf hij error
+      this.bookPosts = JSON.parse(savedStore);
+    }
+  };
+
 }
 
 decorate(Store, {
   bookPosts: observable,
   addbookPost: action,
-  owned: computed,
   removeBookPost: action,
 
   additionField: observable,
   setAdditionField: action,
+
+  saveToStorage: action,
+
   titleField: computed,
   isbnField: computed,
   releaseField: computed,
-  BookByIsbn: computed
+  BookByIsbn: computed,
+  booksSortedByDate: computed
 });
 
 export default Store;

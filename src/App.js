@@ -37,10 +37,7 @@ function App() {
           <Route path={ROUTES.home}>
             <Home/>
           </Route>
-
-          <Route path={ROUTES.default}>
           <Redirect to={ROUTES.home}/>
-          </Route>
 
         </Switch>
     </div>

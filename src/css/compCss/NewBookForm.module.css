@@ -120,3 +120,17 @@
     }
 
 }
+
+@media screen and (max-width: 380px) { 
+
+
+  .books__newBook  h2{
+    padding-bottom: 2rem;
+  }
+
+
+  .books__newBook__form__submit {
+    background-size: 20% 1.2rem,1.2rem 65%;
+    }
+
+}

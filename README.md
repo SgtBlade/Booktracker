@@ -102,4 +102,7 @@ Ik ben nog aan het kijken of ik extra data nodig zou hebben maar voor vorlopig l
 
 TODO:
 Have some fun adding features
+input focus ignore detail
+smaller cross
+chatless ui
 Code checkup

@@ -11,7 +11,7 @@ import { storeContext } from "../hooks/context";
 
 const Bookpost = ({book, onMouseDown}) => {
 
-  
+  //document.activeElement.is('input');
   
   const {store, uiStore} = useContext(storeContext);
   const [viewComments, setViewComments] = useState(true);

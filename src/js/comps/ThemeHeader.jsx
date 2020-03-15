@@ -12,7 +12,7 @@ const ThemeHeader = () => {
 
   return useObserver (() => ( 
         <div className={`${style.theme__toggleButton} ${style[uiStore.themeClass]}`}>
-          { (currentLocation === '/add' ? '' : <NavLink to={ROUTES.add} > <button className={`${style.plus__button} ${style[uiStore.themeClass]}`}/> </NavLink> )}
+          { (currentLocation === ROUTES.add ? '' : <NavLink to={ROUTES.add} > <button className={`${style.plus__button} ${style[uiStore.themeClass]}`}/> </NavLink> )}
           
           <div className={`${style.theme__switch} ${style[uiStore.themeClass]}`}>
             <p>Dark mode: </p>

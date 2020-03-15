@@ -200,8 +200,7 @@
  
 .book__rightSide__check {
   position: absolute;
-  top: 10%;
-  transform: scale(1.5);
+  top: 10%; /* -34rem */
 }
 
 }

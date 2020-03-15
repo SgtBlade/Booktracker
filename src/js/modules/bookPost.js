@@ -2,6 +2,7 @@ import {observable, action, decorate, configure} from 'mobx';
 import axios from 'axios';
 import {Comment} from './comment';
 import User from './user';
+
 configure({enforceActions: 'observed'});
 
 class bookPost {

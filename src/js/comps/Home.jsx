@@ -5,7 +5,7 @@ import { storeContext } from "../hooks/context";
 import Bookpost from "./Bookpost.jsx";
 import NewBookForm from "./NewBookForm.jsx";
 import {useHistory} from "react-router-dom";
-import {ROUTES} from '../consts/routes.js'
+import {ROUTES} from '../consts/routes.js';
 
 const Home = () => {
   
@@ -13,19 +13,21 @@ const Home = () => {
 
   let holButtonTimer;
   let history = useHistory();
-  
-  const mouseDown = (e, id) => holButtonTimer = setTimeout(() => history.push(`${ROUTES.detail.to}${id}`), 400);
+  console.log(localStorage.getItem("store")[0])
+
+  const mouseDown = (e, id) => {
+    if(document.activeElement.nodeName !== 'INPUT')holButtonTimer = setTimeout(() => history.push(`${ROUTES.detail.to}${id}`), 400);
+  }
   
   const mouseUp = () => { 
     clearTimeout(holButtonTimer);
   }
 
-
   return useObserver (() => (
     <>
     <section onMouseUp={e => mouseUp(e)}  className={`${style.books__week} ${style[uiStore.themeClass]}`}>
         <h2 className={`${style.books__week__title} ${style[uiStore.themeClass]} hidden`}>Books</h2>
-        {store.bookPosts.map((book) => (
+        {store.booksSortedByDate.map((book) => (
           <Bookpost onMouseDown={(e, id) => mouseDown(e, id)}  key={`${book.isbn}`}  book={book}></Bookpost>
         ))}
       <NewBookForm/>
