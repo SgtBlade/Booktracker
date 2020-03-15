@@ -33,10 +33,10 @@ class bookPost {
     await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
     .then((response) => {
       if(response.data.items)this.setBookData(response.data.items[0], store);
-      else this.setBookData(false);
+      else this.setBookData(false, store);
     }, (error) => {
       console.log(error);//deze error is normaal enkel bij geen internet
-      this.setBookData(false);
+      this.setBookData(false, store);
     });
   }
 

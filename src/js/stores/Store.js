@@ -1,4 +1,4 @@
-import {observable, computed, action, decorate, configure, autorun, toJS} from 'mobx';
+import {observable, computed, action, decorate, configure, toJS} from 'mobx';
 import bookPost from '../modules/bookPost';
 import User from '../modules/user';
 configure({enforceActions: 'observed'});
@@ -16,9 +16,6 @@ class Store {
     this.user = user;
 
     this.loadFromStorage();
-    autorun(() => {
-      this.saveToStorage();
-    });
   }
 
   addbookPost() {
