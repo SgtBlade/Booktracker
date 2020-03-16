@@ -1,13 +1,14 @@
 import {observable, action, decorate, configure} from 'mobx';
+import User from './user';
 configure({enforceActions: 'observed'});
 class Comment {
-  constructor({user, content}) {
-    this.user = user;
+  constructor({user, content, upvotes = 0, downvotes = 0, date = Date.now(), state = STATE.none}) {
+    this.user = new User({user: user.name, id: user.id});//Nieuwe user anders zit ik in circular structure (& react vindt dat niet leuk)
     this.content = content;
-    this.upvotes = 0;
-    this.downvotes = 0;
-    this.date = Date.now();
-    this.state = STATE.none;
+    this.upvotes = upvotes;
+    this.downvotes = downvotes;
+    this.date = date;
+    this.state = state;
   } 
 
   undoVote(vote) {

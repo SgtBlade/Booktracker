@@ -21,7 +21,7 @@ const BookpostMessages = ({book}) => {
   const handleSubmit = (e, book) => {
     e.preventDefault();
     book.addComment(store.user, commentText);
-    if(commentText.length >= 4 )setCommentText('');
+    if(commentText.length >= 4 ){setCommentText(''); store.saveToStorage();};
   }
 
   const handleFocus = (e) => (e.currentTarget.closest('article')).scrollIntoView({ block: 'center',behavior: "smooth" })//Vond geen andere manier om parent te accessen, sorry

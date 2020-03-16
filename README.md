@@ -1,4 +1,8 @@
 # social-network-SgtBlade
+
+**BELANGRIJK!!!** Aangezien ik met een localstore werk heb ik de seedfunctie (staat in js/hooks/context) uitgezet. Indien jullie het willen opvullen kunnen jullie het daar aanzetten.
+
+
 //Mijn goodreads link om rating op te halen  \
 https://www.goodreads.com/book/review_counts.json?key={AFvXH4mMHn2j5AaxF76Pbw}&isbns=0596009208, 0596009208  \
 https://www.goodreads.com/search/index.xml?key=AFvXH4mMHn2j5AaxF76Pbw&q=9781635574043 (betere link maar xml) \

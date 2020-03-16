@@ -18,8 +18,8 @@ const Comment = ({commentData}) => {
             <div className={`${style.book__rightSide__messages__message__bubble}  ${style[uiStore.themeClass]}`}>
               <p className={`${style.book__rightSide__messages__message__text} ${style[uiStore.themeClass]}`}>{commentData.content}</p>
               <p className={`${style.book__rightSide__messages__message__votes} ${style[uiStore.themeClass]}`}> 
-                <span onClick={()=>commentData.upvote(store.user) } className={`${style.book__rightSide__messages__message__votes__upvote} ${commentData.state === STATE.upvote ? `${style.selectedUpvote}` : '' } ${style[uiStore.themeClass]}`}>{commentData.upvotes}</span> 
-                <span onClick={()=>commentData.downvote(store.user) } className={`${style.book__rightSide__messages__message__votes__downvote} ${commentData.state === STATE.downvote ? `${style.selectedDownvote}` : '' } ${style[uiStore.themeClass]}`}>{commentData.downvotes}</span>
+                <span onClick={()=>{commentData.upvote(store.user); store.saveToStorage()} } className={`${style.book__rightSide__messages__message__votes__upvote} ${commentData.state === STATE.upvote ? `${style.selectedUpvote}` : '' } ${style[uiStore.themeClass]}`}>{commentData.upvotes}</span> 
+                <span onClick={()=>{commentData.downvote(store.user); store.saveToStorage()} } className={`${style.book__rightSide__messages__message__votes__downvote} ${commentData.state === STATE.downvote ? `${style.selectedDownvote}` : '' } ${style[uiStore.themeClass]}`}>{commentData.downvotes}</span>
               </p>
             </div> 
     </div>

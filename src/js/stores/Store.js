@@ -1,6 +1,7 @@
 import {observable, computed, action, decorate, configure, toJS} from 'mobx';
 import bookPost from '../modules/bookPost';
 import User from '../modules/user';
+import {Comment} from '../modules/comment';
 configure({enforceActions: 'observed'});
 
 class Store {
@@ -14,7 +15,6 @@ class Store {
     }
     this.searchIsbn = '';
     this.user = user;
-
     this.loadFromStorage();
   }
 
@@ -41,7 +41,8 @@ class Store {
   } 
 
   seedbookPosts() {
-    this.bookPosts.push(
+    const posts = [];
+    posts.push(
       new bookPost({
         title: 'Harry Potter and the Cursed Child',
         release: '2020-06-13T00:00:00.000Z',
@@ -50,8 +51,8 @@ class Store {
         store: this
       })
     );
-    this.bookPosts[0].seedComments();
-    this.bookPosts.push(
+    posts[0].seedComments();
+    posts.push(
       new bookPost({
         title: 'Stud Muffin',
         release: '2020-03-13T00:00:00.000Z',
@@ -61,7 +62,7 @@ class Store {
         store: this
       })
     );
-    this.bookPosts.push(
+    posts.push(
       new bookPost({
         title: 'Stud Muffin',
         release: '2020-07-13T00:00:00.000Z',
@@ -71,11 +72,13 @@ class Store {
         store: this
       })
     );
+    posts.forEach(post => {if(this.bookPosts.filter(bookPost => bookPost.isbn === post.isbn).length === 0) this.bookPosts.push(post)})
 
   }
 
   removeBookPost(item) {
     if(item.originalPoster.id === this.user.id)this.bookPosts.splice(this.bookPosts.indexOf(item), 1);
+    this.saveToStorage();
   }
 
   setAdditionField(field, value) {
@@ -108,6 +111,10 @@ class Store {
 
   get booksSortedByDate() {
     return this.bookPosts.slice().sort(function(a, b) {
+      if(typeof a.release === 'string'|| typeof b.release === 'string') {//Wanneer ze van de store komen zijn het strings
+        a.release = new Date(a.release)
+        b.release = new Date(b.release)
+      }
       return a.release.getTime() - b.release.getTime();
     });
   } 
@@ -125,9 +132,33 @@ class Store {
 
   loadFromStorage() {
     const savedStore = localStorage.getItem("store");
-    if (savedStore && savedStore.includes('bookpost')) {//de saved store was [] waardoor hij dacht dat het gebruikt werd en dus gaf hij error
-      this.bookPosts = JSON.parse(savedStore);
-      console.log(this.bookPosts)
+    if (savedStore) {
+      JSON.parse(savedStore).forEach(item => {
+        
+        let comments = [];
+        item.comments.forEach(comment => {
+          comments.push(new Comment({ 
+          user: new User({name: comment.user.name, id: comment.user.id}), 
+          content: comment.content,
+          upvotes: comment.upvotes,
+          downvotes: comment.downvotes,
+          state: comment.state,
+          date: Date(comment.date) }));
+        })
+
+        const newBookPost = (
+          new bookPost({
+            title: item.title,
+            release: new Date(item.release),
+            isbn: item.isbn,
+            owned: item.owned,
+            originalPoster: new User({name: item.originalPoster.name, id: item.originalPoster.id}),
+            store: this,
+            comments: comments
+          }))
+        const samePost = this.bookPosts.filter(bookPost => bookPost.isbn === newBookPost.isbn);
+        if (samePost.length === 0)this.bookPosts.push(newBookPost)
+      })
     }
   };
 

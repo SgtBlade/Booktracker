@@ -7,13 +7,13 @@ configure({enforceActions: 'observed'});
 
 class bookPost {
 
-  constructor({title, release, isbn, owned = false, bookData = null, originalPoster, store}) {
+  constructor({title, release, isbn, owned = false, bookData = null, originalPoster, store, comments = []}) {
     (bookData !== null) ? this.bookData = bookData : this.getBookData(isbn, store);
     this.title = title;
     this.release = new Date(release);
     this.isbn = isbn;
     this.owned = owned;
-    this.comments = [];
+    this.comments = comments;
     this.originalPoster = originalPoster;
   }
 
@@ -45,9 +45,8 @@ class bookPost {
     if(this.title === '' && !data) this.title = 'No title';
     else if ((this.title === '' && data) || (data && this.title === 'No title')) this.title = this.bookData.volumeInfo.title;
 
-    if (this.release.toString() === 'Invalid Date' && !data) this.release = new Date();
-    else if ((this.release.toString() === 'Invalid Date' && data) || ( (new Date()).setHours(0,0,0,0) === this.release.setHours(0,0,0,0) && data) )this.release = new Date(this.bookData.volumeInfo.publishedDate)
-  
+    if (this.release.toString() === 'Invalid Date' && !data.volumeInfo.publishedDate) this.release = new Date();
+    else if ((this.release.toString() === 'Invalid Date' && data) || ( (new Date()).setHours(0,0,0,0) === this.release.setHours(0,0,0,0) && data) )this.release = new Date(data.volumeInfo.publishedDate)
 
     store.saveToStorage();
     store.manualBookpostSort();
