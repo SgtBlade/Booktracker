@@ -44,10 +44,7 @@ decorate(BookPost, {
   comments: observable,
   addComment: action,
 
-  bookData: observable,
-
-  view: observable,
-  changeView: action,
+  bookData: observable
 });
 
 export default BookPost;
