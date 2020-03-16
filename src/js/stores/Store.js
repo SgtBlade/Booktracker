@@ -111,10 +111,8 @@ class Store {
 
   get booksSortedByDate() {
     return this.bookPosts.slice().sort(function(a, b) {
-      if(typeof a.release === 'string'|| typeof b.release === 'string') {//Wanneer ze van de store komen zijn het strings
-        a.release = new Date(a.release)
-        b.release = new Date(b.release)
-      }
+
+      
       return a.release.getTime() - b.release.getTime();
     });
   } 
