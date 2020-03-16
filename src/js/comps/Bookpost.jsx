@@ -25,7 +25,7 @@ const Bookpost = ({book}) => {
     if (completed) { 
       return 'Out now!';
     } else {
-      let formattedString = `${days} Days ${(hours >= 10) ? hours : `0${hours}`}:${(minutes >= 10) ? minutes : `0${minutes}`}:${(seconds >= 10) ? seconds : `0${seconds}`} hours `;
+      let formattedString = `${days} ${days <= 1 ? 'Day' : 'Days'} ${(hours >= 10) ? hours : `0${hours}`}:${(minutes >= 10) ? minutes : `0${minutes}`}:${(seconds >= 10) ? seconds : `0${seconds}`} hours `;
       return formattedString;
     }
   };
@@ -54,11 +54,17 @@ const Bookpost = ({book}) => {
       <span onClick={toggle}>
         <Countdown date={book.release.getTime()} renderer={renderer}/>  
       </span>
-      <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => book.getBookData(book.isbn)}> &#x21bb;</span>
+      {(book.release < Date.now() && !book) ? (
+        <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => book.getBookData(book.isbn)}> &#x21bb;</span>
+       ) : ''}
     </p>
     
 
-    
+    {viewComments ? (
+      <BookpostMessages book={book}/>
+    ) : (
+      <p className={`${style.book__rightSide__description} ${style[uiStore.themeClass]}`}>{  (book.bookData) ? book.bookData.volumeInfo.description : ''}</p>
+    )}
 
       {book.originalPoster.id === store.user.id ? (
         <div onClick={()=>store.removeBookPost(book) } className={`${style.book__rightSide__check} ${style[uiStore.themeClass]}`}>

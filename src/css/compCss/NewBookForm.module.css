@@ -4,7 +4,6 @@
     width: 61rem;
     height: 38rem;
     color: var(--fontColor);
-    box-shadow: .2rem .2rem 5rem .5rem var(--boxShadow);
     padding: 2rem 3rem 3rem 3rem;
   
     display: inline-flex;
@@ -75,7 +74,6 @@
 .books__newBook.lightMode {
   background-color: var(--LightModebookPostBackground);
   color: var(--LightModefontColor);
-  box-shadow: .2rem .2rem 5rem .5rem var(--LightModeboxShadow);
 }
 .books__newBook__form__submit.lightMode {
   background:

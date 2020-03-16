@@ -129,7 +129,7 @@
 @media screen and (max-width: 600px) {
 
   .theme__toggleButton {
-    margin-top: -3rem;
+    margin-top: -2rem;
   }
 
   .theme__toggleButton {
@@ -145,7 +145,8 @@
   }
 
   .theme__toggleButton label {
-    width: 12rem;
+    width: 15rem;
+    height: 7rem;
   }
 
   .theme__toggleButton p {
@@ -203,11 +204,12 @@
 
   .theme__switch {
     margin-right: -10rem;
+    margin-top: 0;
     padding-left: 10rem;/*deze DOM doet een beetje dom vandaar de rare code */
   }
 
 
   .theme__toggleButton input:checked + label::after {
-    transform: translateX(calc(120% + -1.8rem));
+    transform: translateX(calc(120% + .5rem));
   }
 }

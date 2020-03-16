@@ -2,7 +2,7 @@ import React,{ useContext }  from "react";
 import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
 import Booklinks from "./Bookslinks.jsx";
-import style from '../../css/compCss/OwnerStatus.module.css';
+import style from '../../css/compCss/BookOwnerstatus.module.css';
 import { storeContext } from "../hooks/context";
 
 const BookOwnerStatus = ({status, setowned, isbn}) => {
