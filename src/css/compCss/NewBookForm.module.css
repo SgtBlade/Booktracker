@@ -14,12 +14,14 @@
   
   .books__newBook  h2{
     font-size: 3.2rem;
+    margin-bottom: 1rem;
     font-weight: bold;
     width: 100%;
     text-align: center;
   }
   
   .books__newBook__form {
+    margin-top: 1rem;
     width: 100%;
     height: 100%;
     display: grid;

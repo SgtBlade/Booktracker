@@ -14,7 +14,7 @@ const Detail = () => {
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => { 
     if (completed) { 
-      return 'Out now!';
+      return '';
     } else {
       let formattedString = `${days} ${days <= 1 ? 'Day' : 'Days'} ${(hours >= 10) ? hours : `0${hours}`}:${(minutes >= 10) ? minutes : `0${minutes}`}:${(seconds >= 10) ? seconds : `0${seconds}`} hours `;
       return formattedString;
@@ -40,34 +40,45 @@ const Detail = () => {
     <article className={`${style.book} ${style[uiStore.themeClass]}`}>
       {book? (
         <>
+      
         <img className={`${style.book__cover} ${style[uiStore.themeClass]}`} src={  (book.bookData) ? 
-        
-        ((book.bookData.volumeInfo.hasOwnProperty('imageLinks')) ? 
-            book.bookData.volumeInfo.imageLinks.thumbnail : './assets/img/placeholder.jpg') : 
-        './assets/img/placeholder.jpg'} alt={book.title + ' image'} height="430" width="300" />
+        ((book.bookData.volumeInfo.imageLinks) ? 
+            book.bookData.volumeInfo.imageLinks.thumbnail : '../assets/img/placeholder.jpg') : 
+        '../assets/img/placeholder.jpg'} alt={book.title + ' image'} height="430" width="300" />
+
+
         <section className={`${style.book__primaryInfo}`}>
         <h2 className={`${style.book__primaryInfo__title} ${style[uiStore.themeClass]}`}>{book.title}</h2>
         <p className={`${style.book__primaryInfo__countdown} ${style[uiStore.themeClass]}`}><Countdown date={book.release.getTime()} renderer={renderer}/></p> 
+
+
         {  (book.bookData) ? (
           <>
-        <h3 className={`${style.book__primaryInfo__subtitle} ${style[uiStore.themeClass]}`}>{book.bookData.volumeInfo.subtitle}</h3>
-        <div className={`${style.book__primaryInfo__authorsWrap} ${style[uiStore.themeClass]}`}> Authors:
-          <ul className={`${style.book__primaryInfo__authorsList} ${style[uiStore.themeClass]}`}>
-            {book.bookData.volumeInfo.authors.map((author) => (
-            <li className={`${style.book__primaryInfo__authorsList__item} ${style[uiStore.themeClass]}`} key={`${author}`}>{author}</li>
-          ))}
-          </ul> 
-        </div>
-        <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {book.bookData.volumeInfo.publishedDate}</p>
+            <h3 className={`${style.book__primaryInfo__subtitle} ${style[uiStore.themeClass]}`}>{book.bookData.volumeInfo.subtitle}</h3>
+       
+            {book.bookData.volumeInfo.authors ? (
+              <div className={`${style.book__primaryInfo__authorsWrap} ${style[uiStore.themeClass]}`}> Authors:
+                <ul className={`${style.book__primaryInfo__authorsList} ${style[uiStore.themeClass]}`}>
+                    {book.bookData.volumeInfo.authors.map((author) => (
+                        <li className={`${style.book__primaryInfo__authorsList__item} ${style[uiStore.themeClass]}`} key={`${author}`}>{author}</li>
+                      ))}
+                </ul> 
+              </div>  
+                ) : ''}
+              
+            {book.bookData.volumeInfo.publishedDate ? <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {book.bookData.volumeInfo.publishedDate}</p> : <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {dateToString(book.release, '-', false)}</p>} 
         </>
         ) : <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {dateToString(book.release, '-', false)}</p>}
+        
         
         <p onClick={() => {navigator.clipboard.writeText(book.isbn)}} className={`${style.book__primarInfo__isbn} ${style[uiStore.themeClass]}`}>ISBN: {book.isbn}</p>
         </section>
 
+
         <section className={`${style.book__secondaryInfo} ${style[uiStore.themeClass]}`}>
           <h2 className={`${style.book__secondaryInfo__title} ${style[uiStore.themeClass]} hidden`}>About the book</h2>
           {book.bookData ? <p className={`${style.book__secondaryInfo__description} ${style[uiStore.themeClass]}`}>{book.bookData.volumeInfo.description}</p>: ''}
+
 
         <div className={`${style.book__secondaryInfo__storeLinks} ${style[uiStore.themeClass]}`}>
         <a target="_blank" rel="noopener noreferrer" href={`https://www.amazon.com/s?k=${book.isbn}&ref=nb_sb_noss`}><img src="../assets/icons/originals/amazon.png" alt="Amazon" height={60} width={60} /></a>

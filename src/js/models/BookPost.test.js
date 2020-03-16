@@ -1,9 +1,9 @@
-import bookPost from './bookPost';
+import BookPost from './BookPost';
 import User from './user';
 import {Comment} from './comment';
-
+//Ik heb een speciale seed aangemaakt voor jest om het sneller te laten lopen, anders moest hij telkens enkele seconden wachten op response
 test('Creating a bookPost', () => {
-  const t = new bookPost({
+  const t = new BookPost({
     title: 'Harry Potter and the Cursed Child',
     release: '2020-02-13T00:00:00.000Z',
     isbn: '9781338216677'
@@ -16,7 +16,7 @@ test('Creating a bookPost', () => {
 });
 
 test('Changing book to owned', () => {
-  const t = new bookPost({
+  const t = new BookPost({
     title: 'Harry Potter and the Cursed Child',
     release: '2020-02-13T00:00:00.000Z',
     isbn: '9781338216677'
@@ -26,7 +26,7 @@ test('Changing book to owned', () => {
 });
 
 test('Pushing a comment', () => {
-  const t = new bookPost({
+  const t = new BookPost({
     title: 'Harry Potter and the Cursed Child',
     release: '2020-02-13T00:00:00.000Z',
     isbn: '9781338216677'

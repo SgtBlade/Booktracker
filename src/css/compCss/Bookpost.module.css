@@ -194,7 +194,7 @@
  
 .book__rightSide__check {
   position: absolute;
-  top: 10%; /* -34rem */
+  top: -34rem;
 }
 
 }

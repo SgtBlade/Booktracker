@@ -2,11 +2,11 @@ import Store from '../stores/Store';
 import {Comment, STATE} from './comment';
 import User from './user';
 
+
 test('Creating a comment', () => {
 
   const usr = new User({name: 'ThomasWayne', id: 'dwadw123-fwefw123-3dfsfw2-dwada1'});
   const t = new Comment({ user: usr, content: 'Ah mah gawd I luv dis book' });
-
   expect(t.user.name).toBe('ThomasWayne');
   expect(t.user.id).toBe('dwadw123-fwefw123-3dfsfw2-dwada1');
   expect(t.content).toBe('Ah mah gawd I luv dis book');

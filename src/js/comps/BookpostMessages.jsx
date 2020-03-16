@@ -21,9 +21,9 @@ const BookpostMessages = ({book}) => {
   const handleSubmit = (e, book) => {
     e.preventDefault();
     book.addComment(store.user, commentText);
-    if(commentText.length >= 4 ){setCommentText(''); store.saveToStorage();};
+    if(commentText.length >= 4 ){setCommentText('');};
   }
-
+  
   const handleFocus = (e) => (e.currentTarget.closest('article')).scrollIntoView({ block: 'center',behavior: "smooth" })//Vond geen andere manier om parent te accessen, sorry
   
   const getGradient = () => { 
@@ -36,17 +36,20 @@ const BookpostMessages = ({book}) => {
 
   return useObserver(() => (
       <>
+
       <div ref={commentBox} className={`${style.book__rightSide__messages} ${style[uiStore.themeClass]}`} >
         {book.comments.map((comment, index) => ( 
           <Comment key={`${book.isbn}${comment.date.toString()}${index}`} commentData={comment}/>
         ))}
       </div>
+
       <form onSubmit={e => handleSubmit(e, book)} className={`${style.book__rightSide__form} ${style[uiStore.themeClass]}`}>
         <input onFocus={ e => handleFocus(e) }  value={commentText} onChange={e => handleInput(e.currentTarget.value)} className={`${style.book__rightSide__form__input} ${style[uiStore.themeClass]}`} id={`Form${book.isbn}`} name="content" placeholder="Typ een bericht" />
         <div className={`${style.book__rightSide__form__counter} ${style[uiStore.themeClass]}`} style={getGradient(book.wordCountPercentage)}>
           <p className={`${style.book__rightSide__form__counter__child} ${style[uiStore.themeClass]}`}></p>
         </div>
       </form>
+
       </>
   ));
 };

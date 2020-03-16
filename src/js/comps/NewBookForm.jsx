@@ -1,15 +1,19 @@
-import React,{ useContext }  from "react";
+import React,{ useContext, useState }  from "react";
 import { useObserver } from "mobx-react-lite";
 import style from '../../css/compCss/NewBookForm.module.css';
 import { storeContext } from "../hooks/context";
+import SystemMessage from './SystemMessage';
 
 const NewBookForm = () => {
 
   const {store, uiStore} = useContext(storeContext);
 
+  const [addState, setState] = useState({message: '', currentState: undefined});
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    store.addbookPost();
+    let successfullAdd = store.addbookPost();
+    setState(successfullAdd);
   }
  
   const dateToString = (date, character = '/', reverse = true) => {
@@ -27,6 +31,8 @@ const NewBookForm = () => {
   return useObserver(() => (
     <article className={`${style.books__newBook} ${style[uiStore.themeClass]}`}>
       <h2>New book</h2>
+      {addState.currentState === false ? <SystemMessage positiveMessage={false}  warningMessage={addState.message}/> 
+    : (addState.currentState === true) ? <SystemMessage positiveMessage={true} warningMessage={addState.message}/>  : ''}
       <form onSubmit={e => handleSubmit(e)} className={`${style.books__newBook__form} ${style[uiStore.themeClass]}`}>
         <label className={`${style.books__newBook__form__label} ${style[uiStore.themeClass]}`} htmlFor="bookTitle">
           Title:

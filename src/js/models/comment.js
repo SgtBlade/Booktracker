@@ -3,7 +3,7 @@ import User from './user';
 configure({enforceActions: 'observed'});
 class Comment {
   constructor({user, content, upvotes = 0, downvotes = 0, date = Date.now(), state = STATE.none}) {
-    this.user = new User({user: user.name, id: user.id});//Nieuwe user anders zit ik in circular structure (& react vindt dat niet leuk)
+    this.user = new User({name: user.name, id: user.id});//Nieuwe user anders zit ik in circular structure (& react vindt dat niet leuk)
     this.content = content;
     this.upvotes = upvotes;
     this.downvotes = downvotes;

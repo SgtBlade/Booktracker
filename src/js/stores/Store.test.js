@@ -1,12 +1,21 @@
 import Store from './Store';
-import bookPost from '../modules/bookPost';
-import User from '../modules/user';
+import BookPost from '../models/BookPost';
+import User from '../models/user';
 
-test('Checking a bookPost', () => {
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
 
+test('test', () => {
+
+  expect(false).toBe(false);
+});
+
+test('Checking a bookPost', async () => {
+
+  localStorage.clear();
   const store = new Store();
-  store.seedbookPosts();
-
+  store.jestSyncPosts();
   const firstItem = store.bookPosts[0];
   expect(firstItem['title']).toBe('Harry Potter and the Cursed Child');
   expect(firstItem['release'].toISOString()).toBe('2020-06-13T00:00:00.000Z');
@@ -16,26 +25,27 @@ test('Checking a bookPost', () => {
 
 test('Remove a book post', () => {
 
+  localStorage.clear();
   const store = new Store();
-  store.seedbookPosts();
+  store.jestSyncPosts();
 
 
-  expect((store.bookPosts).length).toBe(3);
-  const Example = new bookPost({
+  expect((store.bookPosts).length).toBe(2);
+  const Example = new BookPost({
     title: 'Harry Potter and the Cursed Child',
     release: '2020-06-13T00:00:00.000Z',
     isbn: '9781338216677',
     originalPoster: store.user
   })
-
   store.removeBookPost(Example);
-  expect((store.bookPosts).length).toBe(2);
+  expect((store.bookPosts).length).toBe(1);
 
 
 });
 
-test('Creating a book post', () => {
+test('Creating a book post', async () => {
 
+  localStorage.clear();
   const store = new Store();
 
   store.setAdditionField("title", 'test')
@@ -47,44 +57,29 @@ test('Creating a book post', () => {
   expect(store.additionField.isbn).toBe('1111');
   expect(store.bookPosts.length).toBe(0);
   store.addbookPost();
+  await sleep(1000)
   expect(store.bookPosts.length).toBe(1);
   
 
 });
 
-test('A post cannot be removed by a different user', () => {
+test('A post cannot be removed by a different user', async () => {
 
-  const store = new Store();
-  const post = new bookPost({
-    title: 'Stud Muffin',
-    isbn: '9780439064866',
-    owned: true,
-    originalPoster: new User({name: 'ThomasWayne', id: 'dwadw123-fwefw123-3dfsfw2-dwada1'})
-  });
+  localStorage.clear();
+  const user = new User({name: 'MiguelDP', id: '61e58fe9-22e8-43a1-bc3c-830dc9dbbd09'});
+  const store = new Store(user);
+  store.jestSyncPosts();
 
-  store.bookPosts.push(post);  
-  expect(store.bookPosts.length).toBe(1);
-  store.removeBookPost(post);
-  expect(store.bookPosts.length).toBe(1);
+  expect(store.bookPosts.length).toBe(2);
+  store.removeBookPost(store.bookPosts[0]);
+  expect(store.bookPosts.length).toBe(2);
 
-});
-
-test('Get owned bookposts', () => {
-  const store = new Store();
-  store.seedbookPosts();
-  expect(store.owned.length).toBe(2);
 });
 
 test('Get a book by isbn number', () => {
+  localStorage.clear();
   const store = new Store();
-  store.seedbookPosts();
-  const example = new bookPost({
-    title: 'Stud Muffin',
-    isbn: '9780439064862116',
-    owned: true,
-    originalPoster: new User({name: 'ThomasWayne', id: 'dwadw123-fwefw123-3dfsfw2-dwada1'})
-  });
-  store.bookPosts.push(example)
-  expect(store.returnBookByIsbn('9780439064862116')).toBe(example);
+  store.jestSyncPosts();
+  expect(store.returnBookByIsbn('9781949202168')).toBe(store.bookPosts[1]);
 
 });
