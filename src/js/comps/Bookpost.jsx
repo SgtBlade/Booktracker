@@ -54,17 +54,10 @@ const Bookpost = ({book}) => {
       <span onClick={toggle}>
         <Countdown date={book.release.getTime()} renderer={renderer}/>  
       </span>
-      {(book.release < Date.now() && !book) ? (
-        <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => book.getBookData(book.isbn)}> &#x21bb;</span>
-       ) : ''}
+      <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => book.getBookData(book.isbn)}> &#x21bb;</span>
+       
     </p>
     
-
-    {viewComments ? (
-      <BookpostMessages book={book}/>
-    ) : (
-      <p className={`${style.book__rightSide__description} ${style[uiStore.themeClass]}`}>{  (book.bookData) ? book.bookData.volumeInfo.description : ''}</p>
-    )}
 
       {book.originalPoster.id === store.user.id ? (
         <div onClick={()=>store.removeBookPost(book) } className={`${style.book__rightSide__check} ${style[uiStore.themeClass]}`}>
