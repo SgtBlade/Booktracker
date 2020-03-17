@@ -14,7 +14,7 @@ const Comment = ({commentData}) => {
   }
   return useObserver(() => (
     <div className={`${style.book__rightSide__messages__message} ${style[uiStore.themeClass]}`}>
-          <p className={`${style.commentDatabook__rightSide__messages__message__user} ${style[uiStore.themeClass]}`}>{commentData.user.name}</p>
+          <p className={`${style.book__rightSide__messages__message__userName} ${style[uiStore.themeClass]}`}>{commentData.user.name}</p>
             <div className={`${style.book__rightSide__messages__message__bubble}  ${style[uiStore.themeClass]}`}>
               <p className={`${style.book__rightSide__messages__message__text} ${style[uiStore.themeClass]}`}>{commentData.content}</p>
               <p className={`${style.book__rightSide__messages__message__votes} ${style[uiStore.themeClass]}`}> 

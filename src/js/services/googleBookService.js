@@ -2,12 +2,13 @@ import {observable, action, decorate} from 'mobx';
 import axios from 'axios';
 
 class googleBookService {
-    constructor({ onEvent, data }) {
+    constructor({ onEvent, data, complete = false }) {
 
         this.data = data;
         this.bookData = false;
         this.onEvent = onEvent;
         this.getBookData(this.data.isbn);
+        this.complete = complete;
     }
 
     getBookData = async (isbn) => {
@@ -24,12 +25,18 @@ class googleBookService {
     setBookData (data) {
         this.bookData = data;
         if(this.data.title === '' && !data) this.data.title = 'No title';
-        else if ((this.data.title === '' && data) || (data && this.data.title === 'No title')) this.data.title = this.bookData.volumeInfo.title;
     
         if(data.volumeInfo) {
+          if ((this.data.title === '') || (this.data.title === 'No title')) this.data.title = this.bookData.volumeInfo.title;
+
           if ((this.data.release.toString() === 'Invalid Date' && data.volumeInfo.publishedDate) || ( (new Date()).setHours(0,0,0,0) === this.data.release.setHours(0,0,0,0) && data.volumeInfo.publishedDate))this.data.release = new Date(data.volumeInfo.publishedDate)
           else this.data.release = new Date();
         } else if (this.data.release.toString() === 'Invalid Date') this.data.release = new Date();
+
+        if(this.complete && data.volumeInfo){
+          if (data.volumeInfo.title) this.data.title = this.bookData.volumeInfo.title;
+          if(data.volumeInfo.publishedDate)this.data.release = new Date(data.volumeInfo.publishedDate)
+        }
         
         this.data.setBookData(this.bookData)
         this.onEvent(this.data)

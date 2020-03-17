@@ -21,7 +21,7 @@
     word-break: break-word;
   }
   
-  .book__rightSide__messages__message__user {
+  .book__rightSide__messages__message__userName {
     font-size: 1.4rem;
     margin-left: 2rem;
     padding-bottom: .5rem;
