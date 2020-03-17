@@ -54,8 +54,7 @@ const Bookpost = ({book}) => {
       <span onClick={toggle}>
         <Countdown date={book.release.getTime()} renderer={renderer}/>  
       </span>
-      <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => book.getBookData(book.isbn)}> &#x21bb;</span>
-       
+      <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => store.updateBookData(book)}> &#x21bb;</span>
     </p>
     
 

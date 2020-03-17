@@ -123,6 +123,12 @@ class Store {
     return result;
   }
   
+  updateBookData(book) {
+      this.dataService =  new googleBookService({ onEvent: this.pushUpdatedData, data: book , complete: true});
+  }
+  
+  pushUpdatedData = data => this.bookPosts[this.bookPosts.indexOf(data)].setBookData(data.bookData);
+  
   get BookByIsbn () {
     return this.bookPosts.find(bookPost => bookPost.isbn === this.searchIsbn);
   }
@@ -178,6 +184,7 @@ class Store {
 decorate(Store, {
   bookPosts: observable,
   pushToBookPosts: action,
+  pushUpdatedData: action,
   removeBookPost: action,
   seedbookPosts: action,
   jestSyncPosts: action,
