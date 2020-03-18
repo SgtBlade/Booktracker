@@ -41,7 +41,7 @@ class Store {
         return {message: 'The book has been added', currentState: true}
       }
       else return {message: 'This book is already in the list', currentState: false}
-    }return {message: 'The inserted isbn is not valid', currentState: false}
+    }return {message: 'The isbn field is always required', currentState: false}
   } 
 
   pushToBookPosts = data => {
