@@ -28,6 +28,7 @@ class Store {
     if(this.additionField.isbn !== '')
     {
       const items = this.bookPosts.filter(bookPost => bookPost.isbn === this.additionField.isbn);
+      const test  = new Date(this.additionField.release);
       const newBookPost = new BookPost({
         title: this.additionField.title,
         release: this.additionField.release,
