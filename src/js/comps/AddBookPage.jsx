@@ -36,7 +36,10 @@ const AddBookPage = () => {
 
       <form className={`${style.form} ${style[uiStore.themeClass]}`} onSubmit={e => handleSubmit(e)}>
         <fieldset className={`${style.form__fieldset} ${style[uiStore.themeClass]}`}>
+          
           <legend className={`${style.form__legend} ${style[uiStore.themeClass]}`}>Add a new book to the list</legend>
+
+
           <label className={`${style.form__label} ${style[uiStore.themeClass]}`} htmlFor="bookTitle">
           <p>Book title:</p>
           <input 
@@ -53,6 +56,15 @@ const AddBookPage = () => {
           onChange={e => store.setAdditionField("release", e.currentTarget.value)} 
            type="date" name="release" id="release" 
             min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}/></label>
+
+      <label className={`${style.form__label} ${style[uiStore.themeClass]}`} htmlFor="bookImage">
+         <p>image:</p>
+          <input 
+          value={store.imageField}
+          onChange={e => store.setAdditionField("image", e.currentTarget.value)} 
+          className={`${style.form__input} ${style[uiStore.themeClass]}`}name="bookImage" id="bookImage" />
+        </label>
+
 
       <label className={`${style.form__label} ${style[uiStore.themeClass]}`} htmlFor="isbn">
         <p className={`${style.form__label__text} ${style[uiStore.themeClass]}`}>Book isbn number <span className={`${style.form__label__note} ${style[uiStore.themeClass]}`}>required</span></p>

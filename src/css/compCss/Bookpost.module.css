@@ -19,6 +19,7 @@
   
   }
 
+
   .books__week__book:active {
     cursor: pointer;
   }
@@ -188,8 +189,13 @@
   border-left: none;
   margin-left: 0;
   border-left: none !important;
-  padding: 2rem 1rem;
+  padding-top: 1rem;
   text-align: center;
+}
+
+.book__rightSide__countDown {
+  padding-bottom: 0;
+  border: none;
 }
  
 .book__rightSide__check {
@@ -199,3 +205,7 @@
 
 }
 
+
+.books__week__book:last-child {
+  margin-top: 0;;
+}

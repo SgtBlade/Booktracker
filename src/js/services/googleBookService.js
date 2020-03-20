@@ -9,6 +9,7 @@ class googleBookService {
         this.onEvent = onEvent;
         this.getBookData(this.data.isbn);
         this.complete = complete;
+
     }
 
     getBookData = async (isbn) => {
@@ -28,16 +29,18 @@ class googleBookService {
     
         if(data.volumeInfo) {
           if ((this.data.title === '') || (this.data.title === 'No title')) this.data.title = this.bookData.volumeInfo.title;
-
           if ((this.data.release.toString() === 'Invalid Date' && data.volumeInfo.publishedDate) || ( (new Date()).setHours(0,0,0,0) === this.data.release.setHours(0,0,0,0) && data.volumeInfo.publishedDate))this.data.release = new Date(data.volumeInfo.publishedDate)
-          else this.data.release = new Date();
-        } else if (this.data.release.toString() === 'Invalid Date') this.data.release = new Date();
+          if(data.volumeInfo.imageLinks && this.data.image === false) if(data.volumeInfo.imageLinks.thumbnail)this.data.changeImage(data.volumeInfo.imageLinks.thumbnail);
+        }
+        if (this.data.release.toString() === 'Invalid Date') this.data.release = new Date();
 
         if(this.complete && data.volumeInfo){
           if (data.volumeInfo.title) this.data.title = this.bookData.volumeInfo.title;
           if(data.volumeInfo.publishedDate)this.data.release = new Date(data.volumeInfo.publishedDate)
         }
         
+
+
         this.data.setBookData(this.bookData)
         this.onEvent(this.data)
       }

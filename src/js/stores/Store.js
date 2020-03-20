@@ -13,7 +13,8 @@ class Store {
     this.additionField = {
       title: '',
       release: '',
-      isbn: ''
+      isbn: '',
+      image:''
     }
     this.searchIsbn = '';
     this.user = user;
@@ -27,11 +28,13 @@ class Store {
   addbookPost() {
     if(this.additionField.isbn !== '')
     {
+
       const items = this.bookPosts.filter(bookPost => bookPost.isbn === this.additionField.isbn);
       const newBookPost = new BookPost({
         title: this.additionField.title,
         release: this.additionField.release,
         isbn: this.additionField.isbn,
+        image: this.additionField.image,
         originalPoster : this.user,
         store : this
       });
@@ -41,12 +44,12 @@ class Store {
         return {message: 'The book has been added', currentState: true}
       }
       else return {message: 'This book is already in the list', currentState: false}
-    }return {message: 'The inserted isbn is not valid', currentState: false}
+    }return {message: 'The isbn field is always required', currentState: false}
   } 
 
   pushToBookPosts = data => {
     this.bookPosts.push(data);
-    this.additionField.title = this.additionField.release = this.additionField.isbn = '';
+    this.additionField.title = this.additionField.release = this.additionField.image = this.additionField.isbn = '';
   }
 
   seedbookPosts () {
@@ -116,6 +119,10 @@ class Store {
     return this.additionField.release;
   }
 
+  get imageField() {
+    return this.additionField.image;
+  }
+
   returnBookByIsbn(isbn) {
     this.searchIsbn = isbn;
     const result = this.BookByIsbn;
@@ -168,6 +175,7 @@ class Store {
             release: item.release,
             isbn: item.isbn,
             owned: item.owned,
+            image: item.image,
             originalPoster: new User({name: item.originalPoster.name, id: item.originalPoster.id}),
             store: this,
             comments: comments,

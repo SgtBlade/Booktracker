@@ -53,6 +53,15 @@ const NewBookForm = () => {
             <span className={`${style.books__newBook__form__label__error} ${style[uiStore.themeClass]} hidden`}>There is an issue with the date</span>
         </label>
 
+        <label className={`${style.books__newBook__form__label} ${style[uiStore.themeClass]}`} htmlFor="bookImage">
+          image:
+          <input 
+          value={store.imageField}
+          onChange={e => store.setAdditionField("image", e.currentTarget.value)} 
+          className={`${style.book__rightSide__form__input}  ${style[uiStore.themeClass]}`} name="bookImage" id="bookImage" />
+          <span className={`${style.books__newBook__form__label__error} ${style[uiStore.themeClass]} hidden`}>Title is too short or empty</span>
+        </label>
+
         <label className={`${style.books__newBook__form__label} ${style[uiStore.themeClass]}`} htmlFor="isbn">
           ISBN:
           <input 

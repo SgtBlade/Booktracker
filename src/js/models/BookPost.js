@@ -1,4 +1,5 @@
 import {observable, action, decorate, configure} from 'mobx';
+import isUrl from 'is-url'
 import {Comment} from './comment';
 import User from './user';
 
@@ -6,7 +7,11 @@ configure({enforceActions: 'observed'});
 
 class BookPost {
 
-  constructor({title, release, isbn, owned = false, bookData = false, originalPoster, comments = []}) {
+  constructor({title, release, isbn, owned = false, bookData = false, originalPoster, comments = [], image = ''}) {
+
+    if(isUrl(image)) this.image = image
+    else this.image = false
+
     this.bookData = bookData;
     this.title = title;
     this.release = new Date(release);
@@ -35,11 +40,18 @@ class BookPost {
   setBookData(data) {
     this.bookData = data;
   }
+
+  changeImage(img) {
+    this.image = img;
+  }
 }
 
 decorate(BookPost, {
   owned: observable,
   setOwned: action,
+
+  image: observable,
+  changeImage: action,
 
   comments: observable,
   addComment: action,

@@ -4,18 +4,14 @@ import { useObserver } from "mobx-react-lite";
 import style from '../../css/compCss/Bookcover.module.css';
 import { storeContext } from "../hooks/context";
 
-const Bookcover = ({bookisbn, bookData, booktitle, bookrelease}) => {
+const Bookcover = ({bookisbn, booktitle, bookImage, bookrelease}) => {
   const {uiStore} = useContext(storeContext);
      
   return useObserver (() => (
     <div className={`${style.book__leftSide} ${uiStore.themeClass}`} onClick={() => {navigator.clipboard.writeText(bookisbn)}}>
       
       <img className={`${style.book__leftSide__image} ${uiStore.themeClass}`} 
-      src={  (bookData) ? 
-        
-              ((bookData.volumeInfo.hasOwnProperty('imageLinks')) ? 
-                  bookData.volumeInfo.imageLinks.thumbnail : './assets/img/placeholder.jpg') : 
-              './assets/img/placeholder.jpg'} 
+      src={ bookImage ? bookImage : './assets/img/placeholder.jpg'} 
                 alt={booktitle + ' image'} 
         height="300" width="200" />
 

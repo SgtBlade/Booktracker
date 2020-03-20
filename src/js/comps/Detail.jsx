@@ -41,10 +41,7 @@ const Detail = () => {
       {book? (
         <>
       
-        <img className={`${style.book__cover} ${style[uiStore.themeClass]}`} src={  (book.bookData) ? 
-        ((book.bookData.volumeInfo.imageLinks) ? 
-            book.bookData.volumeInfo.imageLinks.thumbnail : '../assets/img/placeholder.jpg') : 
-        '../assets/img/placeholder.jpg'} alt={book.title + ' image'} height="430" width="300" />
+        <img className={`${style.book__cover} ${style[uiStore.themeClass]}`} src={  book.image ? book.image : '../assets/img/placeholder.jpg'} alt={book.title + ' image'} height="430" width="300" />
 
 
         <section className={`${style.book__primaryInfo}`}>

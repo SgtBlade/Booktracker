@@ -5,7 +5,6 @@ import {useHistory} from "react-router-dom";
 import { useObserver } from "mobx-react-lite";
 import Bookstatus from "./BookOwnerstatus.jsx";
 import Bookcover from "./Bookcover.jsx";
-import BookpostMessages from "./BookpostMessages.jsx";
 import style from '../../css/compCss/Bookpost.module.css';
 import { storeContext } from "../hooks/context";
 import {ROUTES} from '../consts/routes.js';
@@ -46,7 +45,7 @@ const Bookpost = ({book}) => {
     
     <article onDoubleClick={handleDbclick} className={`${style.books__week__book} ${style[uiStore.themeClass]}`}>
 
-    <Bookcover bookisbn={book.isbn} booktitle={book.title} bookData={book.bookData} bookrelease={dateToString(book.release)} />
+    <Bookcover bookisbn={book.isbn} booktitle={book.title} bookImage={book.image} bookrelease={dateToString(book.release)} />
 
     <div className={`${style.book__rightSide} ${style[uiStore.themeClass]}`}>
 
