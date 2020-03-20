@@ -2,7 +2,6 @@
 .books__newBook {
     background-color: var(--bookPostBackground);
     width: 61rem;
-    height: 38rem;
     color: var(--fontColor);
     padding: 2rem 3rem 3rem 3rem;
   
