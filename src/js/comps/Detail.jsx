@@ -82,7 +82,7 @@ const Detail = () => {
           <form onSubmit={e => handleSubmit(e)} className={`${style.detail__form} ${style[uiStore.themeClass]}`}>
 
             <label className={`${style.detail__form__label} ${style[uiStore.themeClass]}`} htmlFor="release">
-              <p>Edit release:</p>
+              <p onDoubleClick={toggle}>Edit release:</p>
               <input 
               value={store.releaseField}
               onChange={e => store.setAdditionField("release", e.currentTarget.value)} 

@@ -47,6 +47,11 @@
     width: 90%;
     border: none;
 }
+.form__input.lightMode {
+    background-color: var(--LightModetextFields);
+    color: white;
+    border-color: #6d70b9;
+}
 
 .form__label__text {
     display: flex !important;
