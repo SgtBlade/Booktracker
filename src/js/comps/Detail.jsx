@@ -66,11 +66,10 @@ const Detail = () => {
               </div>  
                 ) : ''}
               
-            {book.bookData.volumeInfo.publishedDate ? <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {book.bookData.volumeInfo.publishedDate}</p> : <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {dateToString(book.release, '-', false)}</p>} 
-        </>
-        ) : <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {dateToString(book.release, '-', false)}</p>}
+           </>
+        ) : ''}
         
-        
+        <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {dateToString(book.release, '-', false)}</p>
         <p onClick={() => {navigator.clipboard.writeText(book.isbn)}} className={`${style.book__primarInfo__isbn} ${style[uiStore.themeClass]}`}>ISBN: {book.isbn}</p>
         </section>
 
