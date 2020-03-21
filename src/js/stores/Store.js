@@ -25,6 +25,11 @@ class Store {
     });
   }
 
+  changeBookDate(book) {
+    this.bookPosts[this.bookPosts.indexOf(book)].changeRelease(this.additionField.release)
+    this.additionField.release = '';
+  }
+
   addbookPost() {
     if(this.additionField.isbn !== '')
     {
@@ -196,6 +201,7 @@ decorate(Store, {
   removeBookPost: action,
   seedbookPosts: action,
   jestSyncPosts: action,
+  changeBookDate: action,
 
   additionField: observable,
   setAdditionField: action,

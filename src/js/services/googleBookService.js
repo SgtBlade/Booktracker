@@ -30,7 +30,7 @@ class googleBookService {
         if(data.volumeInfo) {
           if ((this.data.title === '') || (this.data.title === 'No title')) this.data.title = this.bookData.volumeInfo.title;
           if ((this.data.release.toString() === 'Invalid Date' && data.volumeInfo.publishedDate) || ( (new Date()).setHours(0,0,0,0) === this.data.release.setHours(0,0,0,0) && data.volumeInfo.publishedDate))this.data.release = new Date(data.volumeInfo.publishedDate)
-          if(data.volumeInfo.imageLinks && this.data.image === false) if(data.volumeInfo.imageLinks.thumbnail)this.data.changeImage(data.volumeInfo.imageLinks.thumbnail);
+          if(data.volumeInfo.imageLinks && this.data.image === false) if(data.volumeInfo.imageLinks.thumbnail)this.data.changeImage(data.volumeInfo.imageLinks.thumbnail);        
         }
         if (this.data.release.toString() === 'Invalid Date') this.data.release = new Date();
 

@@ -49,6 +49,8 @@
 
 .book__primaryInfo__date{
     padding-bottom: 1rem;
+    cursor: pointer;
+    user-select: none;
 }
 
 .book__primaryInfo__countdown{
@@ -103,6 +105,60 @@
     border-top: .2rem solid var(--LightModelightBorderColor);
 }
 
+
+.detail__form {
+    margin: 1rem 0;
+    font-size: 2.6rem;
+
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.detail__form__label {
+    font-weight: bold;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.detail__form__label p{
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+.detail__form__label__input {
+    padding: .5rem .6rem;
+    font-size: 2.2rem;
+    font-weight: bold;
+
+    background-color: #555555;
+    border: .2rem solid black;
+    color: var(--fontColor);
+    margin-bottom: .5rem;
+    margin-right: 1rem;
+}
+
+.detail__form__label__submit {
+    padding: .5rem 1rem;
+    font-size: 2.2rem;
+    height: 4rem;
+    margin-bottom: .5rem;
+
+    background-color: #555555;
+    border: .2rem solid black;
+    font-weight: bold;
+    color: var(--fontColor);
+    text-align: center;
+}
+
+.detail__form__label__input.lightMode, .detail__form__label__submit.lightMode {
+    background-color: var(--LightModetextFields);
+    color: white;
+    border-color: #6d70b9;
+}
+
 @media screen and (max-width: 1080px) { 
 
     .book__primaryInfo {
@@ -126,5 +182,10 @@
     .book__secondaryInfo__description {
         line-height: 1.4;
         
+    }
+
+    .detail__form__label__submit {
+        padding: 1rem 2rem !important;
+       height: auto;
     }
 }

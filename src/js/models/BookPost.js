@@ -44,11 +44,18 @@ class BookPost {
   changeImage(img) {
     this.image = img;
   }
+
+  changeRelease(release) {
+    this.release = new Date(release);
+  }
 }
 
 decorate(BookPost, {
   owned: observable,
   setOwned: action,
+
+  release: observable,
+  changeRelease: action,
 
   image: observable,
   changeImage: action,

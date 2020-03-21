@@ -1,4 +1,4 @@
-import React,{ useContext }  from "react";
+import React,{ useState, useContext }  from "react";
 import { useObserver } from "mobx-react-lite";
 import Countdown from 'react-countdown-now';
 import { useParams, Redirect } from "react-router-dom";
@@ -12,6 +12,16 @@ const Detail = () => {
   const { id } = useParams();
   const book = store.returnBookByIsbn(id);
 
+
+  const [dateChanger, setDateChanger] = useState(false);
+  const toggle = () => setDateChanger(!dateChanger);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    store.changeBookDate(book);
+    toggle();
+  }
+
   const renderer = ({ days, hours, minutes, seconds, completed }) => { 
     if (completed) { 
       return '';
@@ -20,6 +30,7 @@ const Detail = () => {
       return formattedString;
     }
   };
+
 
   const dateToString = (date, character = '/', reverse = true) => {
     let dd = date.getDate();
@@ -63,10 +74,28 @@ const Detail = () => {
               </div>  
                 ) : ''}
               
-            {book.bookData.volumeInfo.publishedDate ? <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {book.bookData.volumeInfo.publishedDate}</p> : <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {dateToString(book.release, '-', false)}</p>} 
+            
         </>
-        ) : <p className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {dateToString(book.release, '-', false)}</p>}
+        ) : ''}
         
+        {dateChanger ? (
+          <form onSubmit={e => handleSubmit(e)} className={`${style.detail__form} ${style[uiStore.themeClass]}`}>
+
+            <label className={`${style.detail__form__label} ${style[uiStore.themeClass]}`} htmlFor="release">
+              <p>Edit release:</p>
+              <input 
+              value={store.releaseField}
+              onChange={e => store.setAdditionField("release", e.currentTarget.value)} 
+              type="date" className={`${style.detail__form__label__input}  ${style[uiStore.themeClass]}`} name="release" id="release" 
+                min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}></input>
+                <span className={`${style.detail__form__label__error} ${style[uiStore.themeClass]} hidden`}>There is an issue with the date</span>
+            </label>
+            <input className={`${style.detail__form__label__submit} ${style[uiStore.themeClass]}`} type="submit"></input>
+
+          </form>
+          ) : 
+          <p onDoubleClick={toggle} className={`${style.book__primaryInfo__date} ${style[uiStore.themeClass]}`}>Release: {dateToString(book.release, '-', false)}</p>}
+
         
         <p onClick={() => {navigator.clipboard.writeText(book.isbn)}} className={`${style.book__primarInfo__isbn} ${style[uiStore.themeClass]}`}>ISBN: {book.isbn}</p>
         </section>
