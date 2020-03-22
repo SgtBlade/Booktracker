@@ -69,7 +69,9 @@ class Store {
       this.setAdditionField('isbn', book.isbn);
       this.addbookPost();
     })
-    this.bookPosts[0].seedComments();
+
+    this.additionField.title = this.additionField.release = this.additionField.isbn = '';
+    try{this.bookPosts[0].seedComments()}catch (e) {console.log('No books fount to seed comments to')}//Soms is de seed voor comments te sneller dan hij de boeken kan ophalen
   }
 
   jestSyncPosts () {
