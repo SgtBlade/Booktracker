@@ -1,13 +1,13 @@
-import React,{ useContext }  from "react";
+import React from "react";
+import { useStores } from "../hooks/useStores";
 import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
 import Booklinks from "./Bookslinks.jsx";
-import style from '../../css/compCss/BookOwnerstatus.module.css';
-import { storeContext } from "../hooks/context";
+import style from './css/compCss/BookOwnerstatus.module.css';
 
 const BookOwnerStatus = ({status, setowned, isbn}) => {
 
-    const {uiStore} = useContext(storeContext);
+    const {uiStore} = useStores();
     
   return useObserver(()=>(
       <>

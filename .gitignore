@@ -25,5 +25,9 @@ build/
 # dotenv environment variables file
 .env
 
+.DS_Store
 .vscode/
 .DS_Store
+cert.pem
+cors.json
+key.pem

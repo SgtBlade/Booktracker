@@ -1,13 +1,16 @@
 {
-  "name": "react-template",
-  "homepage": "https://migueldp.be/books",
+  "name": "integrationpandas",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@google-cloud/storage": "^5.7.4",
+    "@material-ui/core": "^4.10.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "firebase": "^7.13.1",
+    "firebase-tools": "^9.3.0",
     "is-url": "^1.2.4",
     "mobx": "^5.15.4",
     "mobx-react-lite": "^1.5.2",
@@ -16,12 +19,16 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
-    "react": "^16.12.0",
+    "react": "^17.0.1",
     "react-countdown": "^2.2.1",
     "react-countdown-now": "^2.1.2",
-    "react-dom": "^16.12.0",
+    "react-dom": "^17.0.1",
+    "react-graph-vis": "^1.0.5",
+    "react-modal-video": "^1.2.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "react-select": "^4.0.2",
+    "react-simple-maps": "^2.1.2",
     "sass": "^1.26.2",
     "uuid": "^7.0.2"
   },
@@ -32,9 +39,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/(models|stores)/**.js",
@@ -43,6 +47,9 @@
     "coverageReporters": [
       "text"
     ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [

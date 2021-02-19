@@ -1,0 +1,63 @@
+@import './pages/css/reset.css';
+@import './pages/css/vars.css';
+@import './pages/css/style.css';
+@import './pages/css/light.css';
+@import './pages/css/responsive.css';
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}
+
+strong em {
+  font-weight: 600;
+  font-style: italic;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+body,
+html {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.hidden {
+  display: none;
+}
+
+body {
+  font-size: var(--fontRegular);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: auto;
+}
+
+a {
+  text-decoration: none;
+}

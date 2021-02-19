@@ -1,18 +1,18 @@
-import React, { useState, useContext}  from "react";
+import React, { useState}  from "react";
+import { useStores } from "../hooks/useStores";
 import PropTypes from "prop-types";
 import Countdown from 'react-countdown-now';
 import {useHistory} from "react-router-dom";
 import { useObserver } from "mobx-react-lite";
 import Bookstatus from "./BookOwnerstatus.jsx";
 import Bookcover from "./Bookcover.jsx";
-import style from '../../css/compCss/Bookpost.module.css';
-import { storeContext } from "../hooks/context";
-import {ROUTES} from '../consts/routes.js';
+import style from './css/compCss/Bookpost.module.css';
+import { ROUTES } from "../consts";
 
 
 const Bookpost = ({book}) => {
 
-  const {store, uiStore} = useContext(storeContext);
+  const {bookStore, uiStore} = useStores();
   const [viewComments, setViewComments] = useState(true);
   const toggle = () => setViewComments(!viewComments);
   let history = useHistory();
@@ -40,9 +40,8 @@ const Bookpost = ({book}) => {
     (reverse) ? formatted = dd+character+mm+character+yyyy : formatted = yyyy+character+mm+character+dd;
     return  formatted;
   }
-    
+    console.log(book.originalPoster.id)
   return useObserver(() => (
-    
     <article onDoubleClick={handleDbclick} className={`${style.books__week__book} ${style[uiStore.themeClass]}`}>
 
     <Bookcover bookisbn={book.isbn} booktitle={book.title} bookImage={book.image} bookrelease={dateToString(book.release)} />
@@ -53,12 +52,12 @@ const Bookpost = ({book}) => {
       <span onClick={toggle}>
         <Countdown date={book.release.getTime()} renderer={renderer}/>  
       </span>
-      <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => store.updateBookData(book)}> &#x21bb;</span>
+      <span className={`${style.book__rightSide__refresh} ${style[uiStore.themeClass]}`} onClick={e => bookStore.updateBookData(book)}> &#x21bb;</span>
     </p>
     
 
-      {book.originalPoster.id === store.user.id ? (
-        <div onClick={()=>store.removeBookPost(book) } className={`${style.book__rightSide__check} ${style[uiStore.themeClass]}`}>
+      {book.originalPoster.id === uiStore.currentUser.id ? (
+        <div onClick={()=>bookStore.removeBookPost(book) } className={`${style.book__rightSide__check} ${style[uiStore.themeClass]}`}>
           <span className={`${style.book__rightSide__check__check} hidden ${style[uiStore.themeClass]}`} />
           <span className={`${style.book__rightSide__check__cross} ${style[uiStore.themeClass]}`} />
         </div>

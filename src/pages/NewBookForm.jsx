@@ -1,18 +1,18 @@
-import React,{ useContext, useState }  from "react";
+import React,{ useState }  from "react";
+import { useStores } from "../hooks/useStores";
 import { useObserver } from "mobx-react-lite";
-import style from '../../css/compCss/NewBookForm.module.css';
-import { storeContext } from "../hooks/context";
+import style from './css/compCss/NewBookForm.module.css';
 import SystemMessage from './SystemMessage';
 
 const NewBookForm = () => {
 
-  const {store, uiStore} = useContext(storeContext);
+  const {bookStore, uiStore} = useStores();
 
   const [addState, setState] = useState({message: '', currentState: undefined});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let successfullAdd = store.addbookPost();
+    let successfullAdd = bookStore.addbookPost();
     setState(successfullAdd);
   }
  
@@ -37,8 +37,8 @@ const NewBookForm = () => {
         <label className={`${style.books__newBook__form__label} ${style[uiStore.themeClass]}`} htmlFor="bookTitle">
           Title:
           <input 
-          value={store.titleField}
-          onChange={e => store.setAdditionField("title", e.currentTarget.value)} 
+          value={bookStore.titleField}
+          onChange={e => bookStore.setAdditionField("title", e.currentTarget.value)} 
           className={`${style.book__rightSide__form__input}  ${style[uiStore.themeClass]}`} name="bookTitle" id="bookTitle" />
           <span className={`${style.books__newBook__form__label__error} ${style[uiStore.themeClass]} hidden`}>Title is too short or empty</span>
         </label>
@@ -46,8 +46,8 @@ const NewBookForm = () => {
         <label className={`${style.books__newBook__form__label} ${style[uiStore.themeClass]}`} htmlFor="release">
           Release:
           <input 
-          value={store.releaseField}
-          onChange={e => store.setAdditionField("release", e.currentTarget.value)} 
+          value={bookStore.releaseField}
+          onChange={e => bookStore.setAdditionField("release", e.currentTarget.value)} 
            type="date" className={`${style.book__rightSide__form__input}  ${style[uiStore.themeClass]}`} name="release" id="release" 
             min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}></input>
             <span className={`${style.books__newBook__form__label__error} ${style[uiStore.themeClass]} hidden`}>There is an issue with the date</span>
@@ -56,8 +56,8 @@ const NewBookForm = () => {
         <label className={`${style.books__newBook__form__label} ${style[uiStore.themeClass]}`} htmlFor="bookImage">
           image:
           <input 
-          value={store.imageField}
-          onChange={e => store.setAdditionField("image", e.currentTarget.value)} 
+          value={bookStore.imageField}
+          onChange={e => bookStore.setAdditionField("image", e.currentTarget.value)} 
           className={`${style.book__rightSide__form__input}  ${style[uiStore.themeClass]}`} name="bookImage" id="bookImage" />
           <span className={`${style.books__newBook__form__label__error} ${style[uiStore.themeClass]} hidden`}>Title is too short or empty</span>
         </label>
@@ -65,8 +65,8 @@ const NewBookForm = () => {
         <label className={`${style.books__newBook__form__label} ${style[uiStore.themeClass]}`} htmlFor="isbn">
           ISBN:
           <input 
-          value={store.isbnField} 
-          onChange={e => store.setAdditionField("isbn", e.currentTarget.value)} 
+          value={bookStore.isbnField} 
+          onChange={e => bookStore.setAdditionField("isbn", e.currentTarget.value)} 
           type="text" className={`${style.book__rightSide__form__input}  ${style[uiStore.themeClass]}`} name="isbn" id="isbn" />
           <span className={`${style.books__newBook__form__label__error} ${style[uiStore.themeClass]} hidden`}>ISBN not found</span>
         </label>

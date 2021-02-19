@@ -1,15 +1,15 @@
-import React, { useState, useContext, useRef, useEffect}  from "react";
+import React, { useState, useRef, useEffect}  from "react";
+import { useStores } from "../hooks/useStores";
 import PropTypes from "prop-types";
 import { useObserver } from "mobx-react-lite";
 import Comment from "./Comment.jsx";
-import style from '../../css/compCss/BookpostMessages.module.css';
-import { storeContext } from "../hooks/context";
+import style from './css/compCss/BookpostMessages.module.css';
 
 
 const BookpostMessages = ({book}) => {
   
   const commentBox = useRef(null);
-  const {store, uiStore} = useContext(storeContext);
+  const {bookStore, uiStore} = useStores();
   const stringLimit = 156;
   const [commentText, setCommentText] = useState('');
 
@@ -20,7 +20,7 @@ const BookpostMessages = ({book}) => {
 
   const handleSubmit = (e, book) => {
     e.preventDefault();
-    book.addComment(store.user, commentText);
+    book.addComment(bookStore.user, commentText);
     if(commentText.length >= 4 ){setCommentText('');};
   }
   

@@ -1,18 +1,18 @@
-import React,{ useContext,useState }  from "react";
+import React,{ useState }  from "react";
+import { useStores } from "../hooks/useStores";
 import { useObserver } from "mobx-react-lite";
-import style from '../../css/compCss/AddBookPage.module.css';
-import { storeContext } from "../hooks/context";
+import style from './css/compCss/AddBookPage.module.css';
 import Returnbutton from './Returnbutton.jsx';
 import SystemMessage from './SystemMessage';
 
 const AddBookPage = () => {
 
-  const {store, uiStore} = useContext(storeContext);
+  const {bookStore, uiStore} = useStores();
   const [addState, setState] = useState({message: '', currentState: undefined});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let successfullAdd = store.addbookPost();
+    let successfullAdd = bookStore.addbookPost();
     setState(successfullAdd);
   }
  
@@ -44,24 +44,24 @@ const AddBookPage = () => {
           <p>Book title:</p>
           <input 
           className={`${style.form__input} ${style[uiStore.themeClass]}`}
-          value={store.titleField}
-          onChange={e => store.setAdditionField("title", e.currentTarget.value)} 
+          value={bookStore.titleField}
+          onChange={e => bookStore.setAdditionField("title", e.currentTarget.value)} 
           name="bookTitle" id="bookTitle" /></label>
 
       <label className={`${style.form__label} ${style[uiStore.themeClass]}`} htmlFor="release">
         <p>Book release date:</p>
       <input 
           className={`${style.form__input} ${style[uiStore.themeClass]}`}
-          value={store.releaseField}
-          onChange={e => store.setAdditionField("release", e.currentTarget.value)} 
+          value={bookStore.releaseField}
+          onChange={e => bookStore.setAdditionField("release", e.currentTarget.value)} 
            type="date" name="release" id="release" 
             min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}/></label>
 
       <label className={`${style.form__label} ${style[uiStore.themeClass]}`} htmlFor="bookImage">
          <p>image:</p>
           <input 
-          value={store.imageField}
-          onChange={e => store.setAdditionField("image", e.currentTarget.value)} 
+          value={bookStore.imageField}
+          onChange={e => bookStore.setAdditionField("image", e.currentTarget.value)} 
           className={`${style.form__input} ${style[uiStore.themeClass]}`}name="bookImage" id="bookImage" />
         </label>
 
@@ -70,8 +70,8 @@ const AddBookPage = () => {
         <p className={`${style.form__label__text} ${style[uiStore.themeClass]}`}>Book isbn number <span className={`${style.form__label__note} ${style[uiStore.themeClass]}`}>required</span></p>
       <input 
           className={`${style.form__input} ${style[uiStore.themeClass]}`}
-          value={store.isbnField} 
-          onChange={e => store.setAdditionField("isbn", e.currentTarget.value)} 
+          value={bookStore.isbnField} 
+          onChange={e => bookStore.setAdditionField("isbn", e.currentTarget.value)} 
           type="text" name="isbn" id="isbn" /></label>
         </fieldset>
       

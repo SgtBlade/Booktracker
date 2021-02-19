@@ -1,29 +1,31 @@
-import {observable, computed, action, decorate, configure, toJS, autorun} from 'mobx';
+import {observable, computed, action, decorate, toJS, autorun} from "mobx";
+import googleBookService from "../services/googleBookService";
 import BookPost from '../models/BookPost';
 import User from '../models/user';
 import {Comment} from '../models/comment';
-import googleBookService from "../services/googleBookService";
-configure({enforceActions: 'observed'});
+class BookStore {
+  constructor(rootStore) {
 
-class Store {
-  
-  constructor(user = (new User({name: 'MiguelDP', id: '61e58fe9-22e8-43a1-bc3c-830dc9dbbd09'}))) {
+    this.rootStore = rootStore;
+    this.firebase = rootStore.firebase;
     this.dataService = null;
     this.bookPosts = [];
     this.additionField = {
       title: '',
       release: '',
-      isbn: '',
-      image:''
+      isbn: ''
     }
     this.searchIsbn = '';
-    this.user = user;
+    //this.user = user;
     this.loadFromStorage();
 
     autorun(() => {
       this.saveToStorage();
     });
   }
+
+
+
 
   changeBookDate(book) {
     this.bookPosts[this.bookPosts.indexOf(book)].changeRelease(this.additionField.release)
@@ -40,8 +42,7 @@ class Store {
         release: this.additionField.release,
         isbn: this.additionField.isbn,
         image: this.additionField.image,
-        originalPoster : this.user,
-        store : this
+        originalPoster : this.rootStore.uiStore.currentUser
       });
 
       if (items.length === 0) {
@@ -103,30 +104,17 @@ class Store {
     this.bookPosts =  posts;
   }
 
-  removeBookPost(item) {
-    if(item.originalPoster.id === this.user.id)this.bookPosts.splice(this.bookPosts.indexOf(item), 1);
-  }
+  removeBookPost(item) { if(item.originalPoster.id === this.user.id)this.bookPosts.splice(this.bookPosts.indexOf(item), 1); }
 
-  setAdditionField(field, value) {
-    if(field === 'isbn') value = value.replace(/\D/g,'');
-    this.additionField[field] = value;
-  }
+  setAdditionField(field, value) { if(field === 'isbn') value = value.replace(/\D/g,''); this.additionField[field] = value; }
 
-  get titleField() {
-    return this.additionField.title;
-  }
+  get titleField() { return this.additionField.title; }
 
-  get isbnField() {
-    return this.additionField.isbn;
-  }
+  get isbnField() { return this.additionField.isbn; }
   
-  get releaseField() {
-    return this.additionField.release;
-  }
+  get releaseField() { return this.additionField.release; }
 
-  get imageField() {
-    return this.additionField.image;
-  }
+  get imageField() { return this.additionField.image; }
 
   returnBookByIsbn(isbn) {
     this.searchIsbn = isbn;
@@ -135,28 +123,19 @@ class Store {
     return result;
   }
   
-  updateBookData(book) {
-      this.dataService =  new googleBookService({ onEvent: this.pushUpdatedData, data: book , complete: true});
-  }
+  updateBookData(book) { this.dataService =  new googleBookService({ onEvent: this.pushUpdatedData, data: book , complete: true}); }
   
   pushUpdatedData = data => this.bookPosts[this.bookPosts.indexOf(data)].setBookData(data.bookData);
   
-  get BookByIsbn () {
-    return this.bookPosts.find(bookPost => bookPost.isbn === this.searchIsbn);
-  }
+  get BookByIsbn () { return this.bookPosts.find(bookPost => bookPost.isbn === this.searchIsbn); }
 
   get booksSortedByDate() {
     return this.bookPosts.slice().sort(function(a, b) {
-
-      
       return a.release.getTime() - b.release.getTime();
     });
   } 
 
-  saveToStorage() {
-    const parsedJson = JSON.stringify(toJS(this.bookPosts));
-    localStorage.setItem("store", parsedJson);
-  }
+  saveToStorage() { const parsedJson = JSON.stringify(toJS(this.bookPosts)); localStorage.setItem("store", parsedJson); }
 
   loadFromStorage() {
     const savedStore = localStorage.getItem("store");
@@ -194,7 +173,7 @@ class Store {
 
 }
 
-decorate(Store, {
+decorate(BookStore, {
   bookPosts: observable,
   pushToBookPosts: action,
   pushUpdatedData: action,
@@ -214,4 +193,5 @@ decorate(Store, {
   booksSortedByDate: computed
 });
 
-export default Store;
+
+export default BookStore;

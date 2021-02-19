@@ -1,13 +1,13 @@
-import React,{ useContext }  from "react";
+import React from "react";
+import { useStores } from "../hooks/useStores";
 import { useObserver } from "mobx-react-lite";
-import style from '../../css/compCss/ThemeHeader.module.css';
-import { storeContext } from "../hooks/context";
+import style from './css/compCss/ThemeHeader.module.css';
 import {NavLink, useLocation} from 'react-router-dom';
-import {ROUTES} from '../consts/routes.js'
+import {ROUTES} from '../consts/index.js'
 
 const ThemeHeader = () => {
   
-  const {uiStore} = useContext(storeContext);
+  const {uiStore} = useStores();
   const currentLocation = useLocation().pathname;
 
   return useObserver (() => ( 

@@ -1,16 +1,16 @@
-import React,{ useState, useContext }  from "react";
+import React,{ useState }  from "react";
+import { useStores } from "../hooks/useStores";
 import { useObserver } from "mobx-react-lite";
 import Countdown from 'react-countdown-now';
 import { useParams, Redirect } from "react-router-dom";
-import style from '../../css/compCss/Detail.module.css';
-import { storeContext } from "../hooks/context";
+import style from './css/compCss/Detail.module.css';
 import Returnbutton from './Returnbutton.jsx';
 
 const Detail = () => {
 
-  const {store, uiStore} = useContext(storeContext);
+  const {bookStore, uiStore} = useStores();
   const { id } = useParams();
-  const book = store.returnBookByIsbn(id);
+  const book = bookStore.returnBookByIsbn(id);
 
 
   const [dateChanger, setDateChanger] = useState(false);
@@ -18,7 +18,7 @@ const Detail = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    store.changeBookDate(book);
+    bookStore.changeBookDate(book);
     toggle();
   }
 
@@ -52,7 +52,7 @@ const Detail = () => {
       {book? (
         <>
       
-        <img className={`${style.book__cover} ${style[uiStore.themeClass]}`} src={  book.image ? book.image : '../assets/img/placeholder.jpg'} alt={book.title + ' image'} height="430" width="300" />
+        <img className={`${style.book__cover} ${style[uiStore.themeClass]}`} src={  book.image ? book.image : './assets/img/placeholder.jpg'} alt={book.title + ' image'} height="430" width="300" />
 
 
         <section className={`${style.book__primaryInfo}`}>
@@ -84,8 +84,8 @@ const Detail = () => {
             <label className={`${style.detail__form__label} ${style[uiStore.themeClass]}`} htmlFor="release">
               <p onDoubleClick={toggle}>Edit release:</p>
               <input 
-              value={store.releaseField}
-              onChange={e => store.setAdditionField("release", e.currentTarget.value)} 
+              value={bookStore.releaseField}
+              onChange={e => bookStore.setAdditionField("release", e.currentTarget.value)} 
               type="date" className={`${style.detail__form__label__input}  ${style[uiStore.themeClass]}`} name="release" id="release" 
                 min={dateToString((new Date(Date.now()+1000*60*60*24)), '-', false)}></input>
                 <span className={`${style.detail__form__label__error} ${style[uiStore.themeClass]} hidden`}>There is an issue with the date</span>
@@ -107,11 +107,11 @@ const Detail = () => {
 
 
         <div className={`${style.book__secondaryInfo__storeLinks} ${style[uiStore.themeClass]}`}>
-        <a target="_blank" rel="noopener noreferrer" href={`https://www.amazon.com/s?k=${book.isbn}&ref=nb_sb_noss`}><img src="../assets/icons/originals/amazon.png" alt="Amazon" height={60} width={60} /></a>
-        <a target="_blank" rel="noopener noreferrer" href={`https://www.google.be/search?tbm=bks&hl=en&q=${book.isbn}`}><img src="../assets/icons/originals/google.png" alt="Goodreads" height={60} width={60} /></a>
-        <a target="_blank" rel="noopener noreferrer" href={`https://www.goodreads.com/search?q=${book.isbn}`}><img src="../assets/icons/originals/goodReads.png" alt="Google books" height={60} width={60} /></a>
-        <a target="_blank" rel="noopener noreferrer" href={`https://blackwells.co.uk/bookshop/product/${book.isbn}`}><img src="../assets/icons/originals/blackwells.jpg" alt="Blackwells books" height={60} width={60} /></a>
-        <a target="_blank" rel="noopener noreferrer" href={`https://www.bookfinder.com/search/?author=&title=&lang=en&isbn=${book.isbn}&new_used=*&destination=be&currency=EUR&mode=basic&st=sr&ac=qr`}><img src="../assets/icons/originals/bookfinder.jpg " alt="Bookfinder" height={60} width={60} /></a>
+        <a target="_blank" rel="noopener noreferrer" href={`https://www.amazon.com/s?k=${book.isbn}&ref=nb_sb_noss`}><img src="./assets/icons/originals/amazon.png" alt="Amazon" height={60} width={60} /></a>
+        <a target="_blank" rel="noopener noreferrer" href={`https://www.google.be/search?tbm=bks&hl=en&q=${book.isbn}`}><img src="./assets/icons/originals/google.png" alt="Goodreads" height={60} width={60} /></a>
+        <a target="_blank" rel="noopener noreferrer" href={`https://www.goodreads.com/search?q=${book.isbn}`}><img src="./assets/icons/originals/goodReads.png" alt="Google books" height={60} width={60} /></a>
+        <a target="_blank" rel="noopener noreferrer" href={`https://blackwells.co.uk/bookshop/product/${book.isbn}`}><img src="./assets/icons/originals/blackwells.jpg" alt="Blackwells books" height={60} width={60} /></a>
+        <a target="_blank" rel="noopener noreferrer" href={`https://www.bookfinder.com/search/?author=&title=&lang=en&isbn=${book.isbn}&new_used=*&destination=be&currency=EUR&mode=basic&st=sr&ac=qr`}><img src="./assets/icons/originals/bookfinder.jpg " alt="Bookfinder" height={60} width={60} /></a>
         </div>
         </section>
         </>
